@@ -1,0 +1,41 @@
+@import '../styles/theme.scss';
+
+.skedgeIllumination {
+  width: 2em;
+}
+
+.skedgeLogo {
+  width: 200px;
+}
+
+.subtitleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.titleContainer {
+  display: grid;
+  grid-template-areas:
+    "welcomeTo"
+    "skedgeLogo";
+  width: 100%;
+}
+
+.welcomeTo {
+  font-family: architectsDaughter;
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 375px) {
+  .titleContainer {
+    grid-template-areas:
+      "welcomeTo skedgeLogo";
+  }
+
+  .welcomeTo {
+    font-size: 2rem;
+    margin: auto 1rem auto;
+    text-align: right;
+  }
+}
