@@ -1,17 +1,25 @@
 @import '../styles/theme.scss';
 
+.scheduling {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
 .skedgeIllumination {
   width: 2em;
 }
 
 .skedgeLogo {
+  margin: 0 auto;
   width: 200px;
 }
 
 .subtitleContainer {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .titleContainer {
@@ -19,6 +27,7 @@
   grid-template-areas:
     "welcomeTo"
     "skedgeLogo";
+  margin-bottom: 1rem;
   width: 100%;
 }
 
@@ -27,7 +36,11 @@
   font-size: 1.5rem;
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (min-width: 600px) {
+  .skedgeLogo {
+    margin: unset;
+  }
+
   .titleContainer {
     grid-template-areas:
       "welcomeTo skedgeLogo";
