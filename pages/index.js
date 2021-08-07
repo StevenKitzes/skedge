@@ -11,12 +11,11 @@ export default function Home() {
       </Head>
 
       <div className={styles.titleContainer}>
-        <p className={styles.welcomeTo}>Welcome to</p>
-        <img className={styles.skedgeLogo} src='../images/skedge.svg' />
+        <h1 className={styles.welcomeTo}>Welcome to</h1>
+        <img className={styles.skedgeLogo} src='../images/skedge-logo.svg' />
       </div>
       <div className={styles.subtitleContainer}>
-        <img className={styles.skedgeIllumination} src='../images/skedge-icon.svg' />
-        <span className={styles.scheduling}>cheduling for busy bees!</span>
+        <h3>Scheduling for busy bees!</h3>
       </div>
       <p>I'll probably finish this project... eventually!</p>
     </Layout>
