@@ -1,4 +1,4 @@
-import styles from './Layout.module.css'
+import styles from './Layout.module.scss'
 
 function Layout({ children }) {
   return (

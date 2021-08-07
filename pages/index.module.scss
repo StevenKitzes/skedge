@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 24px;
 }
 
 .titleContainer {
@@ -18,13 +18,13 @@
   grid-template-areas:
     "welcomeTo"
     "skedgeLogo";
-  margin-bottom: 1rem;
+  margin-bottom: 4px;
   width: 100%;
 }
 
 .welcomeTo {
   font-family: handlee;
-  font-size: 1.5rem;
+  font-size: 32px;
 }
 
 @media screen and (min-width: 600px) {
@@ -38,8 +38,8 @@
   }
 
   .welcomeTo {
-    font-size: 2rem;
-    margin: auto 1rem auto;
+    font-size: 36px;
+    margin: auto 4px auto;
     text-align: right;
   }
 }

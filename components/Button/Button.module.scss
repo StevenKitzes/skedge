@@ -1,0 +1,29 @@
+@import '../../styles/theme.scss';
+
+@mixin fundamentals {
+  align-items: center;
+  border-radius: 8px;
+  display: flex;
+  font-size: 16px;
+  font-weight: 800;
+  height: 40px;
+  justify-content: center;
+  letter-spacing: 2px;
+  margin: 0 auto;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 250px;
+}
+
+.outlined {
+  @include fundamentals;
+  background-color: $white;
+  border: 2px solid $primary;
+  color: $primary;
+}
+
+.solid {
+  @include fundamentals;
+  background-color: $primary;
+  color: $white;
+}

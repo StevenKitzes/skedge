@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Button from '../components/Button'
 import Layout from '../components/Layout'
 import styles from './index.module.scss'
 
@@ -12,12 +13,16 @@ export default function Home() {
 
       <div className={styles.titleContainer}>
         <h1 className={styles.welcomeTo}>Welcome to</h1>
-        <img className={styles.skedgeLogo} src='../images/skedge-logo.svg' />
+        <img className={styles.skedgeLogo} src='../images/skedge-logo-outline.svg' />
       </div>
       <div className={styles.subtitleContainer}>
         <h3>Scheduling for busy bees!</h3>
       </div>
-      <p>I'll probably finish this project... eventually!</p>
+      <Button
+        label='Create an event'
+        url='http://stevenkitz.es'
+        variant='outlined'
+      />
     </Layout>
   )
 }
