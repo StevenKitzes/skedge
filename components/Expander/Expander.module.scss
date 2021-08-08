@@ -12,13 +12,14 @@
   background-color: $white;
   color: $black;
   font-size: 18px;
+  max-height: 200px;
   padding: 12px;
   max-width: 250px;
   transition: $transition;
 }
 .expanderContentHidden {
-  height: 0;
-  padding: 0;
+  max-height: 0;
+  padding: 0 12px;
   transition: $transition;
 }
 
