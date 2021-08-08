@@ -1,9 +1,13 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import Button from '../components/Button'
 import Layout from '../components/Layout'
 import styles from './index.module.scss'
 
 export default function Home() {
+  useEffect(() => {
+    document.getElementById('title').focus();
+  })
   return (
     <Layout>
       <Head>
@@ -11,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.titleContainer}>
+      <div className={styles.titleContainer} id='title'>
         <h1 className={styles.welcomeTo}>Welcome to</h1>
         <img className={styles.skedgeLogo} src='../images/skedge-logo-outline.svg' />
       </div>
