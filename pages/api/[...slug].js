@@ -22,13 +22,34 @@ function handler(req, res) {
   }
   dynamoClient.put(dynamoPutParams, (err) => {
     if (err) {
-        console.log(`db error: ${JSON.stringify(err, null, 2)}`);
-    } else {
-        console.log(`db success`);
+      const msg = `db error: ${JSON.stringify(err, null, 2)}`
+      console.log(msg)
+      return res.end(msg)
     }
-  });
 
-  res.end(`created dynamo record (probably)`)
+    console.log('db put success')
+    const dynamoGetParams = {
+      TableName: process.env.AWS_TABLE,
+      Key: {
+        guid: 'test'
+      }
+    }
+    dynamoClient.get(dynamoGetParams, (getErr, data) => {
+      if (getErr) {
+        console.log(`db get error: ${getErr}`)
+        return res.end(`put success but get fail: ${getErr}`)
+      }
+
+      console.log(`db all success!`)
+      return res.end(`successful put and get: ${JSON.stringify(data, null, 2)}`)
+    })
+  });
 }
 
 export default handler
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+}
