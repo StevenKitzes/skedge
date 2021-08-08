@@ -9,14 +9,17 @@
   align-items: center;
   background-color: white;
   display: flex;
+  box-shadow:
+    36px 12px 12px white,
+    -36px 12px 12px white;
   filter: drop-shadow(0 24px 12px white);
   flex-direction: row;
   justify-content: space-between;
   left: 0;
   padding: 8px;
   position: fixed;
+  right: 0;
   top: 0;
-  width: calc(100vw - 16px);
   z-index: 10;
 }
 

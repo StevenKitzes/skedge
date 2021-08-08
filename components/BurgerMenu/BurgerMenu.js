@@ -11,6 +11,7 @@ function BurgerMenu({ menuActive, setMenuActive }) {
       <div
         className={clsx(styles.buttons, menuActive ? styles.buttonsShow : styles.buttonsHide)}
       >
+        <img alt='Menu' className={styles.hamburger} src='../images/skedge-hamburger.svg' />
         <Button
           classes={styles.spacedButton}
           href='/'

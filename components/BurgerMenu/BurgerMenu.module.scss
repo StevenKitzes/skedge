@@ -4,15 +4,16 @@
   padding: 8px;
   position: fixed;
   right: 0;
+  text-align: right;
 }
 
 .buttonsHide {
-  top: -100vw;
+  top: -100vh;
   transition: $transition;
 }
 
 .buttonsShow {
-  top: 60px;
+  top: 0px;
   transition: $transition;
 }
 
@@ -23,6 +24,7 @@
   position: fixed;
   top: 0;
   width: 100vw;
+  z-index: 15;
 }
 .containerHide {
   background-color: rgba(8, 7, 8, 0);
@@ -33,6 +35,10 @@
   background-color: rgba(8, 7, 8, 0.5);
   pointer-events: unset;
   transition: $transition;
+}
+
+.hamburger {
+  cursor: pointer;
 }
 
 .spacedButton {
