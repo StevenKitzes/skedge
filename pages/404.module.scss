@@ -1,0 +1,15 @@
+@import '../styles/theme.scss';
+
+.button {
+  margin-top: 24px;
+}
+
+.separator {
+  border: 3px solid $secondary;
+  border-radius: 2px;
+  margin: 16px;
+}
+
+.title {
+  font-family: handlee;
+}
