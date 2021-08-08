@@ -1,0 +1,58 @@
+@import '../styles/theme.scss';
+
+.createButton {
+  margin-bottom: 16px;
+}
+
+.skedgeLogo {
+  margin: 0 auto;
+  width: 200px;
+}
+
+.subtitle {
+  font-family: handlee;
+}
+
+.subtitleContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.titleContainer {
+  display: grid;
+  grid-template-areas:
+    "welcomeTo"
+    "skedgeLogo";
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.welcomeTo {
+  font-family: handlee;
+  font-size: 32px;
+}
+
+@media screen and (min-width: $browser) {
+  .skedgeLogo {
+    margin: unset;
+  }
+
+  .subtitle {
+    font-size: 24px;
+  }
+
+  .titleContainer {
+    grid-template-areas:
+      "welcomeTo skedgeLogo";
+    margin-bottom: 24px;
+  }
+
+  .welcomeTo {
+    font-size: 36px;
+    margin: auto 4px auto;
+    text-align: right;
+  }
+}

@@ -1,0 +1,29 @@
+@import '../../styles/theme.scss';
+
+.hamburger {
+  cursor: pointer;
+  height: 40px;
+}
+
+.header {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  filter: drop-shadow(0 24px 12px white);
+  flex-direction: row;
+  justify-content: space-between;
+  left: 0;
+  padding: 8px;
+  position: fixed;
+  top: 0;
+  width: calc(100vw - 16px);
+  z-index: 10;
+}
+
+.icon {
+  height: 40px;
+}
+
+.header a {
+  max-height: 40px;
+}

@@ -1,0 +1,24 @@
+@import '../styles/theme.scss';
+
+.button {
+  margin-top: 40px;
+}
+
+.separator {
+  border: 3px solid $secondary;
+  border-radius: 2px;
+  margin: 40px auto;
+  width: 75%;
+}
+
+.title {
+  font-family: handlee;
+}
+
+@media screen and (min-width: $browser) {
+  .question {
+    font-size: 24px;
+    margin: auto;
+    width: 75%;
+  }
+}
