@@ -19,14 +19,14 @@ function BurgerMenu({ menuActive, setMenuActive }) {
         />
         <Button
           classes={styles.spacedButton}
-          href='/404'
-          label='404 error'
+          href='/create'
+          label='Create event'
           variant='outlined'
         />
         <Button
           classes={styles.spacedButton}
-          href='/construction'
-          label='Under construction'
+          href='/learn'
+          label='Learn more'
           variant='outlined'
         />
       </div>
