@@ -1,14 +1,15 @@
+import clsx from 'clsx'
 import styles from './Button.module.scss'
 
-function Button({ label, url, variant = 'solid' }) {
+function Button({ classes, label, href, variant = 'solid' }) {
   const buttonStyle = variant == 'solid'
     ? styles.solid
     : styles.outlined
 
   return (
     <a
-      className={buttonStyle}
-      href={url}
+      className={clsx(buttonStyle, classes)}
+      href={href}
       alt={label}
     >
       {label}

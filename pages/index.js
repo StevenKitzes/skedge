@@ -1,6 +1,8 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Button from '../components/Button'
 import Layout from '../components/Layout'
+import LinkButton from '../components/LinkButton'
 import styles from './index.module.scss'
 
 export default function Home() {
@@ -19,9 +21,15 @@ export default function Home() {
         <h3 className={styles.subtitle}>Scheduling for busy bees!</h3>
       </div>
       <Button
+        classes={styles.createButton}
+        href='https://stevenkitz.es'
         label='Create event'
-        url='http://stevenkitz.es'
         variant='solid'
+      />
+      <LinkButton
+        href='https://stevenkitz.es'
+        label='Learn more'
+        variant='outlined'
       />
     </Layout>
   )

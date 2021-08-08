@@ -6,13 +6,11 @@
   display: flex;
   font-size: 16px;
   font-weight: 800;
-  height: 40px;
   justify-content: center;
   letter-spacing: 2px;
   margin: 0 auto;
   text-decoration: none;
   text-transform: uppercase;
-  width: 250px;
 }
 
 .outlined {
@@ -20,10 +18,14 @@
   background-color: $white;
   border: 2px solid $primary;
   color: $primary;
+  height: calc(40px - 4px);
+  width: calc(250px - 4px);
 }
 
 .solid {
   @include fundamentals;
   background-color: $primary;
   color: $white;
+  height: 40px;
+  width: 250px;
 }
