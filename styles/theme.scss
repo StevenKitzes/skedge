@@ -5,6 +5,9 @@ $white: #EFF1ED;
 $gray: #6A7062;
 $black: #080708;
 
+/* Global effect */
+$transition: 333ms ease-in-out;
+
 @font-face {
   font-family: handlee;
   src: url(../public/fonts/Handlee.ttf);

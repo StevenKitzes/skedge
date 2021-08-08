@@ -17,10 +17,10 @@
 
 .heart {
   height: 16px;
-  transition: 500ms ease-in-out;
+  transition: $transition;
   vertical-align: middle;
 }
 .heart:hover {
-  transition: 500ms ease-in-out;
+  transition: $transition;
   transform: translateY(-5px);
 }
