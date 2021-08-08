@@ -17,6 +17,7 @@
   position: fixed;
   top: 0;
   width: calc(100vw - 16px);
+  z-index: 10;
 }
 
 .icon {

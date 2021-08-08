@@ -1,0 +1,26 @@
+@import '../../styles/theme.scss';
+
+.footer {
+  align-items: center;
+  background-color: $white;
+  border-top: 2px solid $primary;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  padding: 8px;
+  position: fixed;
+  width: calc(100vw - 16px);
+  z-index: 10;
+}
+
+.heart {
+  height: 16px;
+  transition: 500ms ease-in-out;
+  vertical-align: middle;
+}
+.heart:hover {
+  transition: 500ms ease-in-out;
+  transform: translateY(-5px);
+}

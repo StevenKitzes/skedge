@@ -9,3 +9,19 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
 }
+
+.highlight {
+  color: $primary;
+  font-weight: 900;
+}
+
+.textLink {
+  color: $secondary;
+  font-weight: 900;
+  text-decoration: none;
+  transition: 500ms ease-in-out;
+}
+.textLink:hover {
+  color: $primary;
+  transition: 500ms ease-in-out;
+}
