@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styles from './Header.module.scss'
 
-function Header() {
+function Header({ menuActive, setMenuActive }) {
   return (
     <div className={styles.header}>
       <Link href='/'>
@@ -9,7 +9,12 @@ function Header() {
           <img className={styles.icon} src='../images/skedge-icon.svg' alt='Skedge Logo' />
         </a>
       </Link>
-      <img className={styles.hamburger} src='../images/skedge-hamburger.svg' alt='Skedge Menu' />
+      <img
+        alt='Skedge Menu'
+        className={styles.hamburger}
+        onClick={() => { setMenuActive(!menuActive) }}
+        src='../images/skedge-hamburger.svg'
+      />
     </div>
   )
 }
