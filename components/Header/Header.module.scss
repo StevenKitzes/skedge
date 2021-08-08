@@ -7,9 +7,9 @@
 
 .header {
   align-items: center;
-  background-color: $white;
-  border-bottom: 2px solid $primary;
+  background-color: white;
   display: flex;
+  filter: drop-shadow(0 24px 12px white);
   flex-direction: row;
   justify-content: space-between;
   left: 0;
