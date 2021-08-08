@@ -8,9 +8,10 @@
   font-weight: $heavy;
   justify-content: center;
   letter-spacing: 2px;
+  margin-left: auto;
+  margin-right: auto;
   text-decoration: none;
   transition: $transition;
-  text-transform: uppercase;
   &:hover {
     transform: scale(1.05);
     transition: $transition;

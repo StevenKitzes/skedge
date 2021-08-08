@@ -24,3 +24,13 @@
   transition: $transition;
   transform: translateY(-5px);
 }
+
+@media screen and (min-width: $browser) {
+  .footerCopy {
+    font-size: 24px;
+  }
+
+  .heart {
+    height: 24px;
+  }
+}

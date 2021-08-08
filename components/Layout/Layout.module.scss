@@ -1,6 +1,15 @@
+@import '../../styles/theme.scss';
+
 .container {
+  margin: 92px auto 0;
   max-width: 250px;
   padding: 0 16px;
-  margin: 92px auto 0;
   text-align: center;
+}
+
+@media screen and (min-width: $browser) {
+  .container {
+    margin: 150px auto 0;
+    max-width: 500px;
+  }
 }

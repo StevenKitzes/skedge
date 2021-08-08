@@ -35,14 +35,19 @@
   font-size: 32px;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: $browser) {
   .skedgeLogo {
     margin: unset;
+  }
+
+  .subtitle {
+    font-size: 24px;
   }
 
   .titleContainer {
     grid-template-areas:
       "welcomeTo skedgeLogo";
+    margin-bottom: 24px;
   }
 
   .welcomeTo {

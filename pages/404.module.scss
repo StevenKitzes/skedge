@@ -14,3 +14,11 @@
 .title {
   font-family: handlee;
 }
+
+@media screen and (min-width: $browser) {
+  .question {
+    font-size: 24px;
+    margin: auto;
+    width: 75%;
+  }
+}

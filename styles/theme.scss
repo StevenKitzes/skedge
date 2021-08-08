@@ -9,6 +9,9 @@ $black: #080708;
 $heavy: 600;
 $transition: 333ms ease-in-out;
 
+/* Global sizes */
+$browser: 600px;
+
 @font-face {
   font-family: handlee;
   src: url(../public/fonts/Handlee.ttf);
