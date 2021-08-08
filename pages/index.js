@@ -1,13 +1,9 @@
-import { useEffect } from 'react'
 import Head from 'next/head'
 import Button from '../components/Button'
 import Layout from '../components/Layout'
 import styles from './index.module.scss'
 
 export default function Home() {
-  useEffect(() => {
-    document.getElementById('title').focus();
-  })
   return (
     <Layout>
       <Head>
