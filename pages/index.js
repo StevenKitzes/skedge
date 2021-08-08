@@ -20,12 +20,12 @@ export default function Home() {
       </div>
       <Button
         classes={styles.createButton}
-        href='https://stevenkitz.es'
+        href='/construction'
         label='Create event'
         variant='solid'
       />
       <Button
-        href='https://stevenkitz.es'
+        href='/construction'
         label='Learn more'
         variant='outlined'
       />

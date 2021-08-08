@@ -10,7 +10,7 @@ function Button({ classes, href, label, variant = 'solid' }) {
   return (
     <Link href={href}>
       <a
-        className={clsx(buttonStyle, classes)}
+        className={clsx(classes, buttonStyle)}
         alt={label}
       >
         {label}
