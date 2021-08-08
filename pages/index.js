@@ -21,7 +21,7 @@ export default function Home() {
       <Button
         classes={styles.createButton}
         href='/create'
-        label='Create event'
+        label='Create an event'
         variant='solid'
       />
       <Button

@@ -20,7 +20,7 @@ function BurgerMenu({ menuActive, setMenuActive }) {
         <Button
           classes={styles.spacedButton}
           href='/create'
-          label='Create event'
+          label='Create an event'
           variant='outlined'
         />
         <Button

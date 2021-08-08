@@ -1,0 +1,61 @@
+@import '../../styles/theme.scss';
+
+.expander {
+  border-radius: 12px;
+  margin: 8px auto;
+  max-width: 250px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.expanderContent {
+  background-color: $white;
+  color: $black;
+  font-size: 18px;
+  padding: 12px;
+  max-width: 250px;
+  transition: $transition;
+}
+.expanderContentHidden {
+  height: 0;
+  padding: 0;
+  transition: $transition;
+}
+
+.expanderIcon {
+  height: 16px;
+  margin-left: 4px;
+}
+
+.expanderTitleBar {
+  align-items: center;
+  background-color: $primary;
+  color: $white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  justify-content: space-between;
+  padding: 12px;
+  max-width: 250px;
+}
+
+@media screen and (min-width: $browser) {
+  .expander {
+    max-width: 500px;
+  }
+
+  .expanderContent {
+    font-size: 22px;
+    max-width: 500px;
+  }
+
+  .expanderIcon {
+    height: 24px;
+  }
+
+  .expanderTitleBar {
+    font-size: 24px;
+    max-width: 500px;
+  }
+}
