@@ -1,8 +1,6 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import Button from '../components/Button'
 import Layout from '../components/Layout'
-import LinkButton from '../components/LinkButton'
 import styles from './index.module.scss'
 
 export default function Home() {
@@ -26,7 +24,7 @@ export default function Home() {
         label='Create event'
         variant='solid'
       />
-      <LinkButton
+      <Button
         href='https://stevenkitz.es'
         label='Learn more'
         variant='outlined'
