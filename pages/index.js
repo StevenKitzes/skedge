@@ -16,12 +16,12 @@ export default function Home() {
         <img className={styles.skedgeLogo} src='../images/skedge-logo-outline.svg' />
       </div>
       <div className={styles.subtitleContainer}>
-        <h3>Scheduling for busy bees!</h3>
+        <h3 className={styles.subtitle}>Scheduling for busy bees!</h3>
       </div>
       <Button
-        label='Create an event'
+        label='Create event'
         url='http://stevenkitz.es'
-        variant='outlined'
+        variant='solid'
       />
     </Layout>
   )
