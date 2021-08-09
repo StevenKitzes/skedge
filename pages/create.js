@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -15,7 +15,7 @@ function Create() {
   const [nick, setNick] = useState('')
   const [nickTouched, setNickTouched] = useState(false)
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [pickerDate, setPickerDate] = useState(new Date());
 
   return (
     <Layout>
@@ -54,7 +54,12 @@ function Create() {
         }}
       />
       <hr className={styles.separator} />
-      <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+      <DatePicker
+        dateFormat="MMMM d, yyyy h:mm aa"
+        onChange={(date) => setPickerDate(date)}
+        selected={pickerDate}
+        showTimeSelect
+      />
       <hr className={styles.separator} />
       <Button
         classes={styles.submitButton}

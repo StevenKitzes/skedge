@@ -15,6 +15,38 @@ p, h1, h2, h3, h4, h5, h6 {
   font-weight: $heavy;
 }
 
+.react-datepicker .react-datepicker__time-container {
+  width: 75px;
+}
+
+.react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
+  align-items: center;
+  background-color: $primary;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  padding: 2px 0;
+  width: 75px;
+}
+
+.react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  padding: 2px 0;
+  vertical-align: middle;
+  width: 75px;
+}
+
+.react-datepicker__week .react-datepicker__day--selected {
+  background-color: $primary;
+}
+
+.react-datepicker__week .react-datepicker__day {
+  font-size: 18px;
+}
+
 .textLink {
   color: $secondary;
   font-weight: $heavy;
