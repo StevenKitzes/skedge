@@ -6,7 +6,9 @@ import styles from './create.module.scss'
 
 function Create() {
   const [eventName, setEventName] = useState('')
-  const [eventTouched, setEventTouched] = useState(false)
+  const [eventNameTouched, setEventNameTouched] = useState(false)
+  const [eventDesc, setEventDesc] = useState('')
+  const [eventDescTouched, setEventDescTouched] = useState(false)
 
   return (
     <Layout>
@@ -20,11 +22,21 @@ function Create() {
       </h1>
       <Input
         errorMessage='This field is required.'
-        invalid={eventTouched && (eventName == '')}
+        invalid={eventNameTouched && (eventName == '')}
         label='Event name'
         onChange={(event) => {
           setEventName(event.target.value)
-          setEventTouched(true)
+          setEventNameTouched(true)
+        }}
+      />
+      <Input
+        errorMessage='This field is required.'
+        invalid={eventDescTouched && (eventDesc == '')}
+        label='Event description'
+        multiline
+        onChange={(event) => {
+          setEventDesc(event.target.value)
+          setEventDescTouched(true)
         }}
       />
     </Layout>
