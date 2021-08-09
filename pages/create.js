@@ -1,17 +1,21 @@
 import { useState } from 'react'
+import DatePicker from 'react-datepicker'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import Layout from '../components/Layout'
 import makeHash from '../helpers/makeHash'
 import styles from './create.module.scss'
 
+import "react-datepicker/dist/react-datepicker.css";
+
 function Create() {
   const [eventName, setEventName] = useState('')
   const [eventNameTouched, setEventNameTouched] = useState(false)
   const [eventDesc, setEventDesc] = useState('')
-  const [eventDescTouched, setEventDescTouched] = useState(false)
   const [nick, setNick] = useState('')
   const [nickTouched, setNickTouched] = useState(false)
+
+  const [startDate, setStartDate] = useState(new Date());
 
   return (
     <Layout>
@@ -49,6 +53,8 @@ function Create() {
           setNickTouched(true)
         }}
       />
+      <hr className={styles.separator} />
+      <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
       <hr className={styles.separator} />
       <Button
         classes={styles.submitButton}
