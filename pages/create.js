@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import Button from '../components/Button'
+import CreateDateOption from '../components/CreateDateOption'
 import Input from '../components/Input'
 import Layout from '../components/Layout'
 import makeHash from '../helpers/makeHash'
@@ -23,6 +24,14 @@ function Create() {
     
   const [pickerDate, setPickerDate] = useState(pickerDateStarter.getTime());
 
+  function deleteDate (dateEpoch) {
+    const index = dates.indexOf(dateEpoch)
+    if (index < 0) return
+    const newDates = Array.from(dates)
+    newDates.splice(index, 1)
+    setDates(newDates.sort())
+  }
+
   return (
     <Layout>
       <img
@@ -33,6 +42,7 @@ function Create() {
       <h1 className={styles.title}>
         Create Event
       </h1>
+
       <hr className={styles.separator} />
       <Input
         errorMessage='An event name is required.'
@@ -59,6 +69,7 @@ function Create() {
           setNickTouched(true)
         }}
       />
+
       <hr className={styles.separator} />
       <p className={styles.selectInstructions}>
         Add any number of date/time pairs for your event.
@@ -73,14 +84,27 @@ function Create() {
         classes={styles.addDateButton}
         label='Add date'
         onClick={() => {
-          if (!dates.includes(pickerDate)) setDates([...dates, pickerDate])
+          if (!dates.includes(pickerDate)) setDates([...dates, pickerDate].sort())
         }}
         variant='outlined'
       />
-      <p>Dates picked so far:</p>
+
+      <hr className={styles.separator} />
+      <p className={styles.picked}>Dates picked so far:</p>
+      {dates.length < 1 &&
+        <p className={styles.noDates}>
+          No dates picked.  You must pick at least one date!
+        </p>
+      }
       {dates.map((date) => {
-        return <p>{date}</p>
+        return (
+          <CreateDateOption
+            dateEpoch={date}
+            deleteFn={deleteDate}
+          />
+        )
       })}
+
       <hr className={styles.separator} />
       <Button
         classes={styles.submitButton}
