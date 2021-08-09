@@ -1,0 +1,32 @@
+@import '../../styles/theme.scss';
+
+.input {
+  border-radius: 8px;
+  border-style: solid;
+  font-size: 16px;
+  margin: 0 auto 8px;
+  outline: unset;
+  padding: 6px 4px 4px;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: $primary;
+  outline: unset;
+}
+
+.inputContainer {
+  margin: 0 auto 8px;
+  width: 100%;
+}
+
+.inputContainer input{box-sizing:border-box}
+
+.inputError {
+  background-color: #F66;
+}
+
+.label {
+  font-weight: $heavy;
+  text-align: left;
+}
