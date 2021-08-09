@@ -96,15 +96,16 @@ function Create() {
           No dates picked.  You must pick at least one date!
         </p>
       }
-      {dates.map((date) => {
-        return (
-          <CreateDateOption
-            dateEpoch={date}
-            deleteFn={deleteDate}
-          />
-        )
-      })}
-
+      <div className={styles.dateGrid}>
+        {dates.map((date) => {
+          return (
+            <CreateDateOption
+              dateEpoch={date}
+              deleteFn={deleteDate}
+            />
+          )
+        })}
+      </div>
       <hr className={styles.separator} />
       <Button
         classes={styles.submitButton}
