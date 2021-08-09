@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import styles from './Input.module.scss'
 
-function Input({ invalid = false, label, onChange }) {
+function Input({ errorMessage, invalid = false, label, onChange }) {
   return (
     <div className={styles.inputContainer}>
       <p className={styles.label}>{label}</p>
@@ -9,6 +9,9 @@ function Input({ invalid = false, label, onChange }) {
         className={clsx(styles.input, invalid && styles.inputError)}
         onChange={onChange}
       />
+      <p className={clsx(styles.errorMessage, invalid && styles.errorMessageVisible)}>
+        {errorMessage}
+      </p>
     </div>
   )
 }

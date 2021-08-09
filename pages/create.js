@@ -19,6 +19,7 @@ function Create() {
         Create Event
       </h1>
       <Input
+        errorMessage='This field is required.'
         invalid={eventTouched && (eventName == '')}
         label='Event name'
         onChange={(event) => {
