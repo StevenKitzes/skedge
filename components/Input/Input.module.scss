@@ -34,9 +34,14 @@
   width: 100%;
 }
 
-.inputContainer input{box-sizing:border-box}
+.inputContainer input {
+  box-sizing: border-box;
+}
 
-.inputContainer textarea{box-sizing:border-box}
+.inputContainer textarea {
+  box-sizing: border-box;
+  resize: vertical;
+}
 
 .inputError {
   background-color: #F66;

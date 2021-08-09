@@ -14,7 +14,6 @@ function Learn() {
       <h1 className={styles.title}>
         What's it all about?
       </h1>
-
       <hr className={styles.separator} />
       <p className={styles.p}>
         Ever tried to schedule an event with a bunch of busy people?  Only to
