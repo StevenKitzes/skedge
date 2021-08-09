@@ -15,6 +15,37 @@ p, h1, h2, h3, h4, h5, h6 {
   font-weight: $heavy;
 }
 
+.textLink {
+  color: $secondary;
+  font-weight: $heavy;
+  text-decoration: none;
+  transition: $transition;
+}
+.textLink:hover {
+  color: $primary;
+  transition: $transition;
+}
+
+.useScript {
+  font-family: handlee;
+}
+
+/* The follow nightmare fuel was the only way I could figure out to customize react-datepicker */
+
+.react-datepicker__input-container input {
+  box-sizing: border-box;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 2px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0 auto 1px;
+  max-width: 250px;
+  outline: unset;
+  padding: 6px 4px 4px;
+  width: 100%;
+}
+
 .react-datepicker .react-datepicker__time-container {
   width: 75px;
 }
@@ -27,6 +58,9 @@ p, h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   padding: 2px 0;
   width: 75px;
+}
+.react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected:hover {
+  background-color: $primary;
 }
 
 .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
@@ -42,22 +76,51 @@ p, h1, h2, h3, h4, h5, h6 {
 .react-datepicker__week .react-datepicker__day--selected {
   background-color: $primary;
 }
+.react-datepicker__week .react-datepicker__day--selected:hover {
+  background-color: $primary;
+}
 
 .react-datepicker__week .react-datepicker__day {
   font-size: 18px;
 }
 
-.textLink {
-  color: $secondary;
-  font-weight: $heavy;
-  text-decoration: none;
-  transition: $transition;
-}
-.textLink:hover {
-  color: $primary;
-  transition: $transition;
-}
+@media screen and (min-width: $browser) {
+  .react-datepicker .react-datepicker__time-container {
+    width: 100px;
+  }
+  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+    margin: 0;
+    width: 100px;
+  }
+  .react-datepicker .react-datepicker__time-list {
+    overflow-x: hidden;
+    width: 100px;
+  }
 
-.useScript {
-  font-family: handlee;
+  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
+    align-items: center;
+    background-color: $primary;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    padding: 2px 0;
+    width: 100px;
+  }
+  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected:hover {
+    background-color: $primary;
+  }
+
+  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+    align-items: center;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    padding: 2px 0;
+    vertical-align: middle;
+    width: 100px;
+  }
+
+  .react-datepicker .react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button) {
+    right: 100px;
+  }
 }

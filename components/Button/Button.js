@@ -2,21 +2,37 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import styles from './Button.module.scss'
 
-function Button({ classes, href = '', label, variant = 'solid' }) {
+function Button({ classes, href = null, label, onClick = null, variant = 'solid' }) {
   const buttonStyle = variant == 'solid'
     ? styles.solid
     : styles.outlined
 
-  return (
-    <Link href={href}>
+  if (!!href && !!!onClick) {
+    return (
+      <Link href={href}>
+        <a
+          alt={label}
+          className={clsx(classes, buttonStyle)}
+        >
+          {label}
+        </a>
+      </Link>
+    )
+  }
+
+  if (!!!href && !!onClick) {
+    return (
       <a
-        className={clsx(classes, buttonStyle)}
         alt={label}
+        className={clsx(classes, buttonStyle)}
+        onClick={onClick}
       >
         {label}
       </a>
-    </Link>
-  )
+    )
+  }
+
+  return null;
 }
 
 export default Button

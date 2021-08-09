@@ -14,8 +14,14 @@ function Create() {
   const [eventDesc, setEventDesc] = useState('')
   const [nick, setNick] = useState('')
   const [nickTouched, setNickTouched] = useState(false)
+  const [dates, setDates] = useState([])
 
-  const [pickerDate, setPickerDate] = useState(new Date());
+  const pickerDateStarter = new Date();
+  pickerDateStarter.setMinutes(0);
+  pickerDateStarter.setSeconds(0);
+  pickerDateStarter.setMilliseconds(0);
+    
+  const [pickerDate, setPickerDate] = useState(pickerDateStarter.getTime());
 
   return (
     <Layout>
@@ -38,14 +44,14 @@ function Create() {
         }}
       />
       <Input
-        label='Event description'
+        label='Event description (optional)'
         multiline
         onChange={(event) => {
           setEventDesc(event.target.value)
         }}
       />
       <Input
-        errorMessage='A nickname is required. (Fakes welcome!)'
+        errorMessage='Nickname required. (Fakes welcome!)'
         invalid={nickTouched && (nick == '')}
         label='Your nickname'
         onChange={(event) => {
@@ -54,16 +60,32 @@ function Create() {
         }}
       />
       <hr className={styles.separator} />
+      <p className={styles.selectInstructions}>
+        Add any number of date/time pairs for your event.
+      </p>
       <DatePicker
         dateFormat="MMMM d, yyyy h:mm aa"
-        onChange={(date) => setPickerDate(date)}
+        onChange={(date) => setPickerDate(date.getTime())}
         selected={pickerDate}
         showTimeSelect
       />
+      <Button
+        classes={styles.addDateButton}
+        label='Add date'
+        onClick={() => {
+          if (!dates.includes(pickerDate)) setDates([...dates, pickerDate])
+        }}
+        variant='outlined'
+      />
+      <p>Dates picked so far:</p>
+      {dates.map((date) => {
+        return <p>{date}</p>
+      })}
       <hr className={styles.separator} />
       <Button
         classes={styles.submitButton}
         label='Submit event'
+        onClick={() => alert('submit clicked')}
       />
     </Layout>
   )

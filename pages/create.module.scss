@@ -1,7 +1,16 @@
 @import '../styles/theme.scss';
 
+.addDateButton {
+  margin-top: 16px;
+}
+
 .logo {
   width: 200px;
+}
+
+.selectInstructions {
+  font-size: 16px;
+  margin-bottom: 16px;
 }
 
 .separator {
