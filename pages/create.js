@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import DatePicker from 'react-datepicker'
+import AddDateModal from '../components/AddDateModal'
 import Button from '../components/Button'
 import CreateDateOption from '../components/CreateDateOption'
 import Input from '../components/Input'
@@ -23,6 +23,7 @@ function Create() {
   pickerDateStarter.setMilliseconds(0);
     
   const [pickerDate, setPickerDate] = useState(pickerDateStarter.getTime());
+  const [modalOpen, setModalOpen] = useState(false)
 
   function deleteDate (dateEpoch) {
     const index = dates.indexOf(dateEpoch)
@@ -72,19 +73,14 @@ function Create() {
 
       <hr className={styles.separator} />
       <p className={styles.selectInstructions}>
-        Add any number of date/time pairs for your event.
+        Add any number of times for your event.
       </p>
-      <DatePicker
-        dateFormat="MMMM d, yyyy h:mm aa"
-        onChange={(date) => setPickerDate(date.getTime())}
-        selected={pickerDate}
-        showTimeSelect
-      />
       <Button
         classes={styles.addDateButton}
         label='Add date'
         onClick={() => {
-          if (!dates.includes(pickerDate)) setDates([...dates, pickerDate].sort())
+          window.scrollTo(window.scrollX, 10);
+          setModalOpen(true)
         }}
         variant='outlined'
       />
@@ -112,6 +108,14 @@ function Create() {
         label='Submit event'
         onClick={() => alert('submit clicked')}
       />
+      <AddDateModal
+        closeModal={() => setModalOpen(false)}
+        dates={dates}
+        open={modalOpen}
+        pickerDate={pickerDate}
+        setDates={setDates}
+        setPickerDate={setPickerDate}
+      />      
     </Layout>
   )
 }
