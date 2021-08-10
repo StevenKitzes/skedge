@@ -9,13 +9,15 @@ function AddDateModal({ closeModal, dates, open, pickerDate, setDates, setPicker
       className={clsx(styles.backing, !open && styles.hidden)}
     >
       <div id='modal' className={styles.modal}>
-        <Button
-          classes={styles.button}
-          label='Select'
-          onClick={() => {
-            if (!dates.includes(pickerDate)) setDates([...dates, pickerDate].sort())
-            closeModal()
-          }}
+        <DatePicker
+          dateFormat="MMMM d, yyyy h:mm aa"
+          onChange={(date) => setPickerDate(date.getTime())}
+          open
+          popperPlacement='top-start'
+          selected={pickerDate}
+          shouldCloseOnSelect={false}
+          showTimeSelect
+          startOpen
         />
         <Button
           classes={styles.button}
@@ -23,15 +25,13 @@ function AddDateModal({ closeModal, dates, open, pickerDate, setDates, setPicker
           onClick={closeModal}
           variant='outlined'
         />
-        <DatePicker
-          dateFormat="MMMM d, yyyy h:mm aa"
-          onChange={(date) => setPickerDate(date.getTime())}
-          open
-          popperPlacement='bottom-start'
-          selected={pickerDate}
-          shouldCloseOnSelect={false}
-          showTimeSelect
-          startOpen
+        <Button
+          classes={styles.button}
+          label='Select'
+          onClick={() => {
+            if (!dates.includes(pickerDate)) setDates([...dates, pickerDate].sort())
+            closeModal()
+          }}
         />
       </div>
     </div>

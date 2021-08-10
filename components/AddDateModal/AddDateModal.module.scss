@@ -15,7 +15,7 @@
 }
 
 .button {
-  margin-bottom: 8px;
+  margin-top: 8px;
 }
 
 .hidden {
@@ -24,15 +24,15 @@
 
 .modal {
   background-color: $white;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  margin-bottom: 50%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin-top: 70%;
   padding: 16px;
   width: 250px;
 }
 
 @media screen and (min-width: $browser) {
   .modal {
-    margin-bottom: 200px;
+    margin-top: 200px;
   }
 }

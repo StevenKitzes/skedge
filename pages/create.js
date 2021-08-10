@@ -79,7 +79,13 @@ function Create() {
         classes={styles.addDateButton}
         label='Add date'
         onClick={() => {
-          window.scrollTo(window.scrollX, 10);
+          // This is hacky because react-datepicker is glitchy
+          if (window.matchMedia('min-width: 600px').matches) {
+            window.scrollTo(window.scrollX, 400)
+            if (window.scrollY < 400) window.scrollTo(window.scrollX, 10)
+          } else {
+            window.scrollTo(window.scrollX, 340)
+          }
           setModalOpen(true)
         }}
         variant='outlined'
@@ -98,6 +104,7 @@ function Create() {
             <CreateDateOption
               dateEpoch={date}
               deleteFn={deleteDate}
+              key={date}
             />
           )
         })}
