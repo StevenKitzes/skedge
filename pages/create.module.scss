@@ -41,6 +41,32 @@
   margin-top: 16px;
 }
 
+.submitError {
+  color: $primary;
+  font-size: 14px;
+  text-align: left;
+  width: 100%;
+}
+
+.submitErrorList {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.submitErrorListItem {
+  margin-bottom: 4px;
+}
+
+.submitErrorNote {
+  color: $primary;
+  font-size: 18px;
+  font-weight: $heavy;
+  margin-bottom: 4px;
+  text-align: center;
+  width: 100%;
+}
+
 .title {
   font-family: handlee;
   font-size: 30px;

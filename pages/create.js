@@ -16,6 +16,7 @@ function Create() {
   const [nick, setNick] = useState('')
   const [nickTouched, setNickTouched] = useState(false)
   const [dates, setDates] = useState([])
+  const [submitError, setSubmitError] = useState(null)
 
   const pickerDateStarter = new Date();
   pickerDateStarter.setMinutes(0);
@@ -31,6 +32,35 @@ function Create() {
     const newDates = Array.from(dates)
     newDates.splice(index, 1)
     setDates(newDates.sort())
+  }
+
+  function submitForm () {
+    setEventNameTouched(true)
+    setNickTouched(true)
+
+    // list of strings; later built into <li> components
+    const errors = []
+
+    if (!eventName || !eventName.trim()) {
+      errors.push('An event name is required.')
+    }
+    if (!nick || !nick.trim()) {
+      errors.push('Nickname required. (Fakes welcome!)')
+    }
+    if (dates.length < 1) {
+      errors.push('No dates picked.  You must pick at least one date!')
+    }
+
+    if (errors.length < 1) {
+      setSubmitError(null)
+    } else {
+      setSubmitError(<ul className={styles.submitErrorList}>
+        <p className={styles.submitErrorNote}>Submit errors found:</p>
+        {errors.map((err) => <li className={styles.submitErrorListItem} key={err}>
+          {err}
+        </li>)}
+      </ul>)
+    }
   }
 
   return (
@@ -111,10 +141,13 @@ function Create() {
         })}
       </div>
       <hr className={styles.separator} />
+      {submitError && <p className={styles.submitError}>
+        {submitError}
+      </p>}
       <Button
         classes={styles.submitButton}
         label='Submit event'
-        onClick={() => alert('submit clicked')}
+        onClick={submitForm}
       />
       <AddDateModal
         closeModal={() => setModalOpen(false)}
