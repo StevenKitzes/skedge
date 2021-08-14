@@ -50,18 +50,6 @@ p, h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-.react-datepicker-popper {
-  margin-left: -16px;
-}
-
-.react-datepicker .react-datepicker__month-container {
-  width: 280px;
-}
-
-.react-datepicker .react-datepicker__day {
-  width: 32px;
-}
-
 .react-datepicker .react-datepicker__day-names, .react-datepicker__week {
   display: flex;
   flex-direction: row;
@@ -69,11 +57,15 @@ p, h1, h2, h3, h4, h5, h6 {
   justify-content: space-evenly;
 }
 
+.react-datepicker .react-datepicker__time-container {
+  width: 75px;
+}
+
 .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
   align-items: center;
   background-color: $primary;
   display: flex;
-  font-size: 16px;
+  font-size: 14px;
   justify-content: center;
   padding: 2px 0;
   width: 75px;
@@ -85,7 +77,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
   align-items: center;
   display: flex;
-  font-size: 16px;
+  font-size: 14px;
   justify-content: center;
   padding: 2px 0;
   vertical-align: middle;
@@ -101,6 +93,10 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .react-datepicker__week .react-datepicker__day {
   font-size: 18px;
+}
+
+.react-datepicker-popper {
+  margin-right: 0;
 }
 
 @media screen and (min-width: $browser) {

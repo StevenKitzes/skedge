@@ -15,15 +15,16 @@ function AddDateModal({ closeModal, dates, open, pickerDate, setDates, setPicker
     >
       <div id='modal' className={styles.modal}>
         <DatePicker
-          dateFormat="MMMM d, yyyy"
+          dateFormat="MMMM d, yyyy hh:mm aa"
           onChange={(date) => setPickerDate(date.getTime())}
           open
           popperPlacement='top-start'
           selected={pickerDate}
           shouldCloseOnSelect={false}
+          showTimeSelect
           startOpen
-        />
-        
+          timeFormat="HH:mm aa"
+        />   
         <Button
           classes={styles.button}
           label='Cancel'
