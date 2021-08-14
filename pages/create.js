@@ -84,6 +84,7 @@ function Create() {
             window.scrollTo(window.scrollX, 400)
             if (window.scrollY < 400) window.scrollTo(window.scrollX, 10)
           } else {
+            window.scrollTo(window.scrollX, 0)
             window.scrollTo(window.scrollX, 340)
           }
           setModalOpen(true)
