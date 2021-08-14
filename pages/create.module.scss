@@ -4,11 +4,11 @@
   margin-top: 16px;
 }
 
-.dateGrid {
-  display: grid;
+.datesContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  grid-template-areas: "a";
-  grid-auto-rows: auto;
 }
 
 .logo {
@@ -45,12 +45,4 @@
   font-family: handlee;
   font-size: 30px;
   margin-bottom: -8px;
-}
-
-@media screen and (min-width: $browser) {
-  .dateGrid {
-    grid-template-areas: "a a a a";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-items: center;
-  }
 }

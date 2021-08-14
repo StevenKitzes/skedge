@@ -15,7 +15,7 @@ function AddDateModal({ closeModal, dates, open, pickerDate, setDates, setPicker
     >
       <div id='modal' className={styles.modal}>
         <DatePicker
-          dateFormat="MMMM d, yyyy hh:mm aa"
+          dateFormat="MMMM d, yyyy h:mm aa"
           onChange={(date) => setPickerDate(date.getTime())}
           open
           popperPlacement='top-start'
@@ -23,7 +23,7 @@ function AddDateModal({ closeModal, dates, open, pickerDate, setDates, setPicker
           shouldCloseOnSelect={false}
           showTimeSelect
           startOpen
-          timeFormat="HH:mm aa"
+          timeFormat="h:mm aa"
         />   
         <Button
           classes={styles.button}

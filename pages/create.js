@@ -99,7 +99,7 @@ function Create() {
           No dates picked.  You must pick at least one date!
         </p>
       }
-      <div className={styles.dateGrid}>
+      <div className={styles.datesContainer}>
         {dates.map((date) => {
           return (
             <CreateDateOption
