@@ -96,10 +96,20 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .react-datepicker-popper {
-  margin-right: 0;
+  margin-left: calc((320px - 100vw) / 2);
+}
+
+@media screen and (min-width: 386px) {
+  .react-datepicker-popper {
+    margin-left: -33px;
+  }
 }
 
 @media screen and (min-width: $browser) {
+  .react-datepicker-popper {
+    margin-left: -46px;
+  }
+
   .react-datepicker .react-datepicker__time-container {
     width: 100px;
   }
