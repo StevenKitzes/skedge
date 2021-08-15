@@ -1,15 +1,13 @@
 @import '../../../styles/theme.scss';
 
-.linkInfo {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 8px;
+.button {
+  margin: 8px auto;
 }
 
-.linkInfo div {
-  margin: 0 8px 0 0 !important;
+.editInfo {
+  font-weight: 100;
+  margin: 0 auto 8px -14px;
+  width: 280px;
 }
 
 .separator {
@@ -19,6 +17,19 @@
   width: 75%;
 }
 
+.shareInfo {
+  font-weight: 100;
+  margin: 0 auto 8px -14px;
+  width: 280px;
+}
+
 .successHeader {
   margin-bottom: 16px;
+}
+
+@media screen and (min-width: $browser) {
+  .editInfo, .shareInfo {
+    margin: 0 auto 8px;
+    width: inherit;
+  }
 }

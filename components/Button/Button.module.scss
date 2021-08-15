@@ -19,6 +19,14 @@
   }
 }
 
+.dark {
+  @include fundamentals;
+  background-color: $secondary;
+  color: $white;
+  height: 40px;
+  width: 250px;
+}
+
 .outlined {
   @include fundamentals;
   background-color: $white;

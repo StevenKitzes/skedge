@@ -3,9 +3,19 @@ import Link from 'next/link'
 import styles from './Button.module.scss'
 
 function Button({ classes, href = null, label, onClick = null, variant = 'solid' }) {
-  const buttonStyle = variant == 'solid'
-    ? styles.solid
-    : styles.outlined
+  let buttonStyle
+  switch (variant) {
+    case 'dark':
+      buttonStyle = styles.dark
+      break
+    case 'outlined':
+      buttonStyle = styles.outlined
+      break
+    case 'solid':
+    default:
+      buttonStyle = styles.solid
+      break
+  }
 
   if (!!href && !!!onClick) {
     return (

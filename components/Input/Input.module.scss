@@ -23,6 +23,14 @@
   padding: 6px 4px 4px;
   width: 100%;
 }
+.input::selection {
+  background: $primary;
+  color: $white;
+}
+.input::-moz-selection {
+  background: $primary;
+  color: $white;
+}
 
 .input:focus {
   border-color: $primary;
