@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import Lottie from 'react-lottie'
 import AddDateModal from '../components/AddDateModal'
 import Button from '../components/Button'
+import CreateFail from '../components/Create/CreateFail'
+import CreatePending from '../components/Create/CreatePending'
 import CreateSuccess from '../components/Create/CreateSuccess'
 import CreateDateOption from '../components/CreateDateOption'
 import Hero from '../components/Hero'
@@ -12,7 +13,6 @@ import makeHash from '../helpers/makeHash'
 import styles from './create.module.scss'
 
 import 'react-datepicker/dist/react-datepicker.css'
-import oops from '../public/images/skedge-oops'
 
 function Create() {
   const [eventName, setEventName] = useState('')
@@ -104,52 +104,12 @@ function Create() {
     }))
   }
 
-  if (resStatus == 'pending') {
-    return (
-      <Layout>
-        <Hero title='Creating Event...' />
-        <hr className={styles.separator} />
-        <img
-          alt='Beating hearts means the site is loading!'
-          className={styles.hearts}
-          src='../images/skedge-hearts.gif'
-        />
-      </Layout>
-    )
-  }
-  if (resStatus == '200') {
-    return (
-      <CreateSuccess eventHash={eventHash} organizerHash={organizerHash} />
-    )
-  }
+  if (resStatus == 'pending')
+    return <CreatePending />
+  if (resStatus == '200')
+    return <CreateSuccess eventHash={eventHash} organizerHash={organizerHash} />
   if (resStatus == '500') {
-    return (
-      <Layout>
-        <Hero title='Whoops!' />
-        <hr className={styles.separator} />
-        <div className={styles.oopsAnimContainer}>
-          <div className={styles.oopsLottie}>
-            <Lottie
-              options={{
-                loop: true,
-                autoplay: true,
-                animationData: oops,
-                preserveAspectRatio: 'xMidYMid slice'
-              }}
-              height={250}
-              width={250}
-            />
-          </div>
-          <p className={styles.oopsCopy}>
-            Servers borkt!  Please try again...
-          </p>
-        </div>
-        <Button
-          label='Try again...?'
-          onClick={() => setResStatus(null)}
-        />
-      </Layout>
-    )
+    return <CreateFail setResStatus={setResStatus} />
   }
   if (!resStatus) {
     return (

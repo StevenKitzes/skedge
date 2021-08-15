@@ -16,30 +16,6 @@
   font-size: 18px;
 }
 
-.oopsAnimContainer {
-  height: 250px;
-  margin: 0 auto 16px;
-  position: relative;
-  width: 250px;
-}
-
-.oopsCopy {
-  color: $white;
-  font-size: 18px;
-  font-weight: $heavy;
-  left: 65px;
-  position: absolute;
-  right: 35px;
-  transform: rotate(25deg);
-  top: 110px;
-}
-
-.oopsLottie {
-  left: 0;
-  position: absolute;
-  top: 0;
-}
-
 .picked {
   font-size: 18px;
   margin-bottom: 8px;

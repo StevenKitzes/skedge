@@ -1,0 +1,8 @@
+@import '../../../styles/theme.scss';
+
+.separator {
+  border: 1px solid $secondary;
+  border-radius: 2px;
+  margin: 24px auto;
+  width: 75%;
+}
