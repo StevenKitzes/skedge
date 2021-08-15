@@ -157,7 +157,7 @@ function Create() {
         />
   
         <hr className={styles.separator} />
-        <p className={styles.selectInstructions}>
+        <p className={styles.info}>
           Add any number of times for your event.
         </p>
         <Button
@@ -178,7 +178,7 @@ function Create() {
         />
   
         <hr className={styles.separator} />
-        <p className={styles.picked}>Dates picked so far:</p>
+        <p className={styles.info}>Dates picked so far:</p>
         {dates.length < 1 &&
           <p className={styles.noDates}>
             No dates picked.  You must pick at least one date!
@@ -199,6 +199,7 @@ function Create() {
         {submitError && <p className={styles.submitError}>
           {submitError}
         </p>}
+        <p className={styles.info}>Note, events expire after 1 month!</p>
         <Button
           classes={styles.submitButton}
           label='Submit event'
