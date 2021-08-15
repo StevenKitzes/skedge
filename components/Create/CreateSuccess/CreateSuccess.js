@@ -5,7 +5,7 @@ import Input from '../../Input'
 import Layout from '../../Layout'
 import styles from './CreateSuccess.module.scss'
 
-function CreateSuccess ({ eventHash, organizerHash, resetForm }) {
+function CreateSuccess ({ eventId, userId, resetForm }) {
   const [organizerButtonCopy, setOrganizerButtonCopy] = useState('Copy link')
   const [shareButtonCopy, setShareButtonCopy] = useState('Copy link')
 
@@ -20,7 +20,7 @@ function CreateSuccess ({ eventHash, organizerHash, resetForm }) {
       <Input
         id='share-link'
         readOnly
-        value={`https://skedge.org/event/${eventHash}`}
+        value={`https://skedge.org/event/${eventId}`}
       />
       <Button
         classes={styles.button}
@@ -44,7 +44,7 @@ function CreateSuccess ({ eventHash, organizerHash, resetForm }) {
       <Input
         id='organizer-link'
         readOnly
-        value={`https://skedge.org/event/${eventHash}/${organizerHash}`}
+        value={`https://skedge.org/event/${eventId}/${userId}`}
       />
       <Button
         classes={styles.button}

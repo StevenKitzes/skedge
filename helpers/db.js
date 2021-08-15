@@ -18,12 +18,10 @@ aws.config.update({
 })
 const usersClient = new aws.DynamoDB.DocumentClient()
 
-function dynamoGetParams (table, guid) {
+function dynamoGetParams (table, key) {
   return {
     TableName: table,
-    Key: {
-      guid
-    }
+    Key: key
   }
 }
 function dynamoPutParams (table, data) {
@@ -34,27 +32,27 @@ function dynamoPutParams (table, data) {
 }
 
 // callback should be of the form (err, data) => { ... }
-function readEvent (eventId, callback) {
+async function readEvent (eventId, callback) {
   eventsClient.get(
-    dynamoGetParams(process.env.AWS_EVENTS_TABLE, eventId),
+    dynamoGetParams(process.env.AWS_EVENTS_TABLE, {guid: eventId}),
     callback
   )
 }
-function readUser (userId, callback) {
+async function readUser (eventId, userId, callback) {
   usersClient.get(
-    dynamoGetParams(process.env.AWS_USERS_TABLE, userId),
+    dynamoGetParams(process.env.AWS_USERS_TABLE, {eventId, userId}),
     callback
   )
 }
 
 // callback should be of the form (err) => { ... }
-function writeEvent (data, callback) {
+async function writeEvent (data, callback) {
   eventsClient.put(
     dynamoPutParams(process.env.AWS_EVENTS_TABLE, data),
     callback
   )
 }
-function writeUser (data, callback) {
+async function writeUser (data, callback) {
   usersClient.put(
     dynamoPutParams(process.env.AWS_USERS_TABLE, data),
     callback

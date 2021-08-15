@@ -21,8 +21,8 @@ function Create() {
   const [nick, setNick] = useState('')
   const [nickTouched, setNickTouched] = useState(false)
   const [dates, setDates] = useState([])
-  const [eventHash, setEventHash] = useState(null)
-  const [organizerHash, setOrganizerHash] = useState(null)
+  const [eventId, setEventId] = useState(null)
+  const [userId, setOrganizerId] = useState(null)
   const [submitError, setSubmitError] = useState(null)
   const [resStatus, setResStatus] = useState(null)
 
@@ -93,13 +93,13 @@ function Create() {
       eventDesc,
       nick,
       dates,
-      eventHash: makeHash(),
-      organizerHash: makeHash(),
+      eventId: makeHash(),
+      userId: makeHash(),
       isFinalized: false,
       expires: null
     }
-    setEventHash(submitBody.eventHash)
-    setOrganizerHash(submitBody.organizerHash)
+    setEventId(submitBody.eventId)
+    setOrganizerId(submitBody.userId)
     setResStatus('pending')
 
     fetchPost(submitBody, '/api/create', ((res) => {
@@ -118,7 +118,7 @@ function Create() {
   if (resStatus == 'pending')
     return <CreatePending />
   if (resStatus == '200')
-    return <CreateSuccess eventHash={eventHash} organizerHash={organizerHash} resetForm={resetForm} />
+    return <CreateSuccess eventId={eventId} userId={userId} resetForm={resetForm} />
   if (resStatus == '500') {
     return <CreateFail setResStatus={setResStatus} />
   }
