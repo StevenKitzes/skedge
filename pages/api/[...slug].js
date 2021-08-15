@@ -1,49 +1,53 @@
-const aws = require('aws-sdk')
-
-aws.config.update({
-  region: process.env.AWS_REGION,
-  endpoint: process.env.AWS_ENDPOINT,
-  table: process.env.AWS_TABLE,
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_KEY
-})
-
-const dynamoClient = new aws.DynamoDB.DocumentClient();
+import db from '../../helpers/db'
 
 function handler(req, res) {
   const {slug} = req.query
   const [eventId, userId] = slug
 
-  const dynamoPutParams = {
-    TableName: process.env.AWS_TABLE,
-    Item: {
-      guid: 'test', eventId, userId
-    }
-  }
-  dynamoClient.put(dynamoPutParams, (err) => {
-    if (err) {
-      const msg = `db error: ${JSON.stringify(err, null, 2)}`
-      console.log(msg)
-      return res.end(msg)
+  db.writeEvent({
+    guid: eventId,
+    name: userId,
+    otherstuff: 'other stuff'
+  }, (eventErr) => {
+    if (eventErr) {
+      console.log(eventErr)
+      return res.status(500).end(eventErr)
     }
 
-    console.log('db put success')
-    const dynamoGetParams = {
-      TableName: process.env.AWS_TABLE,
-      Key: {
-        guid: 'test'
-      }
-    }
-    dynamoClient.get(dynamoGetParams, (getErr, data) => {
-      if (getErr) {
-        console.log(`db get error: ${getErr}`)
-        return res.end(`put success but get fail: ${getErr}`)
+    // successful write event, now try write user
+    console.log('yay wrote event')
+    db.writeUser({
+      guid: userId,
+      otherStuff: 'user stuff'
+    }, (userErr) => {
+      if (userErr) {
+        console.log(`write user err: ${userErr}`)
+        return res.status(500).end(userErr)
       }
 
-      console.log(`db all success!`)
-      return res.end(`successful put and get: ${JSON.stringify(data, null, 2)}`)
+      // successful write event, now try some reads
+      console.log('yay wrote user')
+      db.readEvent(eventId, (readEvErr, evData) => {
+        if (readEvErr) {
+          console.log(`read event err: ${readEvErr}`)
+          return res.status(500).end(readEvErr)
+        }
+
+        //successful event read event, try user read
+        console.log(`yay got event data: ${JSON.stringify(evData)}`)
+        db.readUser(userId, (readUserErr, userData) => {
+          if (readUserErr) {
+            console.log(`read event err: ${readUserErr}`)
+            return res.status(500).end(readUserErr)
+          }
+  
+          // successful user read event yay
+          console.log(`yay got user data: ${JSON.stringify(userData)}`)
+          res.status(200).end('yay great success')
+        })
+      })
     })
-  });
+  })
 }
 
 export default handler
