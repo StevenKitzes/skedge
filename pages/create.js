@@ -26,6 +26,17 @@ function Create() {
   const [submitError, setSubmitError] = useState(null)
   const [resStatus, setResStatus] = useState(null)
 
+  function resetForm() {
+    setEventName('')
+    setEventNameTouched(false)
+    setEventDesc('')
+    setNick('')
+    setNickTouched(false)
+    setDates([])
+    setSubmitError(null)
+    setResStatus(null)
+  }
+
   const pickerDateStarter = new Date();
   pickerDateStarter.setMinutes(0);
   pickerDateStarter.setSeconds(0);
@@ -107,7 +118,7 @@ function Create() {
   if (resStatus == 'pending')
     return <CreatePending />
   if (resStatus == '200')
-    return <CreateSuccess eventHash={eventHash} organizerHash={organizerHash} />
+    return <CreateSuccess eventHash={eventHash} organizerHash={organizerHash} resetForm={resetForm} />
   if (resStatus == '500') {
     return <CreateFail setResStatus={setResStatus} />
   }

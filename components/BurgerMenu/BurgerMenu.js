@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import Button from '../Button'
 import styles from './BurgerMenu.module.scss'
 
-function BurgerMenu({ menuActive, setMenuActive }) {
+function BurgerMenu({ createButtonOverride, menuActive, setMenuActive }) {
   return (
     <div
       className={clsx(styles.container, menuActive ? styles.containerShow : styles.containerHide)}
@@ -20,8 +20,9 @@ function BurgerMenu({ menuActive, setMenuActive }) {
         />
         <Button
           classes={styles.spacedButton}
-          href='/create'
+          href={createButtonOverride ? undefined : '/create'}
           label='Create an event'
+          onClick={createButtonOverride}
           variant='outlined'
         />
         <Button

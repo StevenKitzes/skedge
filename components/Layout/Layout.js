@@ -4,12 +4,12 @@ import Footer from '../Footer'
 import Header from '../Header'
 import styles from './Layout.module.scss'
 
-function Layout({ children }) {
+function Layout({ children, createButtonOverride }) {
   const [menuActive, setMenuActive] = useState(false)
   
   return (
     <div className={styles.container}>
-      <BurgerMenu menuActive={menuActive} setMenuActive={setMenuActive} />
+      <BurgerMenu createButtonOverride={createButtonOverride} menuActive={menuActive} setMenuActive={setMenuActive} />
       <Header menuActive={menuActive} setMenuActive={setMenuActive} />
       {children}
       <Footer />

@@ -5,12 +5,12 @@ import Input from '../../Input'
 import Layout from '../../Layout'
 import styles from './CreateSuccess.module.scss'
 
-function CreateSuccess ({ eventHash, organizerHash }) {
+function CreateSuccess ({ eventHash, organizerHash, resetForm }) {
   const [organizerButtonCopy, setOrganizerButtonCopy] = useState('Copy link')
   const [shareButtonCopy, setShareButtonCopy] = useState('Copy link')
 
   return (
-    <Layout>
+    <Layout createButtonOverride={resetForm}>
       <Hero title='Success!' />
       <hr className={styles.separator} />
       <h2 className={styles.successHeader}>Your event was created successfully!</h2>
