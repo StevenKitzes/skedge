@@ -2,6 +2,7 @@ import Lottie from 'react-lottie'
 import Button from '../../Button'
 import Hero from '../../Hero'
 import Layout from '../../Layout'
+import styles from './CreateFail.module.scss'
 
 import oops from '../../../public/images/skedge-oops'
 
@@ -27,6 +28,7 @@ function CreateFail ({ setResStatus }) {
           Servers borkt!  Please try again...
         </p>
       </div>
+      <p className={styles.oopsJoke}>In the meantime, please enjoy some modern art.</p>
       <Button
         label='Try again...?'
         onClick={() => setResStatus(null)}
