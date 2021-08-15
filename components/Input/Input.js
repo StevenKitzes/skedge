@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import styles from './Input.module.scss'
 
-function Input({ errorMessage, invalid = false, label, multiline = false, onChange }) {
+function Input({ errorMessage, id, invalid = false, label, multiline = false, onChange, readOnly, value }) {
   return (
     <div className={styles.inputContainer}>
       <p className={styles.label}>{label}</p>
@@ -9,11 +9,17 @@ function Input({ errorMessage, invalid = false, label, multiline = false, onChan
         multiline
           ? <textarea
               className={clsx(styles.input, invalid && styles.inputError)}
+              id={id}
               onChange={onChange}
+              readOnly={readOnly}
+              value={value}
             />
           : <input
               className={clsx(styles.input, invalid && styles.inputError)}
+              id={id}
               onChange={onChange}
+              readOnly={readOnly}
+              value={value}
             />
       }
       <p className={clsx(styles.errorMessage, invalid && styles.errorMessageVisible)}>

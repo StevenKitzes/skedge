@@ -11,13 +11,33 @@
   gap: 8px;
 }
 
-.logo {
-  width: 200px;
-}
-
 .noDates {
   color: $primary;
   font-size: 18px;
+}
+
+.oopsAnimContainer {
+  height: 250px;
+  margin: 0 auto 16px;
+  position: relative;
+  width: 250px;
+}
+
+.oopsCopy {
+  color: $white;
+  font-size: 18px;
+  font-weight: $heavy;
+  left: 65px;
+  position: absolute;
+  right: 35px;
+  transform: rotate(25deg);
+  top: 110px;
+}
+
+.oopsLottie {
+  left: 0;
+  position: absolute;
+  top: 0;
 }
 
 .picked {
@@ -65,10 +85,4 @@
   margin-bottom: 4px;
   text-align: center;
   width: 100%;
-}
-
-.title {
-  font-family: handlee;
-  font-size: 30px;
-  margin-bottom: -8px;
 }
