@@ -11,8 +11,8 @@ function CreateFail ({ setResStatus }) {
       <Separator />
       <Oof copy='The servers are feeling a little under the weather...' />
       <Button
-        label='Try again'
-        onClick={() => setResStatus(null)}
+        label='Skedge home'
+        href='/'
       />
     </Layout>
   )
