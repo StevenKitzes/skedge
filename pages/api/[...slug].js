@@ -14,7 +14,7 @@ async function handler(req, res) {
         reject(`Error reading Event database: ${JSON.stringify(err)}`)
       }
       console.log('read event succeeded')
-      resolve(data)
+      resolve(data.Item)
     })
   })
   console.log(`between reads ...`)
@@ -26,7 +26,7 @@ async function handler(req, res) {
         reject(`Error reading User database: ${JSON.stringify(err)}`)
       }
       console.log('read user succeeded')
-      resolve(data)
+      resolve(data.Item)
     })
   })
 
