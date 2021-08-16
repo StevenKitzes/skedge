@@ -5,11 +5,16 @@ import EventLoading from '../../../components/Event/EventLoading'
 
 function Event () {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
   const router = useRouter()
   const {eventId, userId} = router.query
 
   if (loading) {
     return <EventLoading />
+  }
+  if (error) {
+    return <EventError />
   }
   return (
     <Layout>
