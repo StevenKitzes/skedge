@@ -1,3 +1,5 @@
+@import '../../styles/theme.scss';
+
 .oofContainer {
   height: 150px;
   margin: 0 auto 16px;
@@ -6,7 +8,7 @@
 }
 
 .oofCopy {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 8px;
 }
 
@@ -20,4 +22,10 @@
   left: 15px;
   position: absolute;
   top: -25px;
+}
+
+@media screen and (min-width: $browser) {
+  .oofCopy {
+    font-size: 20px;
+  }
 }
