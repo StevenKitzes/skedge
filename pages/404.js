@@ -1,6 +1,6 @@
 import Button from '../components/Button'
 import Layout from '../components/Layout'
-import Separator from '../../Separator'
+import Separator from '../components/Separator'
 import styles from './404.module.scss'
 
 function FourOhFour() {
