@@ -19,7 +19,7 @@ function CreateDateOption({ dateEpoch, deleteFn }) {
         alt='Delete'
         className={styles.delete}
         onClick={() => deleteFn(dateEpoch)}
-        src='../images/skedge-delete.svg'
+        src='/images/skedge-delete.svg'
       />
     </div>
   )

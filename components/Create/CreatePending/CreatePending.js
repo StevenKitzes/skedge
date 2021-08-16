@@ -9,7 +9,7 @@ function CreatePending () {
       <hr className={styles.separator} />
       <img
         alt='Beating hearts means the site is loading!'
-        src='../images/skedge-hearts.gif'
+        src='/images/skedge-hearts.gif'
       />
     </Layout>
   )

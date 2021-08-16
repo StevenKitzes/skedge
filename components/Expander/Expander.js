@@ -21,7 +21,7 @@ function Expander({
           <img
             alt='Expand'
             className={styles.expanderIcon}
-            src='../images/skedge-expander-icon.svg'
+            src='/images/skedge-expander-icon.svg'
           />
         </div>
       </div>

@@ -6,7 +6,7 @@ function Hero ({ title }) {
       <img
         alt='Skedge'
         className={styles.logo}
-        src='../images/skedge-logo-outline.svg'
+        src='/images/skedge-logo-outline.svg'
       />
       <h1 className={styles.title}>
         {title}
