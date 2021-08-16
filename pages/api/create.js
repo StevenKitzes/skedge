@@ -1,16 +1,27 @@
 import db from '../../helpers/db'
 
 async function handler(req, res) {
-  const data = req.body
+  const eventData = req.body
   const expireDate = new Date()
   expireDate.setMonth(expireDate.getMonth() + 1)
   const expires = Math.floor(expireDate.getTime() / 1000)
+  const userData = {
+    eventId: eventData.eventId,
+    userId: eventData.userId,
+    nickname: eventData.nick,
+    responses: [],
+    comments: '',
+    expires
+  }
 
   // Create expiry for this event and trim milliseconds to satisfy AWS requirements
-  data.expires = expires
+  eventData.expires = expires
+
+  // Remove extraneous data point from eventData that was passed to populate userData
+  delete eventData.nick
 
   const writeEventPromise = new Promise((resolve, reject) => {
-    db.writeEvent(data, (err) => {
+    db.writeEvent(eventData, (err) => {
       if (err) {
         reject(`Failed to write event to DB: ${err}`)
       }
@@ -18,14 +29,6 @@ async function handler(req, res) {
     })
   })
   const writeUserPromise = new Promise((resolve, reject) => {
-    const userData = {
-      eventId: data.eventId,
-      userId: data.userId,
-      nickname: data.nick,
-      responses: [],
-      comments: '',
-      expires
-    }
     db.writeUser(userData, (err) => {
       if (err) {
         reject(`Failed to write user to DB: ${err}`)
