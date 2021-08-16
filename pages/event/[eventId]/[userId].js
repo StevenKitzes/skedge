@@ -8,6 +8,7 @@ function Event () {
   const [error, setError] = useState(null)
   const [eventData, setEventData] = useState(null)
   const [userData, setUserData] = useState(null)
+  const [guestsData, setGuestsData] = useState(null)
 
   useEffect(() => {
     const path = window.location.toString().split('/')
@@ -19,6 +20,7 @@ function Event () {
         setLoading(false)
         setEventData(json[0])
         setUserData(json[1])
+        setGuestsData(json[2])
       })
   }, [])
 
@@ -32,6 +34,7 @@ function Event () {
     <Layout>
       <p>Event data: {JSON.stringify(eventData, null, 2)}</p>
       <p>User data: {JSON.stringify(userData, null, 2)}</p>
+      <p>Guests data: {JSON.stringify(guestsData, null, 2)}</p>
     </Layout>
   )
 }

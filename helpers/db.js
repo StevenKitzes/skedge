@@ -30,6 +30,18 @@ function dynamoPutParams (table, data) {
     Item: data
   }
 }
+function dynamoQueryParams (eventId) {
+  return {
+    TableName: process.env.SKEDGE_AWS_USERS_TABLE,
+    KeyConditionExpression: '#ev = :id',
+    ExpressionAttributeNames: {
+      '#ev': 'eventId'
+    },
+    ExpressionAttributeValues: {
+      ':id': eventId
+    }
+  }
+}
 
 // callback should be of the form (err, data) => { ... }
 async function readEvent (eventId, callback) {
@@ -59,9 +71,18 @@ async function writeUser (data, callback) {
   )
 }
 
+// callback should be of the form (err, data) => { ... }
+async function queryEventUsers (eventId, callback) {
+  usersClient.query(
+    dynamoQueryParams(eventId),
+    callback
+  )
+}
+
 export default {
   readEvent,
   readUser,
   writeEvent,
   writeUser,
+  queryEventUsers
 }

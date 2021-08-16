@@ -4,33 +4,32 @@ async function handler(req, res) {
   const {slug} = req.query
   const [eventId, userId] = slug
 
-  console.log(`slug handler called`)
-
   const readEventPromise = new Promise((resolve, reject) => {
-    console.log(`making read event call...`)
     db.readEvent(eventId, (err, data) => {
       if (err) {
-        console.log('read event failed')
         reject(`Error reading Event database: ${JSON.stringify(err)}`)
       }
-      console.log('read event succeeded')
       resolve(data.Item)
     })
   })
-  console.log(`between reads ...`)
   const readUserPromise = new Promise((resolve, reject) => {
-    console.log(`making read user call...`)
     db.readUser(eventId, userId, (err, data) => {
       if (err) {
-        console.log('read user failed')
         reject(`Error reading User database: ${JSON.stringify(err)}`)
       }
-      console.log('read user succeeded')
       resolve(data.Item)
+    })
+  })
+  const queryUsersPromise = new Promise((resolve, reject) => {
+    db.queryEventUsers(eventId, (err, data) => {
+      if (err) {
+        reject(`Error querying User database: ${JSON.stringify(err)}`)
+      }
+      resolve(data.Items)
     })
   })
 
-  await Promise.all([readEventPromise, readUserPromise])
+  await Promise.all([readEventPromise, readUserPromise, queryUsersPromise])
     .then((values) => res.status(200).end(JSON.stringify(values)))
     .catch((err) => res.status(500).end(JSON.stringify(err)))
 }
