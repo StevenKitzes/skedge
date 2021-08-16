@@ -1,5 +1,6 @@
 import Button from '../components/Button'
 import Layout from '../components/Layout'
+import Separator from '../../Separator'
 import styles from './404.module.scss'
 
 function FourOhFour() {
@@ -7,7 +8,7 @@ function FourOhFour() {
     <Layout>
       <h1 className={styles.title}>404</h1>
       <h2>No such page!</h2>
-      <hr className={styles.separator} />
+      <Separator />
       <p className={styles.question}>Did you try to schedule something on another timeline?</p>
       <Button
         classes={styles.button}

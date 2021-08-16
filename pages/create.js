@@ -8,6 +8,7 @@ import CreateDateOption from '../components/CreateDateOption'
 import Hero from '../components/Hero'
 import Input from '../components/Input'
 import Layout from '../components/Layout'
+import Separator from '../components/Separator'
 import fetchPost from '../helpers/fetchPost'
 import makeHash from '../helpers/makeHash'
 import styles from './create.module.scss'
@@ -126,7 +127,7 @@ function Create() {
     return (
       <Layout>
         <Hero title='Create Event' />
-        <hr className={styles.separator} />
+        <Separator />
         <Input
           errorMessage='An event name is required.'
           id='event-name'
@@ -156,7 +157,7 @@ function Create() {
           }}
         />
   
-        <hr className={styles.separator} />
+        <Separator />
         <p className={styles.info}>
           Add any number of times for your event.
         </p>
@@ -177,7 +178,7 @@ function Create() {
           variant='outlined'
         />
   
-        <hr className={styles.separator} />
+        <Separator />
         <p className={styles.info}>Dates picked so far:</p>
         {dates.length < 1 &&
           <p className={styles.noDates}>
@@ -195,7 +196,7 @@ function Create() {
             )
           })}
         </div>
-        <hr className={styles.separator} />
+        <Separator />
         {submitError && <p className={styles.submitError}>
           {submitError}
         </p>}

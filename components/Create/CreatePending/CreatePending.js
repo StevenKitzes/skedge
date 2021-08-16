@@ -1,12 +1,12 @@
 import Hero from '../../Hero'
 import Layout from '../../Layout'
-import styles from './CreatePending.module.scss'
+import Separator from '../../Separator'
 
 function CreatePending () {
   return (
     <Layout>
       <Hero title='Creating Event...' />
-      <hr className={styles.separator} />
+      <Separator />
       <img
         alt='Beating hearts means the site is loading!'
         src='/images/skedge-hearts.gif'

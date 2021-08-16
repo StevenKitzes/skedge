@@ -1,20 +1,15 @@
 import Button from '../components/Button'
 import Expander from '../components/Expander'
+import Hero from '../components/Hero'
 import Layout from '../components/Layout'
+import Separator from '../components/Separator'
 import styles from './learn.module.scss'
 
 function Learn() {
   return (
     <Layout>
-      <img
-        alt='Skedge'
-        className={styles.logo}
-        src='/images/skedge-logo-outline.svg'
-      />
-      <h1 className={styles.title}>
-        What's it all about?
-      </h1>
-      <hr className={styles.separator} />
+      <Hero title="What's it all about?" />
+      <Separator />
       <p className={styles.p}>
         Ever tried to schedule an event with a bunch of busy people?  Only to
         end up with a bunch of open conversations and mixed availabilities?
@@ -34,7 +29,7 @@ function Learn() {
       <p className={styles.bullet}>
         <span className={styles.emphasis}>Finalize</span> the event once votes are in
       </p>
-      <hr className={styles.separator} />
+      <Separator />
       <p className={styles.p}>
         That's all there is to it!  But in case you have more questions:
       </p>
@@ -58,7 +53,7 @@ function Learn() {
         content="I needed a tool to help me organize my own busy life.  I couldn't find one that was free and easy to use, so I made one!"
         title="It's free?  What's in it for you Mr. Web Developer?"
       />
-      <hr className={styles.separator} />
+      <Separator />
       <p className={styles.p}>Ready to get started?</p>
       <Button
         href='/create'

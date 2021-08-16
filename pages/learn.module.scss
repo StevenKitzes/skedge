@@ -13,25 +13,9 @@
   font-weight: 600;
 }
 
-.logo {
-  width: 200px;
-}
-
 .p {
   font-size: 18px;
   margin-bottom: 20px;
-}
-
-.separator {
-  border: 1px solid $secondary;
-  border-radius: 2px;
-  margin: 24px auto;
-  width: 75%;
-}
-
-.title {
-  font-family: handlee;
-  font-size: 30px;
 }
 
 @media screen and (min-width: $browser) {
