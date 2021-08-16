@@ -4,7 +4,7 @@ import styles from './Oof.module.scss'
 import raincloud from '../../public/images/skedge-raincloud'
 import zap from '../../public/images/skedge-zap'
 
-function Oof ({ copy }) {
+function Oof ({ copy, errorMessage }) {
   return (
     <div>
       <div className={styles.oofContainer}>
@@ -36,6 +36,11 @@ function Oof ({ copy }) {
       {copy &&
         <p className={styles.oofCopy}>
           {copy}
+        </p>
+      }
+      {errorMessage &&
+        <p className={styles.oofCopy}>
+          {errorMessage}
         </p>
       }
     </div>

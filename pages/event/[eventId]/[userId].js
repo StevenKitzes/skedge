@@ -1,24 +1,37 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import Layout from '../../../components/Layout'
+import EventFail from '../../../components/Event/EventFail'
 import EventLoading from '../../../components/Event/EventLoading'
 
 function Event () {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
+  const [eventData, setEventData] = useState(null)
+  const [userData, setUserData] = useState(null)
 
-  const router = useRouter()
-  const {eventId, userId} = router.query
+  useEffect(() => {
+    const path = window.location.toString().split('/')
+    const eventId = path[path.length - 2]
+    const userId = path[path.length - 1]
+    fetch(`/api/${eventId}/${userId}`)
+      .then((res) => res.json())
+      .then((json) => {
+        setLoading(false)
+        setEventData(json[0])
+        setUserData(json[1])
+      })
+  }, [])
 
   if (loading) {
     return <EventLoading />
   }
   if (error) {
-    return <EventError />
+    return <EventFail errorMessage={error} />
   }
   return (
     <Layout>
-      <p>Loading page with eventId {eventId} and userId {userId}</p>
+      <p>Event data: {JSON.stringify(eventData, null, 2)}</p>
+      <p>User data: {JSON.stringify(userData, null, 2)}</p>
     </Layout>
   )
 }

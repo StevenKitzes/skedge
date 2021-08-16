@@ -34,7 +34,7 @@ function dynamoPutParams (table, data) {
 // callback should be of the form (err, data) => { ... }
 async function readEvent (eventId, callback) {
   eventsClient.get(
-    dynamoGetParams(process.env.SKEDGE_AWS_EVENTS_TABLE, {guid: eventId}),
+    dynamoGetParams(process.env.SKEDGE_AWS_EVENTS_TABLE, {eventId}),
     callback
   )
 }

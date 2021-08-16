@@ -4,12 +4,15 @@ import Layout from '../../Layout'
 import Oof from '../../Oof'
 import Separator from '../../Separator'
 
-function CreateFail ({ setResStatus }) {
+function EventFail ({ errorMessage }) {
   return (
     <Layout>
       <Hero title='Whoops!' />
       <Separator />
-      <Oof copy='The servers are feeling a little under the weather...' />
+      <Oof
+        copy='The servers are feeling a little under the weather...'
+        errorMessage={errorMessage}
+      />
       <Button
         label='Skedge home'
         href='/'
@@ -18,4 +21,4 @@ function CreateFail ({ setResStatus }) {
   )
 }
 
-export default CreateFail
+export default EventFail
