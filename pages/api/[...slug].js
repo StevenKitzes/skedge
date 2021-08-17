@@ -30,9 +30,9 @@ async function handler(req, res) {
         resolve(data.Item)
       })
     })
-    await Promise.all([readEventPromise, readUserPromise, queryUsersPromise])
+    await Promise.all([readEventPromise, queryUsersPromise, readUserPromise])
       .then((values) => {
-        if (!values[0] || !values[1]) return res.status(404).end()
+        if (!values[0] || !values[2]) return res.status(404).end()
         res.status(200).end(JSON.stringify(values))
       })
       .catch((err) => res.status(500).end(JSON.stringify(err)))
