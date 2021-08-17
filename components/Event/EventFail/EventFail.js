@@ -3,6 +3,7 @@ import Hero from '../../Hero'
 import Layout from '../../Layout'
 import Oof from '../../Oof'
 import Separator from '../../Separator'
+import styles from './EventFail.module.scss'
 
 function EventFail ({ errorMessage }) {
   return (
@@ -10,10 +11,11 @@ function EventFail ({ errorMessage }) {
       <Hero title='Whoops!' />
       <Separator />
       <Oof
-        copy='The servers are feeling a little under the weather...'
-        errorMessage={errorMessage}
+        copyTop='The servers are feeling a little under the weather...'
+        copyBottom={errorMessage}
       />
       <Button
+        classes={styles.button}
         label='Skedge home'
         href='/'
       />

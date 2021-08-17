@@ -31,13 +31,19 @@ async function handler(req, res) {
       })
     })
     await Promise.all([readEventPromise, readUserPromise, queryUsersPromise])
-      .then((values) => res.status(200).end(JSON.stringify(values)))
+      .then((values) => {
+        if (!values[0] || !values[1]) return res.status(404).end()
+        res.status(200).end(JSON.stringify(values))
+      })
       .catch((err) => res.status(500).end(JSON.stringify(err)))
     return
   }
 
   await Promise.all([readEventPromise, queryUsersPromise])
-  .then((values) => res.status(200).end(JSON.stringify(values)))
+  .then((values) => {
+    if (!values[0]) return res.status(404).end()
+    res.status(200).end(JSON.stringify(values))
+  })
   .catch((err) => res.status(500).end(JSON.stringify(err)))
 }
 

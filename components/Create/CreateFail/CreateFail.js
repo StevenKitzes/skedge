@@ -3,14 +3,19 @@ import Hero from '../../Hero'
 import Layout from '../../Layout'
 import Oof from '../../Oof'
 import Separator from '../../Separator'
+import styles from './CreateFail.module.scss'
 
 function CreateFail ({ setResStatus }) {
   return (
     <Layout>
       <Hero title='Whoops!' />
       <Separator />
-      <Oof copy='The servers are feeling a little under the weather...' />
+      <Oof
+        copyTop='The servers are feeling a little under the weather...'
+        copyBottom="We're having trouble creating your event right now."
+      />
       <Button
+        classes={styles.button}
         label='Try again'
         onClick={() => setResStatus(null)}
       />
