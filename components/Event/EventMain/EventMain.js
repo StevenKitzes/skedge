@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import EventFail from '../../../components/Event/EventFail'
+import EventLayout from '../../../components/Event/EventLayout'
 import EventLoading from '../../../components/Event/EventLoading'
 import FourOhFour from '../../../components/FourOhFour'
-import Layout from '../../../components/Layout'
 
 function EventMain ({ hasUser }) {
   const [loading, setLoading] = useState(true)
@@ -28,22 +28,22 @@ function EventMain ({ hasUser }) {
     fetch(url)
       .then((res) => {
         if (res.status == 404) {
-          setLoading(false)
           setFourOhFour(true)
-        } else if (res.status == 500) {
           setLoading(false)
+        } else if (res.status == 500) {
           setError('Something went wrong trying to retrieve this event.')
+          setLoading(false)
         } else {
           return res.json()
         }
       })
       .then((json) => {
         if (!json) return
-        setLoading(false)
         // These indices determined by Promise.all ordering in pages/api/[...slug].js
         setEventData(json[0])
         setGuestsData(json[1])
         if (hasUser) setUserData(json[2])
+        setLoading(false)
       })
   }, [])
 
@@ -57,11 +57,11 @@ function EventMain ({ hasUser }) {
     return <EventFail errorMessage={error} />
   }
   return (
-    <Layout>
-      <p>Event data: {JSON.stringify(eventData, null, 2)}</p>
-      <p>User data: {JSON.stringify(userData, null, 2)}</p>
-      <p>Guests data: {JSON.stringify(guestsData, null, 2)}</p>
-    </Layout>
+    <EventLayout
+      eventData={eventData}
+      guestsData={guestsData}
+      userData={userData}
+    />
   )
 }
 

@@ -17,9 +17,6 @@ async function handler(req, res) {
   // Create expiry for this event and trim milliseconds to satisfy AWS requirements
   eventData.expires = expires
 
-  // Remove extraneous data point from eventData that was passed to populate userData
-  delete eventData.nick
-
   const writeEventPromise = new Promise((resolve, reject) => {
     db.writeEvent(eventData, (err) => {
       if (err) {
