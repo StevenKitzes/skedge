@@ -9,7 +9,7 @@ async function handler(req, res) {
     eventId: eventData.eventId,
     userId: eventData.userId,
     nickname: eventData.nick,
-    responses: [],
+    responses: {},
     comments: '',
     expires
   }

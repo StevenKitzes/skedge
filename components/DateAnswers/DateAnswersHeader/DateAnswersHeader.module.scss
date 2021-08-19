@@ -1,0 +1,36 @@
+@import '../../../styles/theme.scss';
+
+.dateString {
+  transform: rotate(-90deg);
+  min-width: 120px;
+  position: absolute;
+  bottom: 60px;
+  left: -40px;
+  text-align: left;
+}
+
+.timeString {
+  border-bottom: 2px solid $black;
+  transform: rotate(-90deg);
+  min-width: 120px;
+  position: absolute;
+  bottom: 60px;
+  left: -15px;
+  text-align: left;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  padding: 0 24px;
+}
+
+.headerItem {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  position: relative;
+  min-width: 61px;
+}

@@ -30,6 +30,14 @@ p, h1, h2, h3, h4, h5, h6 {
   font-family: handlee;
 }
 
+body {
+  margin: 0
+}
+
+#__next {
+  width: 100%;
+}
+
 /* The follow nightmare fuel was the only way I could figure out to customize react-datepicker */
 
 .react-datepicker__input-container input:disabled {
