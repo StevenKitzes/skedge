@@ -1,4 +1,3 @@
-import Hero from '../../Hero'
 import Layout from '../../Layout'
 import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
