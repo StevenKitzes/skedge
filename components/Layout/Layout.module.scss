@@ -7,8 +7,28 @@
   text-align: center;
 }
 
-.noMargin {
+.eventPage {
+  bottom: 54px;
+  display: grid;
+  grid-template-areas:
+    'title'
+    'header'
+    'guests';
+  grid-template-rows: auto auto 1fr;
+  justify-content: center;
+  margin: 0 auto;
   max-width: unset;
+  padding: 0;
+  position: fixed;
+  text-align: center;
+  top: 92px;
+  width: 100vw;
+}
+
+@media screen and (min-width: 381px) {
+  .eventPage {
+    bottom: 36px;
+  }
 }
 
 @media screen and (min-width: $browser) {
@@ -17,7 +37,7 @@
     max-width: 500px;
   }
 
-  .noMargin {
-    max-width: unset;
+  .eventPage {
+    bottom: 41px;
   }
 }

@@ -4,33 +4,52 @@
   transform: rotate(-90deg);
   min-width: 120px;
   position: absolute;
-  bottom: 60px;
-  left: -40px;
+  bottom: 64px;
+  left: -42px;
   text-align: left;
 }
 
 .timeString {
-  border-bottom: 2px solid $black;
   transform: rotate(-90deg);
   min-width: 120px;
   position: absolute;
-  bottom: 60px;
-  left: -15px;
+  bottom: 64px;
+  left: -18px;
   text-align: left;
 }
 
 .header {
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
+  overflow-x: auto;
+}
+
+.headerContainer {
   padding: 0 24px;
 }
 
 .headerItem {
   align-items: flex-end;
+  background-color: $white;
+  border-radius: 8px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  height: 100px;
+  height: 120px;
+  margin: 2px;
   position: relative;
-  min-width: 61px;
+  min-width: 56px;
+}
+
+.headerItemAlt {
+  align-items: flex-end;
+  background-color: $white-alternate;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+  margin: 2px 2px 10px 2px;
+  position: relative;
+  min-width: 56px;
 }

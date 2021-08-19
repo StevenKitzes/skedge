@@ -5,11 +5,11 @@ import Footer from '../Footer'
 import Header from '../Header'
 import styles from './Layout.module.scss'
 
-function Layout({ children, createButtonOverride, noMargin, showLogo }) {
+function Layout({ children, createButtonOverride, eventPage, showLogo }) {
   const [menuActive, setMenuActive] = useState(false)
   
   return (
-    <div className={clsx(styles.container, noMargin ? styles.noMargin : null)}>
+    <div className={eventPage ? styles.eventPage : styles.container}>
       <BurgerMenu
         createButtonOverride={createButtonOverride}
         menuActive={menuActive}
