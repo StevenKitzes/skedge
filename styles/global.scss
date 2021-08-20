@@ -34,12 +34,6 @@ body {
   margin: 0
 }
 
-#__next {
-  position: fixed;
-  height: 100vh;
-  width: 100%;
-}
-
 /* The follow nightmare fuel was the only way I could figure out to customize react-datepicker */
 
 .react-datepicker__input-container input:disabled {
