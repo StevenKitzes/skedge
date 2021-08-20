@@ -17,7 +17,10 @@ function DateAnswersHeader({ classes, dates, handleScroll }) {
           const timeString = `${hours % 12 ? hours % 12 : '12'}:${minutes || '00'}${hours > 11 ? 'pm' : 'am'}`
         
           return (
-            <div className={index % 2 === 0 ? styles.headerItemAlt : styles.headerItem}>
+            <div
+              className={index % 2 === 0 ? styles.headerItemAlt : styles.headerItem}
+              key={date}
+            >
               <p className={styles.dateString}>{dateString}</p>
               <p className={styles.timeString}>{timeString}</p>
             </div>

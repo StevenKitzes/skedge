@@ -10,6 +10,7 @@ import Input from '../components/Input'
 import Layout from '../components/Layout'
 import Separator from '../components/Separator'
 import fetchPost from '../helpers/fetchPost'
+import isEmptyOrWhiteSpace from '../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../helpers/makeHash'
 import styles from './create.module.scss'
 
@@ -131,7 +132,7 @@ function Create() {
         <Input
           errorMessage='An event name is required.'
           id='event-name'
-          invalid={eventNameTouched && (eventName == '')}
+          invalid={eventNameTouched && isEmptyOrWhiteSpace(eventName)}
           label='Event name'
           onChange={(event) => {
             setEventName(event.target.value)
@@ -149,7 +150,7 @@ function Create() {
         <Input
           errorMessage='Nickname required. (Fakes welcome!)'
           id='organizer-nickname'
-          invalid={nickTouched && (nick == '')}
+          invalid={nickTouched && isEmptyOrWhiteSpace(nick)}
           label='Your nickname'
           onChange={(event) => {
             setNick(event.target.value)
