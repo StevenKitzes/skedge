@@ -1,6 +1,8 @@
 import clsx from 'clsx'
+import Button from '../../Button'
 import DateAnswersHeader from '../../DateAnswers/DateAnswersHeader'
 import DateAnswerPair from '../../DateAnswers/DateAnswerPair'
+import Input from '../../Input'
 import Layout from '../../Layout'
 import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
@@ -17,6 +19,9 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
   const guestComponents = []
   guestsData.forEach((guest, index) => {
+    // check if this is the current user
+    const isActiveUser = userData && userData.userId == guest.userId
+
     const responses = []
     eventData.dates.forEach((date) => {
       const dateStr = date.toString()
@@ -26,18 +31,38 @@ function EventLayout ({ eventData, guestsData, userData }) {
       else responses.push(-1)
     })
 
-    if (index > 1) guestComponents.push(<hr className={styles.rowSeparator} />)
-    guestComponents.push(
-      <p className={styles.nickname}>
-        {guest.nickname}
-      </p>
-    )
-    guestComponents.push(
-      <div className={clsx(styles.answers, 'date-answers-row-scroll')} onScroll={handleScroll}>
-        {responses.map((response, index) => <DateAnswerPair alternateColor={index % 2 === 0} response={response} />)}
-      </div>
-    )
+    if (isActiveUser) {
+      if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} />)
+      guestComponents.unshift(
+        <div className={clsx(styles.userAnswers, 'date-answers-row-scroll')} onScroll={handleScroll}>
+          {responses.map((response, index) => <DateAnswerPair alternateColor={index % 2 === 0} response={response} />)}
+        </div>
+      )
+      guestComponents.unshift(
+        <div className={styles.userControlsContainer}>
+          <Input classes={styles.userNickInput} containerClasses={styles.userNickInputContainer} id='date-answers-nick' placeholder='Nickname required' value={guest.nickname} />
+          <Button
+            classes={styles.button}
+            label='Update'
+            onClick={() => alert(`submit answers not yet implemented`)}
+          />
+        </div>
+      )
+    } else {
+      if (index > 0) guestComponents.push(<hr className={styles.rowSeparator} />)
+      guestComponents.push(
+        <p className={styles.nickname}>
+          {guest.nickname}
+        </p>
+      )
+      guestComponents.push(
+        <div className={clsx(styles.answers, 'date-answers-row-scroll')} onScroll={handleScroll}>
+          {responses.map((response, index) => <DateAnswerPair alternateColor={index % 2 === 0} response={response} />)}
+        </div>
+      )
+    }
   })
+  guestComponents.unshift(<hr className={styles.rowSeparator} />)
 
   return (
     <Layout eventPage showLogo>
