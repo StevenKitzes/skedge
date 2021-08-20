@@ -7,13 +7,15 @@ import Input from '../../Input'
 import Layout from '../../Layout'
 import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
+import fetchPost from '../../../helpers/fetchPost'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
+import makeHash from '../../../helpers/makeHash'
 
 function ResponsePrompt () {
   return <p className={styles.userNickInputHint}>Your response:</p>
 }
 
-function UserControls ({ setUserNick, setUserNickTouched, userNick, userNickTouched }) {
+function UserControls ({ newUser, setUserNick, setUserNickTouched, submit, userNick, userNickTouched }) {
   return (
     <div className={styles.userControlsContainer}>
       <Input
@@ -30,8 +32,8 @@ function UserControls ({ setUserNick, setUserNickTouched, userNick, userNickTouc
       />
       <Button
         classes={styles.button}
-        label='Update'
-        onClick={() => alert(`submit answers not yet implemented`)}
+        label={newUser ? 'Share' : 'Update'}
+        onClick={submit}
       />
     </div>
   )
@@ -40,7 +42,7 @@ function UserControls ({ setUserNick, setUserNickTouched, userNick, userNickTouc
 function EventLayout ({ eventData, guestsData, userData }) {
   const [userNick, setUserNick] = useState(userData && userData.nickname || '')
   const [userNickTouched, setUserNickTouched] = useState(false)
-  const [userResponses, setUserResponses] = useState({})
+  const [userResponses, setUserResponses] = useState(userData && userData.responses || {})
 
   function handleScroll(event) {
     const header = document.getElementById('date-answers-header-scroll')
@@ -53,6 +55,39 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
   function submitUserAnswers() {
     setUserNickTouched(true)
+
+    if (isEmptyOrWhiteSpace(userNick)) return
+    
+    let hasAllDates = true
+    eventData.dates.forEach(date => {
+      if (!userResponses.hasOwnProperty(date.toString())) hasAllDates = false
+    })
+    if (!hasAllDates) {
+      alert('must answer for all dates')
+      return
+    }
+
+    const newUserHash = makeHash()
+
+    const submitBody = {
+      eventId: eventData.eventId,
+      userId: userData ? userData.userId : newUserHash,
+      nickname: userNick,
+      responses: userResponses,
+      comments: '',
+      expires: eventData.expires
+    }
+    fetchPost(submitBody, '/api/post-user', ((res) => {
+      if (res.status == 500) {
+        alert('error 500')
+        return
+      }
+      if (res.status == 200) {
+        const newUrl = `https://skedge.pro/event/${submitBody.eventId}/${submitBody.userId}`
+        alert(`success! you can now review as ${userNick} at ${newUrl}`)
+        return
+      }
+    }))
   }
 
   function getResponseList(guestResponseObject) {
@@ -75,10 +110,10 @@ function EventLayout ({ eventData, guestsData, userData }) {
     // check if this is the current user
     const isActiveUser = userData && userData.userId == guest.userId
 
-    const responses = getResponseList(guest.responses)
-
     // Render components for active user
     if (isActiveUser) {
+      const responses = getResponseList(userResponses)
+
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <div
@@ -86,12 +121,12 @@ function EventLayout ({ eventData, guestsData, userData }) {
           key={`user-answers-${index}`}
           onScroll={handleScroll}
         >
-          {responses.map((response, index) => {
-            <DateAnswerPair
+          {eventData.dates.map((date, index) => {
+            return <DateAnswerPair
               alternateColor={index % 2 === 0}
-              date={dates[index]}
+              date={date}
               key={index}
-              response={response}
+              response={responses[index]}
               setUserResponses={setUserResponses}
               userResponses={userResponses}
             />
@@ -101,8 +136,10 @@ function EventLayout ({ eventData, guestsData, userData }) {
       guestComponents.unshift(
         <UserControls
           key='user-controls'
+          newUser={!!!userData}
           setUserNick={setUserNick}
           setUserNickTouched={setUserNickTouched}
+          submit={submitUserAnswers}
           userNick={userNick}
           userNickTouched={userNickTouched}
         />
@@ -110,6 +147,8 @@ function EventLayout ({ eventData, guestsData, userData }) {
       guestComponents.unshift(<ResponsePrompt key='hint' />)
     // Render components for other guests
     } else {
+      const responses = getResponseList(guest.responses)
+
       if (index > 0) guestComponents.push(<hr className={styles.rowSeparator} key={`guest-separator-${index}`} />)
       guestComponents.push(
         <p className={styles.nickname} key={`nickname-${index}`}>
@@ -153,8 +192,10 @@ function EventLayout ({ eventData, guestsData, userData }) {
     guestComponents.unshift(
       <UserControls
         key='user-controls'
+        newUser={!!!userData}
         setUserNick={setUserNick}
         setUserNickTouched={setUserNickTouched}
+        submit={submitUserAnswers}
         userNick={userNick}
         userNickTouched={userNickTouched}
       />

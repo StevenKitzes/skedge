@@ -113,7 +113,6 @@ function Create() {
         setResStatus('200')
         return
       }
-      res.json().then(resJson => alert(JSON.stringify(resJson, null, 2)))
     }))
   }
 
