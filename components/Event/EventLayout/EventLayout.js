@@ -11,6 +11,8 @@ import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 
 function EventLayout ({ eventData, guestsData, userData }) {
   const [userNick, setUserNick] = useState(userData && userData.nickname || '')
+  const [userNickTouched, setUserNickTouched] = useState(false)
+  const [userResponses, setUserResponses] = useState({})
 
   function handleScroll(event) {
     const header = document.getElementById('date-answers-header-scroll')
@@ -21,12 +23,17 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }
   }
 
+  function submitUserAnswers() {
+    setUserNickTouched(true)
+  }
+
   const guestComponents = []
   guestsData.forEach((guest, index) => {
     // check if this is the current user
     const isActiveUser = userData && userData.userId == guest.userId
 
     const responses = []
+    const dates = [eventData.dates]
     eventData.dates.forEach((date) => {
       const dateStr = date.toString()
       if (!guest.responses.hasOwnProperty(dateStr)) responses.push(-1)
@@ -35,6 +42,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       else responses.push(-1)
     })
 
+    // Render components for active user
     if (isActiveUser) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
@@ -43,7 +51,16 @@ function EventLayout ({ eventData, guestsData, userData }) {
           key={`user-answers-${index}`}
           onScroll={handleScroll}
         >
-          {responses.map((response, index) => <DateAnswerPair alternateColor={index % 2 === 0} key={index} response={response} />)}
+          {responses.map((response, index) => {
+            <DateAnswerPair
+              alternateColor={index % 2 === 0}
+              date={dates[index]}
+              key={index}
+              response={response}
+              setUserResponses={setUserResponses}
+              userResponses={userResponses}
+            />
+          })}
         </div>
       )
       guestComponents.unshift(
@@ -55,15 +72,18 @@ function EventLayout ({ eventData, guestsData, userData }) {
             classes={styles.userNickInput}
             containerClasses={styles.userNickInputContainer}
             id='date-answers-nick'
-            invalid={isEmptyOrWhiteSpace(userNick)}
-            onChange={(event) => setUserNick(event.target.value)}
+            invalid={userNickTouched && isEmptyOrWhiteSpace(userNick)}
+            onChange={(event) => {
+              setUserNick(event.target.value)
+              setUserNickTouched(true)
+            }}
             placeholder='Nickname required'
             value={userNick}
           />
           <Button
             classes={styles.button}
             label='Update'
-            onClick={() => alert(`submit answers not yet implemented`)}
+            onClick={submitUserAnswers}
           />
         </div>
       )
@@ -72,6 +92,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
           Your response:
         </p>
       )
+    // Render components for other guests
     } else {
       if (index > 0) guestComponents.push(<hr className={styles.rowSeparator} />)
       guestComponents.push(
@@ -90,11 +111,73 @@ function EventLayout ({ eventData, guestsData, userData }) {
       )
     }
   })
+  // Render input row in case user is new
+  if (!userData) {
+    const responses = []
+    const dates = [eventData.dates]
+    eventData.dates.forEach((date) => {
+      const dateStr = date.toString()
+      if (!userResponses.hasOwnProperty(dateStr)) responses.push(-1)
+      else if (userResponses[date] === 1) responses.push(1)
+      else if (userResponses[date] === 0) responses.push(0)
+      else responses.push(-1)
+    })
+
+    guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
+    guestComponents.unshift(
+      <div
+        className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
+        key={`new-user-answers`}
+        onScroll={handleScroll}
+      >
+        {eventData.dates.map((date, index) => {
+          return <DateAnswerPair
+            alternateColor={index % 2 === 0}
+            date={date}
+            key={index}
+            response={responses[index]}
+            setUserResponses={setUserResponses}
+            userResponses={userResponses}
+          />
+        })}
+      </div>
+    )
+    guestComponents.unshift(
+      <div
+        className={styles.userControlsContainer}
+        key={`new-user-controls-container`}
+      >
+        <Input
+          classes={styles.userNickInput}
+          containerClasses={styles.userNickInputContainer}
+          id='date-answers-nick'
+          invalid={userNickTouched && isEmptyOrWhiteSpace(userNick)}
+          onChange={(event) => {
+            setUserNick(event.target.value)
+            setUserNickTouched(true)
+          }}
+          placeholder='Nickname required'
+          value={userNick}
+        />
+        <Button
+          classes={styles.button}
+          label='Update'
+          onClick={() => alert(`submit answers not yet implemented`)}
+        />
+      </div>
+    )
+    guestComponents.unshift(
+      <p className={styles.userNickInputHint} key='hint'>
+        Your response:
+      </p>
+    )
+  }
   guestComponents.unshift(<hr className={styles.rowSeparator} key="final-separator" />)
 
   return (
     <Layout eventPage showLogo>
       <div className={styles.titleContainer}>
+        <pre>{JSON.stringify(userResponses, null, 2)}</pre>
         <h1 className={styles.title}>{eventData.eventName}</h1>
         {eventData.nick &&
           <p className={styles.organizerNick}>by {eventData.nick}</p>
