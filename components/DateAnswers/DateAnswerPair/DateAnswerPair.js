@@ -47,13 +47,13 @@ function DateAnswerPair({ alternateColor, date, response, setUserResponses, user
         className={clsx(styles.icon, clickable)}
         alt='Not accepted'
         src='/images/skedge-accept-gray.svg'
-        onClick={() => update(0)}
+        onClick={() => update(1)}
       />
       <img
         className={clsx(styles.icon, clickable)}
         alt='Not declined'
         src='/images/skedge-decline-gray.svg'
-        onClick={() => update(1)}
+        onClick={() => update(0)}
       />
     </div>
   )

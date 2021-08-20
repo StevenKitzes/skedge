@@ -27,20 +27,27 @@ function EventLayout ({ eventData, guestsData, userData }) {
     setUserNickTouched(true)
   }
 
+  function getResponseList(guestResponseObject) {
+    const responses = []
+    eventData.dates.forEach(date => {
+      if (!guestResponseObject.hasOwnProperty(date.toString()))
+        responses.push(-1)
+      else if (guestResponseObject[date] === 1)
+        responses.push(1)
+      else if (guestResponseObject[date] === 0)
+        responses.push(0)
+      else
+        responses.push(-1)
+    })
+    return responses
+  }
+
   const guestComponents = []
   guestsData.forEach((guest, index) => {
     // check if this is the current user
     const isActiveUser = userData && userData.userId == guest.userId
 
-    const responses = []
-    const dates = [eventData.dates]
-    eventData.dates.forEach((date) => {
-      const dateStr = date.toString()
-      if (!guest.responses.hasOwnProperty(dateStr)) responses.push(-1)
-      else if (guest.responses[date] === 1) responses.push(1)
-      else if (guest.responses[date] === 0) responses.push(0)
-      else responses.push(-1)
-    })
+    const responses = getResponseList(guest.responses)
 
     // Render components for active user
     if (isActiveUser) {
@@ -113,15 +120,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
   })
   // Render input row in case user is new
   if (!userData) {
-    const responses = []
-    const dates = [eventData.dates]
-    eventData.dates.forEach((date) => {
-      const dateStr = date.toString()
-      if (!userResponses.hasOwnProperty(dateStr)) responses.push(-1)
-      else if (userResponses[date] === 1) responses.push(1)
-      else if (userResponses[date] === 0) responses.push(0)
-      else responses.push(-1)
-    })
+    const responses = getResponseList(userResponses)
 
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
@@ -177,7 +176,6 @@ function EventLayout ({ eventData, guestsData, userData }) {
   return (
     <Layout eventPage showLogo>
       <div className={styles.titleContainer}>
-        <pre>{JSON.stringify(userResponses, null, 2)}</pre>
         <h1 className={styles.title}>{eventData.eventName}</h1>
         {eventData.nick &&
           <p className={styles.organizerNick}>by {eventData.nick}</p>
