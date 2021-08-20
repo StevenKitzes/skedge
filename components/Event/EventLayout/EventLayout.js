@@ -9,6 +9,34 @@ import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 
+function ResponsePrompt () {
+  return <p className={styles.userNickInputHint}>Your response:</p>
+}
+
+function UserControls ({ setUserNick, setUserNickTouched, userNick, userNickTouched }) {
+  return (
+    <div className={styles.userControlsContainer}>
+      <Input
+        classes={styles.userNickInput}
+        containerClasses={styles.userNickInputContainer}
+        id='date-answers-nick'
+        invalid={userNickTouched && isEmptyOrWhiteSpace(userNick)}
+        onChange={(event) => {
+          setUserNick(event.target.value)
+          setUserNickTouched(true)
+        }}
+        placeholder='Nickname required'
+        value={userNick}
+      />
+      <Button
+        classes={styles.button}
+        label='Update'
+        onClick={() => alert(`submit answers not yet implemented`)}
+      />
+    </div>
+  )
+}
+
 function EventLayout ({ eventData, guestsData, userData }) {
   const [userNick, setUserNick] = useState(userData && userData.nickname || '')
   const [userNickTouched, setUserNickTouched] = useState(false)
@@ -71,37 +99,18 @@ function EventLayout ({ eventData, guestsData, userData }) {
         </div>
       )
       guestComponents.unshift(
-        <div
-          className={styles.userControlsContainer}
-          key={`user-controls-container-${index}`}
-        >
-          <Input
-            classes={styles.userNickInput}
-            containerClasses={styles.userNickInputContainer}
-            id='date-answers-nick'
-            invalid={userNickTouched && isEmptyOrWhiteSpace(userNick)}
-            onChange={(event) => {
-              setUserNick(event.target.value)
-              setUserNickTouched(true)
-            }}
-            placeholder='Nickname required'
-            value={userNick}
-          />
-          <Button
-            classes={styles.button}
-            label='Update'
-            onClick={submitUserAnswers}
-          />
-        </div>
+        <UserControls
+          key='user-controls'
+          setUserNick={setUserNick}
+          setUserNickTouched={setUserNickTouched}
+          userNick={userNick}
+          userNickTouched={userNickTouched}
+        />
       )
-      guestComponents.unshift(
-        <p className={styles.userNickInputHint} key='hint'>
-          Your response:
-        </p>
-      )
+      guestComponents.unshift(<ResponsePrompt key='hint' />)
     // Render components for other guests
     } else {
-      if (index > 0) guestComponents.push(<hr className={styles.rowSeparator} />)
+      if (index > 0) guestComponents.push(<hr className={styles.rowSeparator} key={`guest-separator-${index}`} />)
       guestComponents.push(
         <p className={styles.nickname} key={`nickname-${index}`}>
           {guest.nickname}
@@ -142,34 +151,15 @@ function EventLayout ({ eventData, guestsData, userData }) {
       </div>
     )
     guestComponents.unshift(
-      <div
-        className={styles.userControlsContainer}
-        key={`new-user-controls-container`}
-      >
-        <Input
-          classes={styles.userNickInput}
-          containerClasses={styles.userNickInputContainer}
-          id='date-answers-nick'
-          invalid={userNickTouched && isEmptyOrWhiteSpace(userNick)}
-          onChange={(event) => {
-            setUserNick(event.target.value)
-            setUserNickTouched(true)
-          }}
-          placeholder='Nickname required'
-          value={userNick}
-        />
-        <Button
-          classes={styles.button}
-          label='Update'
-          onClick={() => alert(`submit answers not yet implemented`)}
-        />
-      </div>
+      <UserControls
+        key='user-controls'
+        setUserNick={setUserNick}
+        setUserNickTouched={setUserNickTouched}
+        userNick={userNick}
+        userNickTouched={userNickTouched}
+      />
     )
-    guestComponents.unshift(
-      <p className={styles.userNickInputHint} key='hint'>
-        Your response:
-      </p>
-    )
+    guestComponents.unshift(<ResponsePrompt key='hint' />)
   }
   guestComponents.unshift(<hr className={styles.rowSeparator} key="final-separator" />)
 
