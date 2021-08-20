@@ -62,7 +62,7 @@ body {
 }
 
 .react-datepicker .react-datepicker__time-container {
-  width: 75px;
+  width: 70px;
 }
 
 .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
@@ -72,7 +72,7 @@ body {
   font-size: 14px;
   justify-content: center;
   padding: 2px 0;
-  width: 75px;
+  width: 70px;
 }
 .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected:hover {
   background-color: $primary;
@@ -85,7 +85,7 @@ body {
   justify-content: center;
   padding: 2px 0;
   vertical-align: middle;
-  width: 75px;
+  width: 70px;
 }
 
 .react-datepicker__week .react-datepicker__day--selected {
@@ -100,7 +100,7 @@ body {
 }
 
 .react-datepicker-popper {
-  margin-left: calc((320px - 100vw) / 2);
+  margin-left: calc((310px - 100vw) / 2);
 }
 
 @media screen and (min-width: 386px) {
