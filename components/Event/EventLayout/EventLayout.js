@@ -44,6 +44,8 @@ function EventLayout ({ eventData, guestsData, userData }) {
   const [userNickTouched, setUserNickTouched] = useState(false)
   const [userResponses, setUserResponses] = useState(userData && userData.responses || {})
 
+  const specialCenteringHack = eventData.dates.length < 5
+
   function handleScroll(event) {
     const header = document.getElementById('date-answers-header-scroll')
     const rows = document.getElementsByClassName('date-answers-row-scroll')
@@ -117,7 +119,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <div
-          className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
+          className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack && styles.justifyCenter)}
           key={`user-answers-${index}`}
           onScroll={handleScroll}
         >
@@ -173,7 +175,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <div
-        className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
+        className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack && styles.justifyCenter)}
         key={`new-user-answers`}
         onScroll={handleScroll}
       >

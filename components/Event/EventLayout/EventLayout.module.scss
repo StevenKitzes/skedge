@@ -55,6 +55,10 @@
   max-width: calc(100vw - 48px);
 }
 
+.justifyCenter {
+  justify-content: center;
+}
+
 .nickname {
   font-size: 20px;
   padding-left: 2px;
@@ -98,27 +102,27 @@
 }
 
 .userNickInputContainer {
+  margin-right: 24px;
   width: 150px;
 }
 
 .userNickInputHint {
+  color: $primary;
   font-family: handlee;
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: $heavy;
 }
 
 @media screen and (min-width: $browser) {
   .answers {
     min-height: 60px;
   }
+
+  .guestsContainer {
+    min-width: 320px;
+  }
   
   .userAnswers {
     min-height: 60px;
-  }
-
-  .userNickInputHint {
-    color: $primary;
-    font-family: handlee;
-    font-size: 24px;
-    font-weight: $heavy;
   }
 }

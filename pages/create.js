@@ -97,7 +97,7 @@ function Create() {
       dates,
       eventId: makeHash(),
       userId: makeHash(),
-      isFinalized: false,
+      finalizedDate: null,
       expires: null
     }
     setEventId(submitBody.eventId)
