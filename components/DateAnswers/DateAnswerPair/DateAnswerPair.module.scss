@@ -29,3 +29,27 @@
   margin: 2px;
   padding: 8px;
 }
+
+@media screen and (min-width: $browser) {
+  .pair {
+    background-color: $white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    max-height: 56px;
+    margin: 2px;
+    padding: 0 8px;
+  }
+  
+  .pairAlt {
+    background-color: $white-alternate;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    max-height: 56px;
+    margin: 2px;
+    padding: 0 8px;
+  }
+}

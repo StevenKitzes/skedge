@@ -53,3 +53,39 @@
   position: relative;
   min-width: 56px;
 }
+
+@media screen and (min-width: $browser) {
+  .dateString {
+    font-size: 18px;
+    font-weight: $heavy;
+    transform: rotate(-50deg);
+    min-width: 120px;
+    position: absolute;
+    bottom: 50px;
+    left: -10px;
+    text-align: left;
+  }
+  
+  .timeString {
+    font-size: 18px;
+    font-weight: $heavy;
+    transform: rotate(-50deg);
+    min-width: 120px;
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    text-align: left;
+  }
+
+  .headerItem {
+    height: 105px;
+    min-width: 104px;
+    overflow: hidden;
+  }
+  
+  .headerItemAlt {
+    height: 105px;
+    min-width: 104px;
+    overflow: hidden;
+  }
+}
