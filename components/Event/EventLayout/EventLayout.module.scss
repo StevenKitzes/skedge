@@ -115,7 +115,8 @@
 
 @media screen and (min-width: $browser) {
   .answers {
-    min-height: 60px;
+    min-height: 72px;
+    overflow-y: hidden;
   }
 
   .guestsContainer {
@@ -123,6 +124,7 @@
   }
   
   .userAnswers {
-    min-height: 60px;
+    min-height: 72px;
+    overflow-y: hidden;
   }
 }
