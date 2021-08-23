@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Button from '../../Button'
 import DateAnswersHeader from '../../DateAnswers/DateAnswersHeader'
@@ -45,6 +45,15 @@ function EventLayout ({ eventData, guestsData, userData }) {
   const [userResponses, setUserResponses] = useState(userData && userData.responses || {})
 
   const specialCenteringHack = eventData.dates.length < 5
+
+  useEffect(() => {
+    const header = document.getElementById('header-container')
+    const guests = document.getElementById('guests-container')
+    const diff = header.clientWidth - guests.clientWidth
+    if (diff > 0) {
+      header.style.marginRight = `${diff}px`
+    }
+  })
 
   function handleScroll(event) {
     const header = document.getElementById('date-answers-header-scroll')
@@ -217,7 +226,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
         <Separator />
       </div>
       <DateAnswersHeader classes={styles.headerContainer} dates={eventData.dates} handleScroll={handleScroll} />
-      <div className={styles.guestsContainer}>
+      <div className={styles.guestsContainer} id='guests-container'>
         {guestComponents}
       </div>
     </Layout>

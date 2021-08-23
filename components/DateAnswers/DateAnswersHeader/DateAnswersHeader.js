@@ -4,7 +4,7 @@ import styles from './DateAnswersHeader.module.scss'
 
 function DateAnswersHeader({ classes, dates, handleScroll }) {
   return (
-    <div className={clsx(classes, styles.headerContainer)}>
+    <div className={clsx(classes, styles.headerContainer)} id='header-container'>
       <div className={styles.header} id='date-answers-header-scroll' onScroll={handleScroll}>
         {dates.map((date, index) => {
           const dateObj = new Date(date)
