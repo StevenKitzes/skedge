@@ -4,6 +4,7 @@
   align-content: center;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   min-height: 108px;
   padding-bottom: 8px;
   overflow-x: auto;
@@ -30,11 +31,13 @@
 }
 
 .copyLinkButton {
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .dontLoseIt {
-  margin-top: 8px;
+  color: $primary;
+  font-weight: $heavy;
+  margin: 16px auto;
 }
 
 .eventPageContainer {
@@ -73,9 +76,9 @@
 }
 
 .modalMessage {
-  font-family: handlee;
   font-size: 24px;
   font-weight: $heavy;
+  max-width: 400px;
 }
 
 .nickname {

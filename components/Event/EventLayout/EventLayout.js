@@ -79,7 +79,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     })
     if (!hasAllDates) {
       setModalContent(<p className={styles.modalMessage}>
-        You must provide an answer for all possible dates in order to submit.  No maybes!
+        You must provide an answer for <span className='highlight'>all</span> possible dates in order to submit.  No maybes!
       </p>)
       setModalOpen(true)
       return
@@ -107,7 +107,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
         const newUrl = `https://skedge.pro/event/${submitBody.eventId}/${submitBody.userId}`
         setModalContent(<div>
           <p className={styles.submitSuccess}>Success!!</p>
-          <p>You can <span className='highlight'>review or change</span> your submission as <span className='textLink'>{userNick}</span> by using the following link.</p>
+          <p className={styles.modalMessage}>You can <span className='highlight'>review or change</span> your submission as <span className='textLink'>{userNick}</span> by using the following link.</p>
           <p className={styles.dontLoseIt}>(Don't lose it!)</p>
           <Input
             containerClasses={styles.copyableInput}
