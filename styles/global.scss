@@ -99,19 +99,21 @@ body {
   font-size: 18px;
 }
 
+// !important flag required because react-datepicker sucks at positioning/styling
 .react-datepicker-popper {
-  margin-left: calc((310px - 100vw) / 2);
+  bottom: 0px !important;
+  left: calc((310px - 100vw) / 2) !important;
 }
 
 @media screen and (min-width: 386px) {
   .react-datepicker-popper {
-    margin-left: -33px;
+    left: -33px !important;
   }
 }
 
 @media screen and (min-width: $browser) {
   .react-datepicker-popper {
-    margin-left: -46px;
+    left: -50px !important;
   }
 
   .react-datepicker .react-datepicker__time-container {
