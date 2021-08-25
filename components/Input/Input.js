@@ -11,6 +11,7 @@ function Input({ classes, containerClasses, errorMessage, id, invalid = false, l
               className={clsx(styles.input, classes, invalid && styles.inputError)}
               id={id}
               onChange={onChange}
+              onClick={(event) => event.stopPropagation()}
               placeholder={placeholder}
               readOnly={readOnly}
               value={value}
@@ -19,6 +20,7 @@ function Input({ classes, containerClasses, errorMessage, id, invalid = false, l
               className={clsx(styles.input, classes, invalid && styles.inputError)}
               id={id}
               onChange={onChange}
+              onClick={(event) => event.stopPropagation()}
               placeholder={placeholder}
               readOnly={readOnly}
               value={value}

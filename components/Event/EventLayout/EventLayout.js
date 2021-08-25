@@ -5,6 +5,7 @@ import DateAnswersHeader from '../../DateAnswers/DateAnswersHeader'
 import DateAnswerPair from '../../DateAnswers/DateAnswerPair'
 import Input from '../../Input'
 import Layout from '../../Layout'
+import Modal from '../../Modal'
 import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
 import fetchPost from '../../../helpers/fetchPost'
@@ -43,6 +44,9 @@ function EventLayout ({ eventData, guestsData, userData }) {
   const [userNick, setUserNick] = useState(userData && userData.nickname || '')
   const [userNickTouched, setUserNickTouched] = useState(false)
   const [userResponses, setUserResponses] = useState(userData && userData.responses || {})
+  const [modalContent, setModalContent] = useState(null)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [shareButtonCopy, setShareButtonCopy] = useState('Copy link')
 
   const specialCenteringHack = eventData.dates.length < 5
 
@@ -74,7 +78,10 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (!userResponses.hasOwnProperty(date.toString())) hasAllDates = false
     })
     if (!hasAllDates) {
-      alert('must answer for all dates')
+      setModalContent(<p className={styles.modalMessage}>
+        You must provide an answer for all possible dates in order to submit.  No maybes!
+      </p>)
+      setModalOpen(true)
       return
     }
 
@@ -90,12 +97,38 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }
     fetchPost(submitBody, '/api/post-user', ((res) => {
       if (res.status == 500) {
-        alert('error 500')
+        setModalContent(<p className={styles.modalMessage}>
+          There was an error somewhere <em>behind the curtain</em>.  Please try again . . .
+        </p>)
+        setModalOpen(true)
         return
       }
       if (res.status == 200) {
         const newUrl = `https://skedge.pro/event/${submitBody.eventId}/${submitBody.userId}`
-        alert(`success! you can now review as ${userNick} at ${newUrl}`)
+        setModalContent(<div>
+          <p className={styles.submitSuccess}>Success!!</p>
+          <p>You can <span className='highlight'>review or change</span> your submission as <span className='textLink'>{userNick}</span> by using the following link.</p>
+          <p className={styles.dontLoseIt}>(Don't lose it!)</p>
+          <Input
+            containerClasses={styles.copyableInput}
+            id='copy-button'
+            readOnly
+            value={newUrl}
+          />
+          <Button
+            alternateLabel='Copied!'
+            classes={styles.copyLinkButton}
+            label='Copy link'
+            onClick={(event) => {
+              const input = document.getElementById('copy-button')
+              input.select()
+              input.setSelectionRange(0, 1000)
+              document.execCommand('copy')
+              event.stopPropagation();
+            }}
+          />
+        </div>)
+        setModalOpen(true)
         return
       }
     }))
@@ -229,6 +262,9 @@ function EventLayout ({ eventData, guestsData, userData }) {
       <div className={styles.guestsContainer} id='guests-container'>
         {guestComponents}
       </div>
+      <Modal isOpen={modalOpen} setIsOpen={setModalOpen}>
+        {modalContent}
+      </Modal>
     </Layout>
   )
 }

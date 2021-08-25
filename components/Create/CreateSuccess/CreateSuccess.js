@@ -21,7 +21,7 @@ function CreateSuccess ({ eventId, userId, resetForm }) {
       <Input
         id='share-link'
         readOnly
-        value={`https://skedge.org/event/${eventId}`}
+        value={`https://skedge.pro/event/${eventId}`}
       />
       <Button
         classes={styles.button}
@@ -45,7 +45,7 @@ function CreateSuccess ({ eventId, userId, resetForm }) {
       <Input
         id='organizer-link'
         readOnly
-        value={`https://skedge.org/event/${eventId}/${userId}`}
+        value={`https://skedge.pro/event/${eventId}/${userId}`}
       />
       <Button
         classes={styles.button}

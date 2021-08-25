@@ -1,0 +1,49 @@
+@import '../../styles/theme.scss';
+
+.cardHide {
+  margin: -50vh auto;
+}
+.cardShow {
+  margin: 25vh auto;
+}
+
+.modal {
+  cursor: pointer;
+  display: block;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 15;
+}
+.modalHide {
+  background-color: rgba(8, 7, 8, 0);
+  pointer-events: none;
+  transition: $transition;
+}
+.modalShow {
+  background-color: rgba(8, 7, 8, 0.5);
+  pointer-events: unset;
+  transition: $transition;
+}
+
+.modalCard {
+  align-items: center;
+  background-color: $white;
+  border-radius: 16px;
+  display: flex;
+  height: 50vh;
+  justify-content: center;
+  max-width: 550px;
+  padding: 32px;
+  position: relative;
+  transition: $transition;
+  width: 80vw;
+}
+
+.modalClose {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}

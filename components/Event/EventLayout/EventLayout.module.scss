@@ -24,6 +24,19 @@
   width: 80px;
 }
 
+.copyableInput {
+  margin-top: 8px;
+  width: 95%;
+}
+
+.copyLinkButton {
+  margin-top: 8px;
+}
+
+.dontLoseIt {
+  margin-top: 8px;
+}
+
 .eventPageContainer {
   display: grid;
   grid-template-areas:
@@ -59,6 +72,12 @@
   justify-content: center;
 }
 
+.modalMessage {
+  font-family: handlee;
+  font-size: 24px;
+  font-weight: $heavy;
+}
+
 .nickname {
   font-size: 20px;
   padding-left: 2px;
@@ -76,6 +95,13 @@
   border-radius: 2px;
   margin: 8px auto;
   width: 100%;
+}
+
+.submitSuccess {
+  color: $primary;
+  font-family: handlee;
+  font-size: 36px;
+  font-weight: $heavy;
 }
 
 .title {

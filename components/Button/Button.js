@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import styles from './Button.module.scss'
 
-function Button({ classes, href = null, label, onClick = null, variant = 'solid' }) {
+function Button({ alternateLabel = null, classes, href = null, label, onClick = null, variant = 'solid' }) {
+  const [copy, setCopy] = useState(label)
+
   let buttonStyle
   switch (variant) {
     case 'dark':
@@ -21,10 +24,10 @@ function Button({ classes, href = null, label, onClick = null, variant = 'solid'
     return (
       <Link href={href}>
         <a
-          alt={label}
+          alt={copy}
           className={clsx(classes, buttonStyle)}
         >
-          {label}
+          {copy}
         </a>
       </Link>
     )
@@ -33,11 +36,17 @@ function Button({ classes, href = null, label, onClick = null, variant = 'solid'
   if (!!!href && !!onClick) {
     return (
       <a
-        alt={label}
-        className={clsx(classes, buttonStyle)}
-        onClick={onClick}
+        alt={copy}
+        className={clsx(classes, copy === label ? buttonStyle : styles.dark)}
+        onClick={(event) => {
+          if (alternateLabel) {
+            setCopy(alternateLabel)
+            setTimeout(() => setCopy(label), 750)
+          }
+          onClick(event)
+        }}
       >
-        {label}
+        {copy}
       </a>
     )
   }
