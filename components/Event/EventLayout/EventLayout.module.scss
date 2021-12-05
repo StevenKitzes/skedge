@@ -74,6 +74,16 @@
   justify-content: center;
 }
 
+.layoutContent {
+  -ms-overflow-style: none;  /* IE and Edge */
+  overflow-y: scroll;
+  padding-top: 72px;
+  scrollbar-width: none;  /* Firefox */
+}
+.layoutContent::-webkit-scrollbar {
+  display: none;
+}
+
 .modalMessage {
   font-size: 24px;
   font-weight: $heavy;

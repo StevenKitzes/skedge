@@ -250,21 +250,23 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
   return (
     <Layout eventPage showLogo>
-      <div className={styles.titleContainer}>
-        <h1 className={styles.title}>{eventData.eventName}</h1>
-        {eventData.nick &&
-          <p className={styles.organizerNick}>by {eventData.nick}</p>
-        }
-        <p className={styles.description}>{eventData.eventDesc}</p>
-        <Separator />
+      <div className={styles.layoutContent}>
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>{eventData.eventName}</h1>
+          {eventData.nick &&
+            <p className={styles.organizerNick}>by {eventData.nick}</p>
+          }
+          <p className={styles.description}>{eventData.eventDesc}</p>
+          <Separator />
+        </div>
+        <DateAnswersHeader classes={styles.headerContainer} dates={eventData.dates} handleScroll={handleScroll} />
+        <div className={styles.guestsContainer} id='guests-container'>
+          {guestComponents}
+        </div>
+        <Modal isOpen={modalOpen} setIsOpen={setModalOpen}>
+          {modalContent}
+        </Modal>
       </div>
-      <DateAnswersHeader classes={styles.headerContainer} dates={eventData.dates} handleScroll={handleScroll} />
-      <div className={styles.guestsContainer} id='guests-container'>
-        {guestComponents}
-      </div>
-      <Modal isOpen={modalOpen} setIsOpen={setModalOpen}>
-        {modalContent}
-      </Modal>
     </Layout>
   )
 }
