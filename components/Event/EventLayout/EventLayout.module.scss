@@ -43,7 +43,6 @@
   display: grid;
   grid-template-areas:
     'title'
-    'header'
     'guests';
   grid-template-rows: auto auto 1fr;
   overflow: hidden;
@@ -62,16 +61,6 @@
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0 24px;
-}
-
-.headerContainer {
-  display: flex;
-  justify-content: center;
-  max-width: calc(100vw - 48px);
-}
-
-.justifyCenter {
-  justify-content: center;
 }
 
 .layoutContent {
@@ -144,7 +133,11 @@
   width: 150px;
 }
 
-.userNickInputHint {
+.userInputExplanation {
+  margin-bottom: 8px;
+}
+
+.userInputHint {
   color: $primary;
   font-family: handlee;
   font-size: 24px;

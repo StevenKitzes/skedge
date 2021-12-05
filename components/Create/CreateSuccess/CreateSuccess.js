@@ -7,9 +7,6 @@ import Separator from '../../Separator'
 import styles from './CreateSuccess.module.scss'
 
 function CreateSuccess ({ eventId, userId, resetForm }) {
-  const [organizerButtonCopy, setOrganizerButtonCopy] = useState('Copy link')
-  const [shareButtonCopy, setShareButtonCopy] = useState('Copy link')
-
   return (
     <Layout createButtonOverride={resetForm}>
       <Hero title='Success!' />

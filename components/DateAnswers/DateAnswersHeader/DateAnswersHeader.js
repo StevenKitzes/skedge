@@ -5,7 +5,8 @@ import styles from './DateAnswersHeader.module.scss'
 function DateAnswersHeader({ classes, dates, handleScroll }) {
   return (
     <div className={clsx(classes, styles.headerContainer)} id='header-container'>
-      <div className={styles.header} id='date-answers-header-scroll' onScroll={handleScroll}>
+      Select all of the dates you can join the event!
+      {/* <div className={styles.header} id='date-answers-header-scroll' onScroll={handleScroll}>
         {dates.map((date, index) => {
           const dateObj = new Date(date)
           const month = dateObj.getMonth()
@@ -26,7 +27,7 @@ function DateAnswersHeader({ classes, dates, handleScroll }) {
             </div>
           )
         })}
-      </div>
+      </div> */}
     </div>
   )
 }

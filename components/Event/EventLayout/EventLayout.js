@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
 import Button from '../../Button'
-import DateAnswersHeader from '../../DateAnswers/DateAnswersHeader'
 import DateAnswerPair from '../../DateAnswers/DateAnswerPair'
 import Input from '../../Input'
 import Layout from '../../Layout'
@@ -13,7 +12,12 @@ import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../../../helpers/makeHash'
 
 function ResponsePrompt () {
-  return <p className={styles.userNickInputHint}>Your response:</p>
+  return (
+    <div>
+      <p className={styles.userInputHint}>Your response:</p>
+      <p className={styles.userInputExplanation}>Select all of the dates you can join the event!</p>
+    </div>
+  )
 }
 
 function UserControls ({ newUser, setUserNick, setUserNickTouched, submit, userNick, userNickTouched }) {
@@ -46,23 +50,27 @@ function EventLayout ({ eventData, guestsData, userData }) {
   const [userResponses, setUserResponses] = useState(userData && userData.responses || {})
   const [modalContent, setModalContent] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
-  const [shareButtonCopy, setShareButtonCopy] = useState('Copy link')
+
+  useLayoutEffect(() => {
+    function styleAnswers () {
+      const answers = document.getElementById('user-answers').scrollWidth
+      const container = document.getElementById('guests-container').clientWidth
+      const rows = document.querySelectorAll('.date-answers-row-scroll')
+      if (answers > container) {
+        rows.forEach(row => row.style.justifyContent = 'unset')
+      } else {
+        rows.forEach(row => row.style.justifyContent = 'center')
+      }
+    }
+    window.addEventListener('resize', styleAnswers)
+    styleAnswers()
+    return () => window.removeEventListener('resize', styleAnswers)
+  }, [])
 
   const specialCenteringHack = eventData.dates.length < 5
 
-  useEffect(() => {
-    const header = document.getElementById('header-container')
-    const guests = document.getElementById('guests-container')
-    const diff = header.clientWidth - guests.clientWidth
-    if (diff > 0) {
-      header.style.marginRight = `${diff}px`
-    }
-  })
-
   function handleScroll(event) {
-    const header = document.getElementById('date-answers-header-scroll')
     const rows = document.getElementsByClassName('date-answers-row-scroll')
-    header.scrollLeft = event.target.scrollLeft
     for(let i = 0; i < rows.length; i++) {
       rows[i].scrollLeft = event.target.scrollLeft
     }
@@ -161,7 +169,8 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <div
-          className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack && styles.justifyCenter)}
+          className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack)}
+          id='user-answers'
           key={`user-answers-${index}`}
           onScroll={handleScroll}
         >
@@ -217,7 +226,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <div
-        className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack && styles.justifyCenter)}
+        className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack)}
         key={`new-user-answers`}
         onScroll={handleScroll}
       >
@@ -246,7 +255,6 @@ function EventLayout ({ eventData, guestsData, userData }) {
     )
     guestComponents.unshift(<ResponsePrompt key='hint' />)
   }
-  guestComponents.unshift(<hr className={styles.rowSeparator} key="final-separator" />)
 
   return (
     <Layout eventPage showLogo>
@@ -259,7 +267,6 @@ function EventLayout ({ eventData, guestsData, userData }) {
           <p className={styles.description}>{eventData.eventDesc}</p>
           <Separator />
         </div>
-        <DateAnswersHeader classes={styles.headerContainer} dates={eventData.dates} handleScroll={handleScroll} />
         <div className={styles.guestsContainer} id='guests-container'>
           {guestComponents}
         </div>
