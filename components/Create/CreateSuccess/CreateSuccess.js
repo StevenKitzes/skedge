@@ -24,15 +24,14 @@ function CreateSuccess ({ eventId, userId, resetForm }) {
         value={`https://skedge.pro/event/${eventId}`}
       />
       <Button
+        alternateLabel='Copied!'
         classes={styles.button}
-        label={shareButtonCopy}
+        label='Copy link'
         onClick={() => {
           const input = document.getElementById('share-link')
           input.select()
           input.setSelectionRange(0, 1000)
           document.execCommand('copy')
-          setShareButtonCopy('Copied!')
-          setTimeout(() => setShareButtonCopy('Copy link'), 750)
         }}
         variant={shareButtonCopy == 'Copied!' ? 'dark' : 'solid'}
       />
@@ -48,15 +47,14 @@ function CreateSuccess ({ eventId, userId, resetForm }) {
         value={`https://skedge.pro/event/${eventId}/${userId}`}
       />
       <Button
+        alternateLabel='Copied!'
         classes={styles.button}
-        label={organizerButtonCopy}
+        label='Copy link'
         onClick={() => {
           const input = document.getElementById('organizer-link')
           input.select()
           input.setSelectionRange(0, 1000)
           document.execCommand('copy')
-          setOrganizerButtonCopy('Copied!')
-          setTimeout(() => setOrganizerButtonCopy('Copy link'), 750)
         }}
         variant={organizerButtonCopy == 'Copied!' ? 'dark' : 'solid'}
       />
