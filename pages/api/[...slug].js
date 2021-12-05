@@ -44,7 +44,6 @@ async function handler(req, res) {
     })
     await Promise.all([readEventPromise, queryUsersPromise, readUserPromise])
       .then((values) => {
-        console.log(`values: ${JSON.stringify(values, null, 2)}`)
         if (!values[0] || !values[1] || !values[2]) return res.status(404).end()
         res.status(200).end(JSON.stringify(values))
       })
@@ -54,7 +53,6 @@ async function handler(req, res) {
 
   await Promise.all([readEventPromise, queryUsersPromise])
   .then((values) => {
-    console.log(`values: ${JSON.stringify(values, null, 2)}`)
     if (!values[0] || !values[1]) return res.status(404).end()
     res.status(200).end(JSON.stringify(values))
   })
