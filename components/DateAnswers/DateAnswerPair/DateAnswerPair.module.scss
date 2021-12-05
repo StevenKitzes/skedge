@@ -1,57 +1,57 @@
 @import '../../../styles/theme.scss';
 
+.availabilityStyle {
+  background-color: $primary;
+  color: $white;
+}
+
 .clickable {
   cursor: pointer;
 }
 
-.icon {
-  width: 40px;
+.dateAnswer {
+  border-radius: 8px;
+  font-weight: $heavy;
+  margin: 2px;
+  padding: 12px 16px;
 }
 
-.pair {
+.unavailable {
   background-color: $white;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 92px;
-  margin: 2px;
-  padding: 8px;
 }
 
-.pairAlt {
+.unavailableAlt {
   background-color: $white-alternate;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 92px;
-  margin: 2px;
-  padding: 8px;
 }
 
-@media screen and (min-width: $browser) {
-  .pair {
-    background-color: $white;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    max-height: 56px;
-    margin: 2px;
-    min-height: 56px;
-    padding: 0 8px;
-  }
+// @media screen and (min-width: $browser) {
+//   .availabilityStyle {
+//     background-color: $primary;
+//     border-radius: 8px;
+//     color: $white;
+//     display: flex;
+//     flex-direction: row;
+//     gap: 8px;
+//     margin: 2px;
+//     padding: 0 8px;
+//   }
+//   .unavailable {
+//     background-color: $white;
+//     border-radius: 8px;
+//     display: flex;
+//     flex-direction: row;
+//     gap: 8px;
+//     margin: 2px;
+//     padding: 0 8px;
+//   }
   
-  .pairAlt {
-    background-color: $white-alternate;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    max-height: 56px;
-    margin: 2px;
-    min-height: 56px;
-    padding: 0 8px;
-  }
-}
+//   .unavailableAlt {
+//     background-color: $white-alternate;
+//     border-radius: 8px;
+//     display: flex;
+//     flex-direction: row;
+//     gap: 8px;
+//     margin: 2px;
+//     padding: 0 8px;
+//   }
+// }

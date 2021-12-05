@@ -1,9 +1,11 @@
 import clsx from 'clsx'
 import styles from './DateAnswerPair.module.scss'
+import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 
-function DateAnswerPair({ alternateColor, date, response, setUserResponses, userResponses }) {
-  const style = alternateColor ? styles.pairAlt : styles.pair
-  const clickable = !!userResponses ? styles.clickable : null;
+function DateAnswerPair({ alternateColor, date, hasTime, response, setUserResponses, userResponses }) {
+  const unavailabilityStyle = alternateColor ? styles.unavailableAlt : styles.unavailable
+  const clickable = !!userResponses ? styles.clickable : null
+  const {dateString, timeString} = dateStringsFromEpoch(date)
 
   function update(status) {
     const result = {...userResponses}
@@ -11,54 +13,14 @@ function DateAnswerPair({ alternateColor, date, response, setUserResponses, user
     setUserResponses(result)
   }
 
-  if (response === 1) return (
-    <div className={style}>
-      <img
-        className={styles.icon}
-        alt='Accepted'
-        src='/images/skedge-accept.svg'
-      />
-      <img
-        className={clsx(styles.icon, clickable)}
-        alt='Not declined'
-        src='/images/skedge-decline-gray.svg'
-        onClick={() => update(0)}
-      />
-    </div>
-  )
-  if (response === 0) return (
-    <div className={style}>
-      <img
-        className={clsx(styles.icon, clickable)}
-        alt='Not accepted'
-        src='/images/skedge-accept-gray.svg'
-        onClick={() => update(1)}
-      />
-      <img
-        className={styles.icon}
-        alt='Declined'
-        src='/images/skedge-decline.svg'
-      />
-    </div>
-  )
-  if (response === -1) return (
-    <div className={style}>
-      <img
-        className={clsx(styles.icon, clickable)}
-        alt='Not accepted'
-        src='/images/skedge-accept-gray.svg'
-        onClick={() => update(1)}
-      />
-      <img
-        className={clsx(styles.icon, clickable)}
-        alt='Not declined'
-        src='/images/skedge-decline-gray.svg'
-        onClick={() => update(0)}
-      />
-    </div>
-  )
   return (
-    <p>error: {response}</p>
+    <div
+      className={clsx(styles.dateAnswer, response ? styles.availabilityStyle : unavailabilityStyle, clickable)}
+      onClick={() => update(!response)}
+    >
+      <p className={styles.date}>{dateString}</p>
+      {hasTime && <p className={styles.time}>{timeString}</p>}
+    </div>
   )
 }
 

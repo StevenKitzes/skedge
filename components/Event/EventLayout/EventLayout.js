@@ -67,8 +67,6 @@ function EventLayout ({ eventData, guestsData, userData }) {
     return () => window.removeEventListener('resize', styleAnswers)
   }, [])
 
-  const specialCenteringHack = eventData.dates.length < 5
-
   function handleScroll(event) {
     const rows = document.getElementsByClassName('date-answers-row-scroll')
     for(let i = 0; i < rows.length; i++) {
@@ -169,7 +167,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <div
-          className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack)}
+          className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
           id='user-answers'
           key={`user-answers-${index}`}
           onScroll={handleScroll}
@@ -226,7 +224,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <div
-        className={clsx(styles.userAnswers, 'date-answers-row-scroll', specialCenteringHack)}
+        className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
         key={`new-user-answers`}
         onScroll={handleScroll}
       >
