@@ -13,45 +13,22 @@
   border-radius: 8px;
   font-weight: $heavy;
   margin: 2px;
+  max-width: 130px;
+  min-width: 130px;
+  overflow: hidden;
   padding: 12px 16px;
 }
 
 .unavailable {
   background-color: $white;
+  color: $light-gray;
 }
 
 .unavailableAlt {
   background-color: $white-alternate;
+  color: $light-gray;
 }
 
-// @media screen and (min-width: $browser) {
-//   .availabilityStyle {
-//     background-color: $primary;
-//     border-radius: 8px;
-//     color: $white;
-//     display: flex;
-//     flex-direction: row;
-//     gap: 8px;
-//     margin: 2px;
-//     padding: 0 8px;
-//   }
-//   .unavailable {
-//     background-color: $white;
-//     border-radius: 8px;
-//     display: flex;
-//     flex-direction: row;
-//     gap: 8px;
-//     margin: 2px;
-//     padding: 0 8px;
-//   }
-  
-//   .unavailableAlt {
-//     background-color: $white-alternate;
-//     border-radius: 8px;
-//     display: flex;
-//     flex-direction: row;
-//     gap: 8px;
-//     margin: 2px;
-//     padding: 0 8px;
-//   }
-// }
+.unclickable {
+  cursor: default;
+}

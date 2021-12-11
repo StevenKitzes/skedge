@@ -2,9 +2,8 @@ import clsx from 'clsx'
 import styles from './DateAnswerPair.module.scss'
 import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 
-function DateAnswerPair({ alternateColor, date, hasTime, response, setUserResponses, userResponses }) {
+function DateAnswerPair({ alternateColor, clickable, date, hasTime, response, setUserResponses, userResponses }) {
   const unavailabilityStyle = alternateColor ? styles.unavailableAlt : styles.unavailable
-  const clickable = !!userResponses ? styles.clickable : null
   const {dateString, timeString} = dateStringsFromEpoch(date)
 
   function update(status) {
@@ -15,8 +14,12 @@ function DateAnswerPair({ alternateColor, date, hasTime, response, setUserRespon
 
   return (
     <div
-      className={clsx(styles.dateAnswer, response ? styles.availabilityStyle : unavailabilityStyle, clickable)}
-      onClick={() => update(!response)}
+      className={clsx(
+        styles.dateAnswer,
+        response ? styles.availabilityStyle : unavailabilityStyle,
+        clickable ? styles.clickable : styles.unclickable
+      )}
+      onClick={() => clickable ? update(!response) : null}
     >
       <p className={styles.date}>{dateString}</p>
       {hasTime && <p className={styles.time}>{timeString}</p>}

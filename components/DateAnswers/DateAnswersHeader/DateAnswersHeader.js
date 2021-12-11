@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import months from '../../../helpers/months'
 import styles from './DateAnswersHeader.module.scss'
 
 function DateAnswersHeader({ classes, dates, handleScroll }) {

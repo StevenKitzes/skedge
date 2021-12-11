@@ -36,7 +36,7 @@ function UserControls ({ newUser, setUserNick, setUserNickTouched, submit, userN
         value={userNick}
       />
       <Button
-        classes={styles.button}
+        classes={clsx(styles.updateButton)}
         label={newUser ? 'Share' : 'Update'}
         onClick={submit}
       />
@@ -79,17 +79,9 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
     if (isEmptyOrWhiteSpace(userNick)) return
     
-    let hasAllDates = true
     eventData.dates.forEach(date => {
-      if (!userResponses.hasOwnProperty(date.toString())) hasAllDates = false
+      if (!userResponses.hasOwnProperty(date.toString())) userResponses[date] = false
     })
-    if (!hasAllDates) {
-      setModalContent(<p className={styles.modalMessage}>
-        You must provide an answer for <span className='highlight'>all</span> possible dates in order to submit.  No maybes!
-      </p>)
-      setModalOpen(true)
-      return
-    }
 
     const newUserHash = makeHash()
 
@@ -140,20 +132,18 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }))
   }
 
-  function getResponseList(guestResponseObject) {
-    const responses = []
-    eventData.dates.forEach(date => {
-      if (!guestResponseObject.hasOwnProperty(date.toString()))
-        responses.push(-1)
-      else if (guestResponseObject[date] === 1)
-        responses.push(1)
-      else if (guestResponseObject[date] === 0)
-        responses.push(0)
-      else
-        responses.push(-1)
-    })
-    return responses
-  }
+  function getDateAnswerPairs(responseObject, clickable) {
+    return eventData.dates.map((date, index) => <DateAnswerPair
+      alternateColor={index % 2 === 0}
+      clickable={clickable}
+      date={date}
+      hasTime={responseObject.hasTime}
+      key={index}
+      response={responseObject[date]}
+      setUserResponses={setUserResponses}
+      userResponses={responseObject}
+    />
+  )}
 
   const guestComponents = []
   guestsData.forEach((guest, index) => {
@@ -162,8 +152,6 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
     // Render components for active user
     if (isActiveUser) {
-      const responses = getResponseList(userResponses)
-
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <div
@@ -172,16 +160,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
           key={`user-answers-${index}`}
           onScroll={handleScroll}
         >
-          {eventData.dates.map((date, index) => {
-            return <DateAnswerPair
-              alternateColor={index % 2 === 0}
-              date={date}
-              key={index}
-              response={responses[index]}
-              setUserResponses={setUserResponses}
-              userResponses={userResponses}
-            />
-          })}
+          {getDateAnswerPairs(userResponses, true)}
         </div>
       )
       guestComponents.unshift(
@@ -198,8 +177,6 @@ function EventLayout ({ eventData, guestsData, userData }) {
       guestComponents.unshift(<ResponsePrompt key='hint' />)
     // Render components for other guests
     } else {
-      const responses = getResponseList(guest.responses)
-
       if (index > 0) guestComponents.push(<hr className={styles.rowSeparator} key={`guest-separator-${index}`} />)
       guestComponents.push(
         <p className={styles.nickname} key={`nickname-${index}`}>
@@ -212,32 +189,22 @@ function EventLayout ({ eventData, guestsData, userData }) {
           key={`answers-${index}`}
           onScroll={handleScroll}
         >
-          {responses.map((response, index) => <DateAnswerPair alternateColor={index % 2 === 0} key={index} response={response} />)}
+          {getDateAnswerPairs(guest.responses, false)}
         </div>
       )
     }
   })
   // Render input row in case user is new
   if (!userData) {
-    const responses = getResponseList(userResponses)
-
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <div
         className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
+        id={`user-answers`}
         key={`new-user-answers`}
         onScroll={handleScroll}
       >
-        {eventData.dates.map((date, index) => {
-          return <DateAnswerPair
-            alternateColor={index % 2 === 0}
-            date={date}
-            key={index}
-            response={responses[index]}
-            setUserResponses={setUserResponses}
-            userResponses={userResponses}
-          />
-        })}
+        {getDateAnswerPairs(userResponses, true)}
       </div>
     )
     guestComponents.unshift(
