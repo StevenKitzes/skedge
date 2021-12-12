@@ -30,7 +30,6 @@ function CreateSuccess ({ eventId, userId, resetForm }) {
           input.setSelectionRange(0, 1000)
           document.execCommand('copy')
         }}
-        variant={shareButtonCopy == 'Copied!' ? 'dark' : 'solid'}
       />
       <Separator />
       <h3 className={styles.editInfo}>
