@@ -43,6 +43,7 @@
 .description {
   font-size: 20px;
   margin-top: 8px;
+  padding: 0 32px;
 }
 
 .guestsContainer {
@@ -73,6 +74,7 @@
 
 .nickname {
   font-size: 20px;
+  margin-bottom: 4px;
   padding-left: 2px;
   text-align: center;
 }
@@ -81,6 +83,7 @@
   color: $gray;
   font-size: 22px;
   font-weight: $heavy;
+  padding: 0 32px;
 }
 
 .rowSeparator {
@@ -100,6 +103,7 @@
 .title {
   color: $primary;
   font-family: handlee;
+  padding: 0 32px;
 }
 
 .titleContainer {
