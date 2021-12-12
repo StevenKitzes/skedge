@@ -137,7 +137,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       alternateColor={index % 2 === 0}
       clickable={clickable}
       date={date}
-      hasTime={responseObject.hasTime}
+      hasTime={eventData.hasTime}
       key={index}
       response={responseObject[date]}
       setUserResponses={setUserResponses}

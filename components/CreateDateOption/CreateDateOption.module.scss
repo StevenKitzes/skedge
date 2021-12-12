@@ -1,6 +1,6 @@
 @import '../../styles/theme.scss';
 
-.container {
+.containerHasTime {
   align-items: center;
   background-color: $white;
   border: 4px solid $secondary;
@@ -14,9 +14,26 @@
   padding: 4px 8px;
   width: 225px;
 }
+.containerNoTime {
+  align-items: center;
+  background-color: $white;
+  border: 4px solid $secondary;
+  border-radius: 12px;
+  color: $secondary;
+  display: grid;
+  grid-template-columns: 1fr 32px;
+  font-size: 17px;
+  font-weight: $heavy;
+  height: 40px;
+  padding: 4px 8px;
+  width: 225px;
+}
 
-.date {
+.dateHasTime {
   justify-self: start;
+}
+.dateNoTime {
+  justify-self: center;
 }
 
 .delete {

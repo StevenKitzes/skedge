@@ -61,10 +61,6 @@ body {
   justify-content: space-evenly;
 }
 
-.react-datepicker .react-datepicker__time-container {
-  width: 70px;
-}
-
 .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
   align-items: center;
   background-color: $primary;
@@ -97,61 +93,4 @@ body {
 
 .react-datepicker__week .react-datepicker__day {
   font-size: 18px;
-}
-
-// !important flag required because react-datepicker sucks at positioning/styling
-.react-datepicker-popper {
-  bottom: 0px !important;
-  left: calc((310px - 100vw) / 2) !important;
-}
-
-@media screen and (min-width: 386px) {
-  .react-datepicker-popper {
-    left: -33px !important;
-  }
-}
-
-@media screen and (min-width: $browser) {
-  .react-datepicker-popper {
-    left: -50px !important;
-  }
-
-  .react-datepicker .react-datepicker__time-container {
-    width: 100px;
-  }
-  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
-    margin: 0;
-    width: 100px;
-  }
-  .react-datepicker .react-datepicker__time-list {
-    overflow-x: hidden;
-    width: 100px;
-  }
-
-  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
-    align-items: center;
-    background-color: $primary;
-    display: flex;
-    font-size: 16px;
-    justify-content: center;
-    padding: 2px 0;
-    width: 100px;
-  }
-  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected:hover {
-    background-color: $primary;
-  }
-
-  .react-datepicker .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
-    align-items: center;
-    display: flex;
-    font-size: 16px;
-    justify-content: center;
-    padding: 2px 0;
-    vertical-align: middle;
-    width: 100px;
-  }
-
-  .react-datepicker .react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button) {
-    right: 100px;
-  }
 }

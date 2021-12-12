@@ -27,6 +27,7 @@ function Create() {
   const [userId, setOrganizerId] = useState(null)
   const [submitError, setSubmitError] = useState(null)
   const [resStatus, setResStatus] = useState(null)
+  const [hasTime, setHasTime] = useState(false)
 
   function resetForm() {
     setEventName('')
@@ -95,6 +96,7 @@ function Create() {
       eventDesc,
       nick,
       dates,
+      hasTime,
       eventId: makeHash(),
       userId: makeHash(),
       finalizedDate: null,
@@ -159,7 +161,7 @@ function Create() {
   
         <Separator />
         <p className={styles.info}>
-          Add any number of times for your event.
+          Add any number of dates for your event.
         </p>
         <Button
           classes={styles.addDateButton}
@@ -177,6 +179,16 @@ function Create() {
           }}
           variant='outlined'
         />
+        <p className={styles.specifyTimes}>
+          Specify time of day?
+          <input
+            checked={hasTime}
+            className={styles.checkbox}
+            id='has-time'
+            onChange={() => setHasTime(!hasTime)}
+            type='checkbox'
+          />
+        </p>
   
         <Separator />
         <p className={styles.info}>Dates picked so far:</p>
@@ -191,6 +203,7 @@ function Create() {
               <CreateDateOption
                 dateEpoch={date}
                 deleteFn={deleteDate}
+                hasTime={hasTime}
                 key={date}
               />
             )
@@ -209,6 +222,7 @@ function Create() {
         <AddDateModal
           closeModal={() => setModalOpen(false)}
           dates={dates}
+          hasTime={hasTime}
           open={modalOpen}
           pickerDate={pickerDate}
           setDates={setDates}

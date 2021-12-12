@@ -4,6 +4,12 @@
   margin-top: 16px;
 }
 
+.checkbox {
+  height: 20px;
+  margin-left: 8px;
+  width: 20px
+}
+
 .datesContainer {
   align-items: center;
   display: flex;
@@ -22,6 +28,14 @@
 }
 
 .submitButton {
+  margin-top: 16px;
+}
+
+.specifyTimes {
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
   margin-top: 16px;
 }
 
