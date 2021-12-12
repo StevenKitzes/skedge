@@ -52,7 +52,6 @@ function CreateSuccess ({ eventId, userId, resetForm }) {
           input.setSelectionRange(0, 1000)
           document.execCommand('copy')
         }}
-        variant={organizerButtonCopy == 'Copied!' ? 'dark' : 'solid'}
       />
     </Layout>
   )
