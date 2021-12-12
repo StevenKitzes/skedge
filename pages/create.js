@@ -185,7 +185,20 @@ function Create() {
             checked={hasTime}
             className={styles.checkbox}
             id='has-time'
-            onChange={() => setHasTime(!hasTime)}
+            onChange={() => {
+              if (hasTime) {
+                // remove duplicate dates since we will be disregarding time of day
+                const newDates = []
+                dates.forEach(epoch => {
+                  const date = new Date(epoch)
+                  date.setHours(0,0,0,0)
+                  const time = date.getTime()
+                  if (!newDates.includes(time)) newDates.push(time)
+                })
+                setDates(newDates)
+              }
+              setHasTime(!hasTime)
+            }}
             type='checkbox'
           />
         </p>

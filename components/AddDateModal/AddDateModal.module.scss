@@ -24,15 +24,14 @@
 
 .modal {
   background-color: $white;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  margin-top: 70%;
+  border-radius: 8px;
+  margin-top: 200px;
   padding: 16px;
   width: 250px;
 }
 
-@media screen and (min-width: $browser) {
-  .modal {
-    margin-top: 200px;
-  }
+.timeSelect {
+  font-size: 16px;
+  margin-top: 8px;
+  width: 246px;
 }

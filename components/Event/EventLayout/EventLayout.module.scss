@@ -57,13 +57,9 @@
 }
 
 .layoutContent {
-  // -ms-overflow-style: none;  /* IE and Edge */
   overflow-y: scroll;
   padding-top: 72px;
-  // scrollbar-width: none;  /* Firefox */
-}
-.layoutContent::-webkit-scrollbar {
-  display: none;
+  width: 100vw;
 }
 
 .modalMessage {
