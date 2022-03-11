@@ -24,8 +24,8 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
           selected={pickerDate}
           shouldCloseOnSelect={false}
         />
-        {hasTime && <select className={styles.timeSelect} id='time'>
-          <option value='' disabled selected>Select a time</option>
+        {hasTime && <select className={styles.timeSelect} id='time' defaultValue=''>
+          <option value='' disabled>Select a time</option>
           <option value='0,00'>12:00 AM</option>
           <option value='0,30'>12:30 AM</option>
           <option value='1,00'>1:00 AM</option>
