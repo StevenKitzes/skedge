@@ -30,6 +30,11 @@ p, h1, h2, h3, h4, h5, h6 {
   font-family: handlee;
 }
 
+/* !important used here to override default datepicker styles */
+.react-datepicker__day--selected {
+  background-color: $primary !important;
+}
+
 body {
   margin: 0
 }
