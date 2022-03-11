@@ -12,7 +12,14 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
         <DatePicker
           dateFormat="MMMM d, yyyy"
           inline
-          onChange={(date) => setPickerDate(date.getTime())}
+          onChange={(date) => {
+            // remove time data from date if !hasTime
+            if (!hasTime) {
+              date.setHours(0,0,0,0)
+            }
+
+            setPickerDate(date.getTime())
+          }}
           popperPlacement='top-start'
           selected={pickerDate}
           shouldCloseOnSelect={false}
