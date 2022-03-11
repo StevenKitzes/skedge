@@ -25,7 +25,7 @@
 .modal {
   background-color: $white;
   border-radius: 8px;
-  margin-top: 200px;
+  margin-top: calc(50vh - 140);
   padding: 16px;
   width: 250px;
 }

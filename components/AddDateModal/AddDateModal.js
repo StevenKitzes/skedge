@@ -1,16 +1,9 @@
-import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import DatePicker from 'react-datepicker'
 import Button from '../Button'
 import styles from './AddDateModal.module.scss'
 
 function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, setPickerDate }) {
-  const [selectButtonCopy, setSelectButtonCopy] = useState('Select')
-
-  useEffect(() => {
-    document.querySelector('.react-datepicker__input-container input').disabled = 'disabled'
-  })
-
   return (
     <div
       className={clsx(styles.backing, !open && styles.hidden)}
@@ -18,12 +11,11 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
       <div id='modal' className={styles.modal}>
         <DatePicker
           dateFormat="MMMM d, yyyy"
+          inline
           onChange={(date) => setPickerDate(date.getTime())}
-          open
           popperPlacement='top-start'
           selected={pickerDate}
           shouldCloseOnSelect={false}
-          startOpen
           timeFormat="h:mm aa"
         />
         {hasTime && <select className={styles.timeSelect} id='time'>
