@@ -186,11 +186,13 @@ function Create() {
             className={styles.checkbox}
             id='has-time'
             onChange={() => {
+              // if we are *un*checking hasTime
               if (hasTime) {
                 // remove duplicate dates since we will be disregarding time of day
                 const newDates = []
                 dates.forEach(epoch => {
                   const date = new Date(epoch)
+                  // set selected dates' times to flat 0; we no longer track time; eases dupe detection too
                   date.setHours(0,0,0,0)
                   const time = date.getTime()
                   if (!newDates.includes(time)) newDates.push(time)

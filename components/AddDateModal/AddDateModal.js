@@ -16,7 +16,6 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
           popperPlacement='top-start'
           selected={pickerDate}
           shouldCloseOnSelect={false}
-          timeFormat="h:mm aa"
         />
         {hasTime && <select className={styles.timeSelect} id='time'>
           <option value='' disabled selected>Select a time</option>
@@ -93,7 +92,13 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
               if (!dates.includes(epoch)) setDates([...dates, epoch].sort())
               return closeModal()
             }
-            if (!dates.includes(pickerDate)) setDates([...dates, pickerDate].sort())
+
+            // if !hasTime, then default this epoch's time to flat 0 for purposes of dupe detection
+            const tempDate = new Date(pickerDate)
+            tempDate.setHours(0,0,0,0)
+            const tempEpoch = tempDate.getTime()
+
+            if (!dates.includes(tempEpoch)) setDates([...dates, tempEpoch].sort())
             closeModal()
           }}
         />
