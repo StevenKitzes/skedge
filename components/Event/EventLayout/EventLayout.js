@@ -155,7 +155,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <div className={styles.topLevelAnswersContainer}>
-          <div className={styles.scrollIndicators} />
+          <div className={clsx(styles.scrollIndicator, styles.scrollIndicatorRight)} />
           <div
             className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
             id='user-answers'
