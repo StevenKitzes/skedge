@@ -2,9 +2,11 @@
 
 .cardHide {
   margin: -100vh auto;
+  transition: $transition;
 }
 .cardShow {
-  margin: 25vh auto;
+  margin: 0;
+  transition: $transition;
 }
 
 .modal {
@@ -15,35 +17,54 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  z-index: 15;
 }
 .modalHide {
   background-color: rgba(8, 7, 8, 0);
   pointer-events: none;
   transition: $transition;
+  z-index: 0;
 }
 .modalShow {
   background-color: rgba(8, 7, 8, 0.5);
   pointer-events: unset;
   transition: $transition;
+  z-index: 15;
 }
 
 .modalCard {
   align-items: center;
   background-color: $white;
-  border-radius: 16px;
   display: flex;
-  height: 50vh;
+  height: 100vh;
   justify-content: center;
-  max-width: 550px;
+  left: 0;
   padding: 32px;
-  position: relative;
+  position: fixed;
+  top: 0;
   transition: $transition;
-  width: 80vw;
+  width: calc(100vw - 64px);
 }
 
 .modalClose {
   position: absolute;
   right: 16px;
   top: 16px;
+}
+
+@media screen and (min-width: $browser) {
+  .cardShow {
+    margin: 25vh auto;
+  }
+
+  .modalCard {
+    border-radius: 16px;
+    height: 50vh;
+    left: unset;
+    max-width: 550px;
+    padding: 32px;
+    position: relative;
+    top: unset;
+    transition: $transition;
+    width: 80vw;
+  }
 }
