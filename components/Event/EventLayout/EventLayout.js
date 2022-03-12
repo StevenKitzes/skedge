@@ -50,6 +50,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
   const [userResponses, setUserResponses] = useState(userData && userData.responses || {})
   const [modalContent, setModalContent] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
+  const [scroll, setScroll] = useState(null)
 
   useLayoutEffect(() => {
     function styleAnswers () {
@@ -61,16 +62,37 @@ function EventLayout ({ eventData, guestsData, userData }) {
       } else {
         rows.forEach(row => row.style.justifyContent = 'center')
       }
+      handleScroll(rows[0])
     }
     window.addEventListener('resize', styleAnswers)
     styleAnswers()
     return () => window.removeEventListener('resize', styleAnswers)
   }, [])
 
-  function handleScroll(event) {
+  function handleScrollEvent(event) {
+    handleScroll(event.target)
+  }
+
+  function handleScroll(target) {
+    const leftScrollGap = target.scrollLeft;
+    const rightScrollGap = target.scrollWidth - target.clientWidth - target.scrollLeft;
+
+    if (leftScrollGap > 0 && rightScrollGap > 0) {
+      setScroll(styles.scrollIndicatorBoth)
+    }
+    else if (leftScrollGap > 0) {
+      setScroll(styles.scrollIndicatorLeft)
+    }
+    else if (rightScrollGap > 0) {
+      setScroll(styles.scrollIndicatorRight)
+    }
+    else {
+      setScroll(null)
+    }
+
     const rows = document.getElementsByClassName('date-answers-row-scroll')
     for(let i = 0; i < rows.length; i++) {
-      rows[i].scrollLeft = event.target.scrollLeft
+      rows[i].scrollLeft = target.scrollLeft
     }
   }
 
@@ -155,12 +177,12 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <div className={styles.topLevelAnswersContainer}>
-          <div className={clsx(styles.scrollIndicator, styles.scrollIndicatorRight)} />
+          <div className={clsx(styles.scrollIndicator, scroll)} />
           <div
             className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
             id='user-answers'
             key={`user-answers-${index}`}
-            onScroll={handleScroll}
+            onScroll={handleScrollEvent}
           >
             {getDateAnswerPairs(userResponses, true)}
           </div>
@@ -187,12 +209,15 @@ function EventLayout ({ eventData, guestsData, userData }) {
         </p>
       )
       guestComponents.push(
-        <div
-          className={clsx(styles.answers, 'date-answers-row-scroll')}
-          key={`answers-${index}`}
-          onScroll={handleScroll}
-        >
-          {getDateAnswerPairs(guest.responses, false)}
+        <div className={styles.topLevelAnswersContainer}>
+          <div className={clsx(styles.scrollIndicator, scroll)} />
+          <div
+            className={clsx(styles.answers, 'date-answers-row-scroll')}
+            key={`answers-${index}`}
+            onScroll={handleScrollEvent}
+          >
+            {getDateAnswerPairs(guest.responses, false)}
+          </div>
         </div>
       )
     }
@@ -201,13 +226,16 @@ function EventLayout ({ eventData, guestsData, userData }) {
   if (!userData) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
-      <div
-        className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
-        id={`user-answers`}
-        key={`new-user-answers`}
-        onScroll={handleScroll}
-      >
-        {getDateAnswerPairs(userResponses, true)}
+      <div className={styles.topLevelAnswersContainer}>
+        <div className={clsx(styles.scrollIndicator, scroll)} />
+        <div
+          className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
+          id={`user-answers`}
+          key={`new-user-answers`}
+          onScroll={handleScrollEvent}
+        >
+          {getDateAnswerPairs(userResponses, true)}
+        </div>
       </div>
     )
     guestComponents.unshift(
