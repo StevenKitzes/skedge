@@ -127,10 +127,13 @@
 
 .userControlsContainer {
   align-content: center;
+  align-self: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  max-width: 100%;
   padding: 4px 0;
+  width: 330px;
 }
 
 .userNickInput {
