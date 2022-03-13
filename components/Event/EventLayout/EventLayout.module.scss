@@ -88,7 +88,8 @@
   border: 1px solid $gray;
   border-radius: 2px;
   margin: 8px auto;
-  width: 100%;
+  max-width: 600px;
+  width: 80%;
 }
 
 .scrollIndicator {
