@@ -7,6 +7,7 @@ import Layout from '../../Layout'
 import Modal from '../../Modal'
 import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
+import ResponseRow from '../ResponseRow'
 import fetchPost from '../../../helpers/fetchPost'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../../../helpers/makeHash'
@@ -181,17 +182,15 @@ function EventLayout ({ eventData, guestsData, userData }) {
     if (isActiveUser) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
-        <div className={styles.topLevelAnswersContainer} key={`user-answers-${index}`}>
-          <div className={clsx(styles.scrollIndicator, scrollLeft)} />
-          <div className={clsx(styles.scrollIndicator, scrollRight)} />
-          <div
-            className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
-            id='user-answers'
-            onScroll={handleScrollEvent}
-          >
-            {getDateAnswerPairs(userResponses, true)}
-          </div>
-        </div>
+        <ResponseRow
+          dateAnswerPairs={getDateAnswerPairs(userResponses, true)}
+          idString='user-answers'
+          key={`user-answers-${index}`}
+          rowStyle={styles.userAnswers}
+          scrollHandler={handleScrollEvent}
+          scrollLeft={scrollLeft}
+          scrollRight={scrollRight}
+        />
       )
       guestComponents.unshift(
         <UserControls
@@ -214,16 +213,14 @@ function EventLayout ({ eventData, guestsData, userData }) {
         </p>
       )
       guestComponents.push(
-        <div className={styles.topLevelAnswersContainer} key={`answers-${index}`}>
-          <div className={clsx(styles.scrollIndicator, scrollLeft)} />
-          <div className={clsx(styles.scrollIndicator, scrollRight)} />
-          <div
-            className={clsx(styles.answers, 'date-answers-row-scroll')}
-            onScroll={handleScrollEvent}
-          >
-            {getDateAnswerPairs(guest.responses, false)}
-          </div>
-        </div>
+        <ResponseRow
+          dateAnswerPairs={getDateAnswerPairs(guest.responses, false)}
+          key={`answers-${index}`}
+          rowStyle={styles.answers}
+          scrollHandler={handleScrollEvent}
+          scrollLeft={scrollLeft}
+          scrollRight={scrollRight}
+        />
       )
     }
   })
@@ -231,17 +228,15 @@ function EventLayout ({ eventData, guestsData, userData }) {
   if (!userData) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
-      <div className={styles.topLevelAnswersContainer} key={`new-user-answers`}>
-          <div className={clsx(styles.scrollIndicator, scrollLeft)} />
-          <div className={clsx(styles.scrollIndicator, scrollRight)} />
-        <div
-          className={clsx(styles.userAnswers, 'date-answers-row-scroll')}
-          id={`user-answers`}
-          onScroll={handleScrollEvent}
-        >
-          {getDateAnswerPairs(userResponses, true)}
-        </div>
-      </div>
+      <ResponseRow
+        dateAnswerPairs={getDateAnswerPairs(userResponses, true)}
+        idString='user-answers'
+        key={`new-user-answers`}
+        rowStyle={styles.userAnswers}
+        scrollHandler={handleScrollEvent}
+        scrollLeft={scrollLeft}
+        scrollRight={scrollRight}
+      />
     )
     guestComponents.unshift(
       <UserControls
