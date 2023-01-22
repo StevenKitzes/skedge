@@ -3,7 +3,6 @@ import AddDateModal from '../components/AddDateModal'
 import Button from '../components/Button'
 import CreateFail from '../components/Create/CreateFail'
 import CreatePending from '../components/Create/CreatePending'
-import CreateSuccess from '../components/Create/CreateSuccess'
 import CreateDateOption from '../components/CreateDateOption'
 import Hero from '../components/Hero'
 import Input from '../components/Input'
@@ -120,8 +119,10 @@ function Create() {
 
   if (resStatus == 'pending')
     return <CreatePending />
-  if (resStatus == '200')
-    return <CreateSuccess eventId={eventId} userId={userId} resetForm={resetForm} />
+  if (resStatus == '200') {
+    window.location.href = `https://skedge.pro/event/${eventId}/${userId}?status=new`
+    return
+  }
   if (resStatus == '500') {
     return <CreateFail setResStatus={setResStatus} />
   }

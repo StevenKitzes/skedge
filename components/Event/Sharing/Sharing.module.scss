@@ -1,0 +1,39 @@
+@import '../../../styles/theme.scss';
+
+.container {
+  background-color: ivory;
+  border: 5px solid $primary;
+  border-radius: 12px;
+  margin: 8px auto 0px;
+  max-width: 400px;
+  padding: 12px;
+  text-align: center;
+}
+
+.editInfo {
+  font-weight: 100;
+  margin: 0 auto;
+  max-width: 380px;
+  width: 100%;
+}
+
+.eventLive {
+  color: $primary;
+  font-family: handlee;
+  margin-bottom: 8px;
+  padding: 0 32px;
+}
+
+.shareInfo {
+  font-weight: 100;
+  margin: 0 auto;
+  max-width: 380px;
+  width: 100%;
+}
+
+.shareInput {
+  text-align: center;
+}
+
+@media screen and (min-width: $browser) {
+}

@@ -5,6 +5,7 @@ import DateAnswerPair from '../../DateAnswers/DateAnswerPair'
 import Input from '../../Input'
 import Layout from '../../Layout'
 import Modal from '../../Modal'
+import Sharing from '../Sharing'
 import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
 import ResponseRow from '../ResponseRow'
@@ -261,6 +262,10 @@ function EventLayout ({ eventData, guestsData, userData }) {
             <p className={styles.organizerNick}>by {eventData.nick}</p>
           }
           <p className={styles.description}>{eventData.eventDesc}</p>
+          <Sharing
+            eventId={eventData?.eventId}
+            userId={userData?.userId}
+          />
           <Separator />
         </div>
         <div className={styles.guestsContainer} id='guests-container'>
