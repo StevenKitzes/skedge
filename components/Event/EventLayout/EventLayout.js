@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
 import Button from '../../Button'
-import DateAnswerPair from '../../DateAnswers/DateAnswerPair'
+import DateAnswer from '../../DateAnswers/DateAnswer'
 import Input from '../../Input'
 import Layout from '../../Layout'
 import Modal from '../../Modal'
@@ -54,6 +54,8 @@ function EventLayout ({ eventData, guestsData, userData }) {
   const [modalOpen, setModalOpen] = useState(false)
   const [scrollLeft, setScrollLeft] = useState(null)
   const [scrollRight, setScrollRight] = useState(null)
+
+  const isOrganizer = eventData.userId === userData?.userId
 
   useLayoutEffect(() => {
     function styleAnswers () {
@@ -161,12 +163,13 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }))
   }
 
-  function getDateAnswerPairs(responseObject, clickable) {
-    return eventData.dates.map((date, index) => <DateAnswerPair
+  function getDateAnswers(responseObject, clickable, isOrganizer) {
+    return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
       clickable={clickable}
       date={date}
       hasTime={eventData.hasTime}
+      isOrganizer={isOrganizer}
       key={index}
       response={responseObject[date]}
       setUserResponses={setUserResponses}
@@ -184,7 +187,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <ResponseRow
-          dateAnswerPairs={getDateAnswerPairs(userResponses, true)}
+          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer)}
           idString='user-answers'
           key={`user-answers-${index}`}
           rowStyle={styles.userAnswers}
@@ -215,7 +218,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       )
       guestComponents.push(
         <ResponseRow
-          dateAnswerPairs={getDateAnswerPairs(guest.responses, false)}
+          dateAnswerPairs={getDateAnswers(guest.responses, false, isOrganizer)}
           key={`answers-${index}`}
           rowStyle={styles.answers}
           scrollHandler={handleScrollEvent}
@@ -230,7 +233,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <ResponseRow
-        dateAnswerPairs={getDateAnswerPairs(userResponses, true)}
+        dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer)}
         idString='user-answers'
         key={`new-user-answers`}
         rowStyle={styles.userAnswers}
@@ -258,12 +261,14 @@ function EventLayout ({ eventData, guestsData, userData }) {
       <div className={styles.layoutContent}>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>{eventData.eventName}</h1>
-          {eventData.nick &&
-            <p className={styles.organizerNick}>by {eventData.nick}</p>
+          {isOrganizer && <p className={styles.organizerTitle}>This is your event.</p>}
+          {!isOrganizer && eventData.nick &&
+            <p className={styles.organizerTitle}>by {eventData.nick}</p>
           }
           <p className={styles.description}>{eventData.eventDesc}</p>
           <Sharing
             eventId={eventData?.eventId}
+            isOrganizer={isOrganizer}
             userId={userData?.userId}
           />
           <Separator />

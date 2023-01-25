@@ -3,14 +3,14 @@ import { Input } from '../../Input'
 import { Separator } from '../../Separator'
 import styles from './Sharing.module.scss'
 
-function Sharing({ eventId, userId }) {
+function Sharing({ eventId, isOrganizer, userId }) {
   const query = new URLSearchParams(window.location.search)
   const status = query.get('status')
 
   return <div className={styles.container}>
-    {status === 'new' && <h2 className={styles.eventLive}>This event is live!</h2>}
+    {status === 'new' && isOrganizer && <h2 className={styles.eventLive}>Your event is live!</h2>}
     <h3 className={styles.shareInfo}>
-      <span className='highlight'>Share</span> this link with other guests!
+      <span className='highlight'>Share</span> this link with {isOrganizer ? 'your' : 'other'} guests!
     </h3>
     <Input
       classes={styles.shareInput}
@@ -38,7 +38,7 @@ function Sharing({ eventId, userId }) {
         <Separator />
         <h3 className={styles.editInfo}>
           <div>
-            <span className='highlight'>Save</span> this link and keep it <span className='highlight'>private</span>, it's for you to edit your responses!
+            <span className='highlight'>Save</span> this link and keep it <span className='highlight'>private</span>, it's for you to edit your responses{ isOrganizer ? ' and finalize your event' : ''}!
           </div>
         </h3>
         <Input

@@ -19,6 +19,16 @@
   padding: 12px 16px;
 }
 
+.finalizeButton {
+  background-color: $white-alternate;
+  border: 3px solid $primary;
+  border-radius: 8px;
+  color: $primary;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px;
+}
+
 .unavailable {
   background-color: $white;
   color: $light-gray;
