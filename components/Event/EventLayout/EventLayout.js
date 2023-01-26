@@ -152,7 +152,11 @@ function EventLayout ({ eventData, guestsData, userData }) {
               const input = document.getElementById('copy-button')
               input.select()
               input.setSelectionRange(0, 1000)
-              document.execCommand('copy')
+              if (!navigator.clipboard) {
+                document.execCommand('copy')
+              } else {
+                navigator.clipboard.writeText(input.value)
+              }
               event.stopPropagation();
             }}
           />
@@ -163,10 +167,11 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }))
   }
 
-  function getDateAnswers(responseObject, clickable, isOrganizer) {
+  function getDateAnswers(responseObject, clickable, isOrganizer, confirmFinalization) {
     return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
       clickable={clickable}
+      confirmFinalization={confirmFinalization}
       date={date}
       hasTime={eventData.hasTime}
       isOrganizer={isOrganizer}
@@ -177,6 +182,24 @@ function EventLayout ({ eventData, guestsData, userData }) {
     />
   )}
 
+  function confirmFinalization(date) {
+    setModalContent(<div>
+      <p className={styles.submitSuccess}>Confirm</p>
+      <p className={styles.modalMessage}>Are you sure you want to finalize the date for your event as <span className='highlight'>{date}</span>?</p>
+      <Button
+        alternateLabel='Confirmed'
+        classes={styles.copyLinkButton}
+        label='Confirm?'
+        onClick={(event) => {
+          // do stuff
+          alert('confirmed')
+          event.stopPropagation();
+        }}
+      />
+    </div>)
+    setModalOpen(true)
+  }
+  
   const guestComponents = []
   guestsData.forEach((guest, index) => {
     // check if this is the current user
@@ -187,7 +210,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer)}
+          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization)}
           idString='user-answers'
           key={`user-answers-${index}`}
           rowStyle={styles.userAnswers}
