@@ -21,11 +21,12 @@
 
 .finalizeButton {
   background-color: $white-alternate;
-  border: 3px solid $primary;
   border-radius: 8px;
+  box-shadow: 0 0 0 2px $primary inset;
   color: $primary;
   font-size: 13px;
   font-weight: 600;
+  margin: 4px 2px 0 2px;
   padding: 4px;
 }
 

@@ -27,8 +27,8 @@ function DateAnswer({ alternateColor, clickable, confirmFinalization, date, hasT
       </div>
       {isOrganizer &&
         <p
-          className={styles.finalizeButton}
-          onClick={() => confirmFinalization()}
+          className={clsx(styles.finalizeButton, styles.clickable)}
+          onClick={() => confirmFinalization(date)}
         >
           Click here to finalize
         </p>

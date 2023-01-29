@@ -10,6 +10,7 @@ import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
 import ResponseRow from '../ResponseRow'
 import fetchPost from '../../../helpers/fetchPost'
+import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../../../helpers/makeHash'
 
@@ -183,9 +184,12 @@ function EventLayout ({ eventData, guestsData, userData }) {
   )}
 
   function confirmFinalization(date) {
+    const {dateString, timeString} = dateStringsFromEpoch(date)
+    const eventTimeString = eventData.hasTime ? `${dateString} at ${timeString}` : dateString
     setModalContent(<div>
       <p className={styles.submitSuccess}>Confirm</p>
-      <p className={styles.modalMessage}>Are you sure you want to finalize the date for your event as <span className='highlight'>{date}</span>?</p>
+      <p className={styles.modalMessage}>Are you sure you want to finalize the date for your event as</p>
+      <p className={clsx(styles.modalMessage, 'highlight')}>{eventTimeString}?</p>
       <Button
         alternateLabel='Confirmed'
         classes={styles.copyLinkButton}
@@ -193,6 +197,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
         onClick={(event) => {
           // do stuff
           alert('confirmed')
+          setModalOpen(false)
           event.stopPropagation();
         }}
       />
