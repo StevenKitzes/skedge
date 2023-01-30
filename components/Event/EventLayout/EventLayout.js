@@ -57,6 +57,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
   const [scrollRight, setScrollRight] = useState(null)
 
   const isOrganizer = eventData.userId === userData?.userId
+  const isFinalized = !!eventData.finalizedDate
 
   useLayoutEffect(() => {
     function styleAnswers () {
@@ -168,13 +169,14 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }))
   }
 
-  function getDateAnswers(responseObject, clickable, isOrganizer, confirmFinalization) {
+  function getDateAnswers(responseObject, clickable, isOrganizer, confirmFinalization, isFinalized) {
     return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
       clickable={clickable}
       confirmFinalization={confirmFinalization}
       date={date}
       hasTime={eventData.hasTime}
+      isFinalized={isFinalized}
       isOrganizer={isOrganizer}
       key={index}
       response={responseObject[date]}
@@ -195,8 +197,20 @@ function EventLayout ({ eventData, guestsData, userData }) {
         classes={styles.copyLinkButton}
         label='Confirm?'
         onClick={(event) => {
-          // do stuff
-          alert('confirmed')
+          const finalizedData = {
+            finalizedDate: date
+          }
+          fetchPost(finalizedData, '/api/update-event', ((res) => {
+            if (res.status == 500) {
+              setModalContent(<p className={styles.modalMessage}>
+                There was an error finalizing the event.  Please try again . . .
+              </p>)
+              setModalOpen(true)
+            }
+            if (res.status == 200) {
+              window.location.reload()
+            }
+          }))
           setModalOpen(false)
           event.stopPropagation();
         }}
@@ -215,7 +229,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization)}
+          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, isFinalized)}
           idString='user-answers'
           key={`user-answers-${index}`}
           rowStyle={styles.userAnswers}
@@ -288,7 +302,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     <Layout eventPage showLogo>
       <div className={styles.layoutContent}>
         <div className={styles.titleContainer}>
-          <h1 className={styles.title}>{eventData.eventName}</h1>
+          <h1 className={styles.title}>{eventData.eventName}{isFinalized && ` (Finalized)`}</h1>
           {isOrganizer && <p className={styles.organizerTitle}>This is your event.</p>}
           {!isOrganizer && eventData.nick &&
             <p className={styles.organizerTitle}>by {eventData.nick}</p>

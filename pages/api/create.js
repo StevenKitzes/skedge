@@ -4,6 +4,7 @@ async function handler(req, res) {
   const eventData = req.body
   const expireDate = new Date()
   expireDate.setMonth(expireDate.getMonth() + 1)
+  // trim milliseconds to satisfy AWS requirements
   const expires = Math.floor(expireDate.getTime() / 1000)
   const userData = {
     eventId: eventData.eventId,
@@ -14,7 +15,7 @@ async function handler(req, res) {
     expires
   }
 
-  // Create expiry for this event and trim milliseconds to satisfy AWS requirements
+  // Create expiry for this event
   eventData.expires = expires
 
   const writeEventPromise = new Promise((resolve, reject) => {

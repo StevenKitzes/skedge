@@ -2,7 +2,18 @@ import clsx from 'clsx'
 import styles from './DateAnswer.module.scss'
 import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 
-function DateAnswer({ alternateColor, clickable, confirmFinalization, date, hasTime, isOrganizer, response, setUserResponses, userResponses }) {
+function DateAnswer({
+  alternateColor,
+  clickable,
+  confirmFinalization,
+  date,
+  hasTime,
+  isFinalized,
+  isOrganizer,
+  response,
+  setUserResponses,
+  userResponses
+}) {
   const unavailabilityStyle = alternateColor ? styles.unavailableAlt : styles.unavailable
   const {dateString, timeString} = dateStringsFromEpoch(date)
 
@@ -18,14 +29,14 @@ function DateAnswer({ alternateColor, clickable, confirmFinalization, date, hasT
         className={clsx(
           styles.dateAnswer,
           response ? styles.availabilityStyle : unavailabilityStyle,
-          clickable ? styles.clickable : styles.unclickable
-          )}
-          onClick={() => clickable ? update(!response) : null}
-          >
+          clickable && !isFinalized ? styles.clickable : styles.unclickable
+        )}
+        onClick={() => clickable && !isFinalized ? update(!response) : null}
+      >
         <p className={styles.date}>{dateString}</p>
         {hasTime && <p className={styles.time}>{timeString}</p>}
       </div>
-      {isOrganizer &&
+      {isOrganizer && !isFinalized &&
         <p
           className={clsx(styles.finalizeButton, styles.clickable)}
           onClick={() => confirmFinalization(date)}

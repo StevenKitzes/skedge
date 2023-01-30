@@ -57,13 +57,15 @@ async function readUser (eventId, userId, callback) {
   )
 }
 
+// uses <client>.update which creates or updates existing, depending on context
 // callback should be of the form (err) => { ... }
 async function writeEvent (data, callback) {
-  eventsClient.put(
+  eventsClient.update(
     dynamoPutParams(process.env.SKEDGE_AWS_EVENTS_TABLE, data),
     callback
   )
 }
+// uses <client>.put which always overwrites an entire document
 async function writeUser (data, callback) {
   usersClient.put(
     dynamoPutParams(process.env.SKEDGE_AWS_USERS_TABLE, data),
