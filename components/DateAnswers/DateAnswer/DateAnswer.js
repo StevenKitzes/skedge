@@ -7,6 +7,7 @@ function DateAnswer({
   clickable,
   confirmFinalization,
   date,
+  finalizedDate,
   finalizable,
   hasTime,
   isFinalized,
@@ -24,12 +25,18 @@ function DateAnswer({
     setUserResponses(result)
   }
 
+  const colorStyle = isFinalized ? 
+    finalizedDate === date ?
+      styles.finalizedSelected :
+      styles.finalizedUnselected :
+    response ? styles.availabilityStyle : unavailabilityStyle
+
   return (
     <div>
       <div
         className={clsx(
           styles.dateAnswer,
-          response ? styles.availabilityStyle : unavailabilityStyle,
+          colorStyle,
           clickable && !isFinalized ? styles.clickable : styles.unclickable
         )}
         onClick={() => clickable && !isFinalized ? update(!response) : null}

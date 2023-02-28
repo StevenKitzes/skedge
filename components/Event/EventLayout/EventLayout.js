@@ -23,7 +23,14 @@ function ResponsePrompt () {
   )
 }
 
-function UserControls ({ newUser, setUserNick, setUserNickTouched, submit, userNick, userNickTouched }) {
+function UserControls ({ isFinalized, newUser, setUserNick, setUserNickTouched, submit, userNick, userNickTouched }) {
+  if (isFinalized) {
+    return (
+      <p className={styles.nickname} key={`nickname-user`}>
+        {userNick}
+      </p>
+    )
+  }
   return (
     <div className={styles.userControlsContainer}>
       <Input
@@ -58,6 +65,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
   const isOrganizer = eventData.userId === userData?.userId
   const isFinalized = !!eventData.finalizedDate
+  const finalizedDate = eventData.finalizedDate
 
   useLayoutEffect(() => {
     function styleAnswers () {
@@ -174,7 +182,6 @@ function EventLayout ({ eventData, guestsData, userData }) {
     clickable,
     isOrganizer,
     confirmFinalization,
-    isFinalized,
     finalizable,
   ) {
     return eventData.dates.map((date, index) => <DateAnswer
@@ -182,6 +189,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       clickable={clickable}
       confirmFinalization={confirmFinalization}
       date={date}
+      finalizedDate={finalizedDate}
       finalizable={finalizable}
       hasTime={eventData.hasTime}
       isFinalized={isFinalized}
@@ -242,7 +250,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, isFinalized, true)}
+          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, true)}
           idString='user-answers'
           key={`user-answers-${index}`}
           rowStyle={styles.userAnswers}
@@ -253,6 +261,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       )
       guestComponents.unshift(
         <UserControls
+          isFinalized={isFinalized}
           key='user-controls'
           newUser={!!!userData}
           setUserNick={setUserNick}
@@ -273,7 +282,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       )
       guestComponents.push(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(guest.responses, false, isOrganizer)}
+          dateAnswerPairs={getDateAnswers(guest.responses, false, isOrganizer, confirmFinalization, false)}
           key={`answers-${index}`}
           rowStyle={styles.answers}
           scrollHandler={handleScrollEvent}
@@ -288,7 +297,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <ResponseRow
-        dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer)}
+        dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, false, finalizedDate)}
         idString='user-answers'
         key={`new-user-answers`}
         rowStyle={styles.userAnswers}
@@ -299,6 +308,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     )
     guestComponents.unshift(
       <UserControls
+        isFinalized={isFinalized}
         key='user-controls'
         newUser={!!!userData}
         setUserNick={setUserNick}
@@ -315,7 +325,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     <Layout eventPage showLogo>
       <div className={styles.layoutContent}>
         <div className={styles.titleContainer}>
-          <h1 className={styles.title}>{eventData.eventName}{isFinalized && ` (Finalized)`}</h1>
+          <h1 className={styles.title}>{eventData.eventName}{isFinalized && ` (Date Set)`}</h1>
           {isOrganizer && <p className={styles.organizerTitle}>This is your event.</p>}
           {!isOrganizer && eventData.nick &&
             <p className={styles.organizerTitle}>by {eventData.nick}</p>
