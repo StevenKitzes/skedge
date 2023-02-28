@@ -1,20 +1,25 @@
 import db from '../../helpers/db'
 
 async function handler(req, res) {
-  const eventData = req.body
+  const eventData = {}
+  // ensure only expected params are used
+  eventData.eventId = req.body.eventId
+  eventData.dates = req.body.dates
+  eventData.eventDesc = req.body.eventDesc
+  eventData.eventName = req.body.eventName
+  eventData.expires = req.body.expires
+  eventData.finalizedDate = req.body.finalizedDate
+  eventData.hasTime = req.body.hasTime
+  eventData.nick = req.body.nick
+  eventData.userId = req.body.userId
 
-  const writeEventPromise = new Promise((resolve, reject) => {
-    db.writeEvent(eventData, (err) => {
-      if (err) {
-        reject(`Failed to write event to DB: ${err}`)
-      }
-      resolve()
-    })
+  await db.writeEvent(eventData.eventId, eventData, (err) => {
+    if (err) {
+      res.status(500).end(JSON.stringify(err))
+    } else {
+      res.status(200).end()
+    }
   })
-
-  writeEventPromise
-    .then(() => res.status(200).end())
-    .catch((err) => res.status(500).end(JSON.stringify(err)))
 }
 
 export default handler

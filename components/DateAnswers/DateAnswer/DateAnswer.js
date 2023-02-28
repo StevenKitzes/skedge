@@ -7,6 +7,7 @@ function DateAnswer({
   clickable,
   confirmFinalization,
   date,
+  finalizable,
   hasTime,
   isFinalized,
   isOrganizer,
@@ -36,12 +37,12 @@ function DateAnswer({
         <p className={styles.date}>{dateString}</p>
         {hasTime && <p className={styles.time}>{timeString}</p>}
       </div>
-      {isOrganizer && !isFinalized &&
+      {isOrganizer && !isFinalized && finalizable &&
         <p
           className={clsx(styles.finalizeButton, styles.clickable)}
           onClick={() => confirmFinalization(date)}
         >
-          Click here to finalize
+          Select as final
         </p>
       }
     </div>

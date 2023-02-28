@@ -42,6 +42,25 @@ function dynamoQueryParams (eventId) {
     }
   }
 }
+function dynamoUpdateEventParams (table, key, data) {
+  return {
+    TableName: table,
+    Key: {
+      eventId: key,
+    },
+    ExpressionAttributeValues: {
+      ':dt': data.dates,
+      ':ed': data.eventDesc,
+      ':en': data.eventName,
+      ':ex': data.expires,
+      ':fd': data.finalizedDate,
+      ':ht': data.hasTime,
+      ':nk': data.nick,
+      ':us': data.userId,
+    },
+    UpdateExpression: "set dates = :dt, eventDesc = :ed, eventName = :en, expires = :ex, finalizedDate = :fd, hasTime = :ht, nick = :nk, userId = :us",
+  }
+}
 
 // callback should be of the form (err, data) => { ... }
 async function readEvent (eventId, callback) {
@@ -59,9 +78,9 @@ async function readUser (eventId, userId, callback) {
 
 // uses <client>.update which creates or updates existing, depending on context
 // callback should be of the form (err) => { ... }
-async function writeEvent (data, callback) {
+async function writeEvent (eventId, data, callback) {
   eventsClient.update(
-    dynamoPutParams(process.env.SKEDGE_AWS_EVENTS_TABLE, data),
+    dynamoUpdateEventParams(process.env.SKEDGE_AWS_EVENTS_TABLE, eventId, data),
     callback
   )
 }

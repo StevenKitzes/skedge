@@ -1,4 +1,4 @@
-import Lottie from 'react-lottie'
+import Lottie from 'lottie-react'
 import Hero from '../../Hero'
 import Layout from '../../Layout'
 import Separator from '../../Separator'

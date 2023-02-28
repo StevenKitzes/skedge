@@ -169,12 +169,20 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }))
   }
 
-  function getDateAnswers(responseObject, clickable, isOrganizer, confirmFinalization, isFinalized) {
+  function getDateAnswers(
+    responseObject,
+    clickable,
+    isOrganizer,
+    confirmFinalization,
+    isFinalized,
+    finalizable,
+  ) {
     return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
       clickable={clickable}
       confirmFinalization={confirmFinalization}
       date={date}
+      finalizable={finalizable}
       hasTime={eventData.hasTime}
       isFinalized={isFinalized}
       isOrganizer={isOrganizer}
@@ -197,18 +205,23 @@ function EventLayout ({ eventData, guestsData, userData }) {
         classes={styles.copyLinkButton}
         label='Confirm?'
         onClick={(event) => {
-          const finalizedData = {
-            finalizedDate: date
+          const updatedEventData = {
+            ...eventData,
+            finalizedDate: date,
           }
-          fetchPost(finalizedData, '/api/update-event', ((res) => {
+          fetchPost(updatedEventData, '/api/update-event', ((res) => {
             if (res.status == 500) {
               setModalContent(<p className={styles.modalMessage}>
                 There was an error finalizing the event.  Please try again . . .
               </p>)
               setModalOpen(true)
-            }
-            if (res.status == 200) {
+            } else if (res.status == 200) {
               window.location.reload()
+            } else {
+              setModalContent(<p className={styles.modalMessage}>
+                An unknown error occurred finalizing the event.  Please try again . . .
+              </p>)
+              setModalOpen(true)
             }
           }))
           setModalOpen(false)
@@ -229,7 +242,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, isFinalized)}
+          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, isFinalized, true)}
           idString='user-answers'
           key={`user-answers-${index}`}
           rowStyle={styles.userAnswers}

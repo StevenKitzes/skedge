@@ -2,6 +2,7 @@ import db from '../../helpers/db'
 
 async function handler(req, res) {
   const eventData = req.body
+  console.log(`create handler eventData: ${JSON.stringify(eventData, null, 2)}`)
   const expireDate = new Date()
   expireDate.setMonth(expireDate.getMonth() + 1)
   // trim milliseconds to satisfy AWS requirements
@@ -19,7 +20,7 @@ async function handler(req, res) {
   eventData.expires = expires
 
   const writeEventPromise = new Promise((resolve, reject) => {
-    db.writeEvent(eventData, (err) => {
+    db.writeEvent(eventData.eventId, eventData, (err) => {
       if (err) {
         reject(`Failed to write event to DB: ${err}`)
       }
@@ -37,7 +38,10 @@ async function handler(req, res) {
 
   await Promise.all([writeEventPromise, writeUserPromise])
     .then(() => res.status(200).end())
-    .catch((err) => res.status(500).end(JSON.stringify(err)))
+    .catch((err) => {
+      console.log(`create event error: ${err}`)
+      res.status(500).end(JSON.stringify(err))
+    })
 }
 
 export default handler
