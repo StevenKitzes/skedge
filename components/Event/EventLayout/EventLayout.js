@@ -14,8 +14,8 @@ import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../../../helpers/makeHash'
 
-function ResponsePrompt () {
-  return (
+function ResponsePrompt ({ isFinalized }) {
+  return isFinalized ? null : (
     <div>
       <p className={styles.userInputHint}>Your response:</p>
       <p className={styles.userInputExplanation}>Select all of the dates you can join the event!</p>
@@ -271,7 +271,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
           userNickTouched={userNickTouched}
         />
       )
-      guestComponents.unshift(<ResponsePrompt key='hint' />)
+      guestComponents.unshift(<ResponsePrompt isFinalized={isFinalized} key='hint' />)
     // Render components for other guests
     } else {
       if (index > 0) guestComponents.push(<hr className={styles.rowSeparator} key={`guest-separator-${index}`} />)
@@ -318,7 +318,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
         userNickTouched={userNickTouched}
       />
     )
-    guestComponents.unshift(<ResponsePrompt key='hint' />)
+    guestComponents.unshift(<ResponsePrompt isFinalized={isFinalized} key='hint' />)
   }
 
   return (

@@ -31,9 +31,9 @@
 }
 
 @keyframes goldenPulse {
-  0%   { background-color: $gold-pulse-a; }
-  50%   { background-color: $gold-pulse-b; }
-  100%   { background-color: $gold-pulse-a; }
+  0%   { background-color: $primary; }
+  50%   { background-color: $primary-pulse; }
+  100%   { background-color: $primary; }
 }
 .finalizedSelected {
   animation-duration: 4s;
