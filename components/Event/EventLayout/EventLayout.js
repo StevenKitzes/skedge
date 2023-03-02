@@ -119,6 +119,8 @@ function EventLayout ({ eventData, guestsData, userData }) {
     setUserNickTouched(true)
 
     if (isEmptyOrWhiteSpace(userNick)) return
+
+    const isUserNew = !(!!userData)
     
     eventData.dates.forEach(date => {
       if (!userResponses.hasOwnProperty(date.toString())) userResponses[date] = false
@@ -128,7 +130,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
     const submitBody = {
       eventId: eventData.eventId,
-      userId: userData ? userData.userId : newUserHash,
+      userId: isUserNew ? newUserHash : userData.userId,
       nickname: userNick,
       responses: userResponses,
       comments: '',
@@ -143,35 +145,16 @@ function EventLayout ({ eventData, guestsData, userData }) {
         return
       }
       if (res.status == 200) {
-        const newUrl = `https://skedge.pro/event/${submitBody.eventId}/${submitBody.userId}`
-        setModalContent(<div>
-          <p className={styles.submitSuccess}>Success!!</p>
-          <p className={styles.modalMessage}>You can <span className='highlight'>review or change</span> your submission as <span className='textLink'>{userNick}</span> by using the following link.</p>
-          <p className={styles.dontLoseIt}>(Don't lose it!)</p>
-          <Input
-            containerClasses={styles.copyableInput}
-            id='copy-button'
-            readOnly
-            value={newUrl}
-          />
-          <Button
-            alternateLabel='Copied!'
-            classes={styles.copyLinkButton}
-            label='Copy link'
-            onClick={(event) => {
-              const input = document.getElementById('copy-button')
-              input.select()
-              input.setSelectionRange(0, 1000)
-              if (!navigator.clipboard) {
-                document.execCommand('copy')
-              } else {
-                navigator.clipboard.writeText(input.value)
-              }
-              event.stopPropagation();
-            }}
-          />
-        </div>)
-        setModalOpen(true)
+        window.location.href =
+          `//${
+            window.location.host
+          }/event/${
+            submitBody.eventId
+          }/${
+            submitBody.userId
+          }?status=${
+            isUserNew ? 'user-saved' : 'user-updated'
+          }`
         return
       }
     }))

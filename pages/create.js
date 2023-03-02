@@ -120,7 +120,7 @@ function Create() {
   if (resStatus == 'pending')
     return <CreatePending />
   if (resStatus == '200') {
-    window.location.href = `https://skedge.pro/event/${eventId}/${userId}?status=new`
+    window.location.href = `//${window.location.host}/event/${eventId}/${userId}?status=new`
     return
   }
   if (resStatus == '500') {

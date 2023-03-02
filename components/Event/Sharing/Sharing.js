@@ -9,6 +9,8 @@ function Sharing({ eventId, isOrganizer, userId }) {
 
   return <div className={styles.container}>
     {status === 'new' && isOrganizer && <h2 className={styles.eventLive}>Your event is live!</h2>}
+    {status === 'user-saved' && <h2 className={styles.eventLive}>Your responses were saved!</h2>}
+    {status === 'user-updated' && <h2 className={styles.eventLive}>Your responses were updated!</h2>}
     <h3 className={styles.shareInfo}>
       <span className='highlight'>Share</span> this link with {isOrganizer ? 'your' : 'other'} guests!
     </h3>
