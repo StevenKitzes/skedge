@@ -14,6 +14,7 @@ function DateAnswer({
   isOrganizer,
   response,
   setUserResponses,
+  showFinalized,
   userResponses
 }) {
   const unavailabilityStyle = alternateColor ? styles.unavailableAlt : styles.unavailable
@@ -25,7 +26,7 @@ function DateAnswer({
     setUserResponses(result)
   }
 
-  const colorStyle = isFinalized ? 
+  const colorStyle = isFinalized && showFinalized ? 
     finalizedDate === date ?
       styles.finalizedSelected :
       styles.finalizedUnselected :

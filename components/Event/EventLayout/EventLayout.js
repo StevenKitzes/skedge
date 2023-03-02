@@ -69,7 +69,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
   useLayoutEffect(() => {
     function styleAnswers () {
-      const answers = document.getElementById('user-answers').scrollWidth
+      const answers = document.getElementById('answers-row').scrollWidth
       const container = document.getElementById('guests-container').clientWidth
       const rows = document.querySelectorAll('.date-answers-row-scroll')
       if (answers > container) {
@@ -183,6 +183,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     isOrganizer,
     confirmFinalization,
     finalizable,
+    showFinalized,
   ) {
     return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
@@ -197,6 +198,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       key={index}
       response={responseObject[date]}
       setUserResponses={setUserResponses}
+      showFinalized={showFinalized}
       userResponses={responseObject}
     />
   )}
@@ -250,8 +252,8 @@ function EventLayout ({ eventData, guestsData, userData }) {
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, true)}
-          idString='user-answers'
+          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, true, false)}
+          idString='answers-row'
           key={`user-answers-${index}`}
           rowStyle={styles.userAnswers}
           scrollHandler={handleScrollEvent}
@@ -282,7 +284,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       )
       guestComponents.push(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(guest.responses, false, isOrganizer, confirmFinalization, false)}
+          dateAnswerPairs={getDateAnswers(guest.responses, false, isOrganizer, confirmFinalization, false, false)}
           key={`answers-${index}`}
           rowStyle={styles.answers}
           scrollHandler={handleScrollEvent}
@@ -293,12 +295,12 @@ function EventLayout ({ eventData, guestsData, userData }) {
     }
   })
   // Render input row in case user is new
-  if (!userData) {
+  if (!userData && !isFinalized) {
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <ResponseRow
-        dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, false, finalizedDate)}
-        idString='user-answers'
+        dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, false, false)}
+        idString='answers-row'
         key={`new-user-answers`}
         rowStyle={styles.userAnswers}
         scrollHandler={handleScrollEvent}
@@ -319,6 +321,26 @@ function EventLayout ({ eventData, guestsData, userData }) {
       />
     )
     guestComponents.unshift(<ResponsePrompt isFinalized={isFinalized} key='hint' />)
+  }
+  // Render finalized row if event is finalized
+  if (isFinalized) {
+    guestComponents.unshift(<hr className={styles.rowSeparator} key={`finalized-separator`} />)
+    guestComponents.unshift(
+      <ResponseRow
+        dateAnswerPairs={getDateAnswers(userResponses, false, false, confirmFinalization, false, true)}
+        idString='answers-row'
+        key={`finalized-answers`}
+        rowStyle={styles.userAnswers}
+        scrollHandler={handleScrollEvent}
+        scrollLeft={scrollLeft}
+        scrollRight={scrollRight}
+      />
+    )
+    guestComponents.unshift(
+      <p className={clsx(styles.itsOfficial)} key={`nickname-finalized`}>
+        It's official!
+      </p>
+    )
   }
 
   return (
