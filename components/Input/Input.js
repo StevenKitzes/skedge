@@ -3,7 +3,7 @@ import styles from './Input.module.scss'
 
 function Input({ classes, containerClasses, errorMessage, id, invalid = false, label, multiline = false, onChange, placeholder, readOnly, value }) {
   // helps with local dev/testing
-  const _value = window?.location.host.includes('localhost') ?
+  const _value = window.location.host.includes('localhost') ?
     value.replace('https://skedge.pro', 'localhost:3000') :
     value
 
