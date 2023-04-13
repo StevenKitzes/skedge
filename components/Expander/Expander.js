@@ -1,32 +1,40 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 import styles from './Expander.module.scss'
+import smallStyles from './ExpanderSmall.module.scss'
 
 function Expander({
-  content = 'No content provided',
-  title = 'No title provided'
+  children,
+  content,
+  small,
+  title = 'Click to expand . . .',
 }) {
   const [hidden, setHidden] = useState(true)
+  const sizedStyles = small ? smallStyles : styles
 
   return (
-    <div className={styles.expander}>
+    <div className={sizedStyles.expander}>
       <div
-        className={styles.expanderTitleBar}
+        className={sizedStyles.expanderTitleBar}
         onClick={() => { setHidden(!hidden) }}
       >
-        <div className={styles.titleCopy}>
+        <div className={sizedStyles.titleCopy}>
           {title}
         </div>
-        <div className={styles.expanderIcon}>
+        <div className={sizedStyles.expanderIcon}>
           <img
             alt='Expand'
-            className={styles.expanderIcon}
+            className={sizedStyles.expanderIcon}
             src='/images/skedge-expander-icon.svg'
           />
         </div>
       </div>
-      <div className={clsx(styles.expanderContent, hidden && styles.expanderContentHidden)}>
+      <div className={clsx(
+        sizedStyles.expanderContent,
+        hidden && sizedStyles.expanderContentHidden
+      )}>
         {content}
+        {!hidden && children}
       </div>
     </div>
   )

@@ -1,9 +1,11 @@
 import { Button } from '../../Button'
+import { Expander } from '../../Expander'
 import { Input } from '../../Input'
+import { QRCode } from '../../QRCode'
 import { Separator } from '../../Separator'
 import styles from './Sharing.module.scss'
 
-function Sharing({ eventId, isOrganizer, userId }) {
+function Sharing({ children, eventId, isOrganizer, userId }) {
   const query = new URLSearchParams(window.location.search)
   const status = query.get('status')
 
@@ -35,6 +37,9 @@ function Sharing({ eventId, isOrganizer, userId }) {
         }
       }}
     />
+    <Expander small title="Share with QR Code">
+      <QRCode value={`https://skedge.pro/event/${eventId}`} />
+    </Expander>
     {userId &&
       <div>
         <Separator />
@@ -66,6 +71,7 @@ function Sharing({ eventId, isOrganizer, userId }) {
         />
       </div>
     }
+    {children}
   </div>
 }
 

@@ -35,7 +35,8 @@
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: $heavy;
   justify-content: space-between;
   padding: 12px;
   max-width: 250px;
@@ -43,7 +44,7 @@
 
 @media screen and (min-width: $browser) {
   .expander {
-    max-width: 500px;
+    max-width: 250px;
   }
 
   .expanderContent {
@@ -52,11 +53,12 @@
   }
 
   .expanderIcon {
-    height: 24px;
+    height: 16px;
   }
 
   .expanderTitleBar {
-    font-size: 24px;
+    font-size: 16px;
+    font-weight: $heavy;
     max-width: 500px;
   }
 }

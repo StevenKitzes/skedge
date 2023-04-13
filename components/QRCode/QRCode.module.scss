@@ -1,0 +1,10 @@
+@import '../../styles/theme.scss';
+
+.container {
+  margin: 16px;
+  text-align: center;
+}
+
+:export {
+  primary: $primary;
+}
