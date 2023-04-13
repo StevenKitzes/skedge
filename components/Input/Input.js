@@ -3,9 +3,9 @@ import styles from './Input.module.scss'
 
 function Input({ classes, containerClasses, errorMessage, id, invalid = false, label, multiline = false, onChange, placeholder, readOnly, value }) {
   // helps with local dev/testing
-  const _value = window.location.host.includes('localhost') ?
-    value.replace('https://skedge.pro', 'localhost:3000') :
-    value
+  if (typeof window !== 'undefined' && window.location.host.includes('localhost')) {
+    value.replace('https://skedge.pro', 'localhost:3000')
+  }
 
   return (
     <div className={containerClasses || styles.inputContainer}>
@@ -19,7 +19,7 @@ function Input({ classes, containerClasses, errorMessage, id, invalid = false, l
               onClick={(event) => event.stopPropagation()}
               placeholder={placeholder}
               readOnly={readOnly}
-              value={_value}
+              value={value}
             />
           : <input
               className={clsx(styles.input, classes, invalid && styles.inputError)}
@@ -28,7 +28,7 @@ function Input({ classes, containerClasses, errorMessage, id, invalid = false, l
               onClick={(event) => event.stopPropagation()}
               placeholder={placeholder}
               readOnly={readOnly}
-              value={_value}
+              value={value}
             />
       }
       <p className={clsx(styles.errorMessage, invalid && styles.errorMessageVisible)}>
