@@ -7,10 +7,11 @@ function Footer() {
       <p className={styles.footerCopy}>
         <span className='highlight'>Skedge</span> is brought to you{' '}
         with <img className={styles.heart} alt='Love' src='/images/skedge-heart.svg' /> by{' '}
-        <Link href="https://www.github.com/stevenkitzes">
-          <a className='textLink'>
+        <Link
+          className='textLink'
+          href="https://www.github.com/stevenkitzes"
+        >
             Steven Kitzes
-          </a>
         </Link>
       </p>
     </div>

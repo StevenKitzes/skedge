@@ -11,15 +11,21 @@
     "start-win": "SET NODE_OPTIONS=--openssl-legacy-provider && next start"
   },
   "dependencies": {
-    "aws-sdk": "2.960.0",
-    "clsx": "1.1.1",
+    "@types/node": "20.1.0",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "aws-sdk": "^2.1373.0",
+    "clsx": "^1.2.1",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
     "lottie-react": "^2.4.0",
-    "next": "11.1.0",
+    "next": "13.4.1",
     "qrcode.react": "^3.1.0",
-    "react": "17.0.2",
-    "react-datepicker": "4.2.0",
-    "react-dom": "17.0.2",
-    "sass": "1.37.5"
+    "react": "18.2.0",
+    "react-datepicker": "^4.11.0",
+    "react-dom": "18.2.0",
+    "sass": "^1.62.1",
+    "typescript": "5.0.4"
   },
   "devDependencies": {
     "css-loader": "^6.7.3",

@@ -22,13 +22,12 @@ function Button({ alternateLabel = null, classes, href = null, label, onClick = 
 
   if (!!href && !!!onClick) {
     return (
-      <Link href={href}>
-        <a
-          alt={copy}
-          className={clsx(classes, buttonStyle)}
-        >
+      <Link
+        alt={copy}
+        className={clsx(classes, buttonStyle)}
+        href={href}
+      >
           {copy}
-        </a>
       </Link>
     )
   }
