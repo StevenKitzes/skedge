@@ -93,6 +93,11 @@ export type UsersDataFromDB = {
   ScannedCount?: number,
 }
 
+export type WriteResult = {
+  message: string,
+  success: boolean,
+}
+
 function dynamoGetParams (table: string, key: KeyType): GetParamsType {
   return {
     TableName: table,
@@ -168,28 +173,50 @@ async function readUser (eventId: string, userId: string, callback: (err: string
 
 // uses <client>.update which creates or updates existing, depending on context
 // callback should be of the form (err) => { ... }
-async function writeEvent (eventId: string, data: EventShape, callback: (err: string) => void) {
-  const tableName: string | undefined = process.env.SKEDGE_AWS_EVENTS_TABLE;
-  if (tableName === undefined) {
-    console.error(`Database error retrieving user information.`)
-    return
-  }
-  eventsClient.update(
-    dynamoUpdateEventParams(tableName, eventId, data),
-    callback
-  )
+async function writeEvent (eventId: string, data: EventShape): Promise<WriteResult> {
+  return new Promise((resolve, reject) => {
+    const tableName: string | undefined = process.env.SKEDGE_AWS_EVENTS_TABLE;
+    if (tableName === undefined) {
+      const message: string = 'Database error retrieving user information.'
+      console.error(message)
+      return reject({
+        message,
+        success: false,
+      })
+    }
+    eventsClient.update(
+      dynamoUpdateEventParams(tableName, eventId, data),
+      () => {
+        return resolve({
+          message: 'Successfully wrote to user database.',
+          success: true,
+        })
+      }
+    )
+  })
 }
 // uses <client>.put which always overwrites an entire document
-async function writeUser (data: UserShape, callback: (err: string) => void) {
-  const tableName: string | undefined = process.env.SKEDGE_AWS_USERS_TABLE;
-  if (tableName === undefined) {
-    console.error(`Database error retrieving user information.`)
-    return
-  }
-  usersClient.put(
-    dynamoPutParams(tableName, data),
-    callback
-  )
+async function writeUser (data: UserShape): Promise<WriteResult> {
+  return new Promise((resolve, reject) => {
+    const tableName: string | undefined = process.env.SKEDGE_AWS_USERS_TABLE;
+    if (tableName === undefined) {
+      const message: string = 'Database error retrieving user information.'
+      console.error(message)
+      return reject({
+        message,
+        success: false,
+      })
+    }
+    usersClient.put(
+      dynamoPutParams(tableName, data),
+      () => {
+        return resolve({
+          message: 'Successfully wrote user to database.',
+          success: true,
+        })
+      }
+    )
+  })
 }
 
 // callback should be of the form (err, data) => { ... }

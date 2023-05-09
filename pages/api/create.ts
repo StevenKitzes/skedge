@@ -23,22 +23,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
   // Create expiry for this event
   eventData.expires = expires
 
-  const writeEventPromise = new Promise<WriteEventReturnType>((resolve, reject) => {
-    db.writeEvent(eventData.eventId, eventData, (err) => {
-      if (err) {
-        reject(`Failed to write event to DB: ${err}`)
-      }
-      resolve()
-    })
-  })
-  const writeUserPromise = new Promise<WriteUserReturnType>((resolve, reject) => {
-    db.writeUser(userData, (err) => {
-      if (err) {
-        reject(`Failed to write user to DB: ${err}`)
-      }
-      resolve()
-    })
-  })
+  const writeEventPromise = db.writeEvent(eventData.eventId, eventData)
+  const writeUserPromise = db.writeUser(userData)
 
   await Promise.all([writeEventPromise, writeUserPromise])
     .then(() => res.status(200).end())
