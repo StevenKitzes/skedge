@@ -1,7 +1,11 @@
+import getConfig from 'next/config'
 import Link from 'next/link'
+
 import styles from './Footer.module.scss'
 
 function Footer() {
+  const version = getConfig()?.publicRuntimeConfig?.version
+
   return (
     <div className={styles.footer}>
       <p className={styles.footerCopy}>
@@ -13,6 +17,7 @@ function Footer() {
         >
             Steven Kitzes
         </Link>
+        <span> - v{version}</span>
       </p>
     </div>
   )
