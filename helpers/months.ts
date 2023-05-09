@@ -1,4 +1,4 @@
-export default [
+const months: string[] = [
   'Jan',
   'Feb',
   'Mar',
@@ -12,3 +12,5 @@ export default [
   'Nov',
   'Dec',
 ]
+
+export default months

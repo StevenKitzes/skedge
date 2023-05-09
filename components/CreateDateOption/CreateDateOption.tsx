@@ -1,7 +1,13 @@
 import styles from './CreateDateOption.module.scss'
 import dateStringsFromEpoch from '../../helpers/dateStringsFromEpoch'
 
-function CreateDateOption({ dateEpoch, deleteFn, hasTime }) {
+type CreateDateOptionProps = {
+  dateEpoch: number,
+  deleteFn: (n: number) => void,
+  hasTime: boolean,
+}
+
+function CreateDateOption({ dateEpoch, deleteFn, hasTime }: CreateDateOptionProps): JSX.Element {
   const {dateString, timeString} = dateStringsFromEpoch(dateEpoch)
   
   return (

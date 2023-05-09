@@ -14,8 +14,8 @@ function Expander({
   content,
   small,
   title = 'Click to expand . . .',
-}: PropsWithChildren<ExpanderProps>) {
-  const [hidden, setHidden] = useState(true)
+}: PropsWithChildren<ExpanderProps>): JSX.Element {
+  const [hidden, setHidden] = useState<boolean>(true)
   const sizedStyles = small ? smallStyles : styles
 
   return (

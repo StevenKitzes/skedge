@@ -31,7 +31,7 @@ function QRCode ({
   },
   size = 180,
   value = 'https://skedge.pro'
-}: QRProps): ReactElement {
+}: QRProps): JSX.Element {
   return (
     <div className={styles.container}>
       <QRCodeSVG

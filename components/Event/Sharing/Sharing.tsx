@@ -10,12 +10,12 @@ import styles from './Sharing.module.scss'
 type SharingProps = {
   eventId: string,
   isOrganizer: boolean,
-  userId: string,
+  userId?: string,
 }
 
-function Sharing({ children, eventId, isOrganizer, userId }: PropsWithChildren<SharingProps>) {
-  const query = new URLSearchParams(window.location.search)
-  const status = query.get('status')
+function Sharing({ children, eventId, isOrganizer, userId }: PropsWithChildren<SharingProps>): JSX.Element {
+  const query: URLSearchParams = new URLSearchParams(window.location.search)
+  const status: string | null= query.get('status')
 
   return <div className={styles.container}>
     {status === 'new' && isOrganizer && <h2 className={styles.eventLive}>Your event is live!</h2>}
@@ -35,7 +35,7 @@ function Sharing({ children, eventId, isOrganizer, userId }: PropsWithChildren<S
       classes={styles.button}
       label='Copy link'
       onClick={() => {
-        const input = document.getElementById('share-link') as HTMLInputElement
+        const input: HTMLInputElement = document.getElementById('share-link') as HTMLInputElement
         if (input === null) {
           throw new Error('Crucial HTML element was missing from the document model.')
         }

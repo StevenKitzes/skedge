@@ -7,7 +7,7 @@ type BurgerMenuProps = {
   setMenuActive: (v: boolean) => void,
 }
 
-function BurgerMenu({ menuActive, setMenuActive }: BurgerMenuProps) {
+function BurgerMenu({ menuActive, setMenuActive }: BurgerMenuProps): JSX.Element {
   return (
     <div
       className={clsx(styles.container, menuActive ? styles.containerShow : styles.containerHide)}

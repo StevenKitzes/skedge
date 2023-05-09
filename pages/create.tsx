@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+
+import 'react-datepicker/dist/react-datepicker.css'
+
 import AddDateModal from '../components/AddDateModal'
 import Button from '../components/Button'
 import CreateFail from '../components/Create/CreateFail'
@@ -8,21 +11,12 @@ import Hero from '../components/Hero'
 import Input from '../components/Input'
 import Layout from '../components/Layout'
 import Separator from '../components/Separator'
-import fetchPost from '../helpers/fetchPost'
+import type { FetchOptions} from '../types/FetchOptions'
 import isEmptyOrWhiteSpace from '../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../helpers/makeHash'
 import styles from './create.module.scss'
 
-import 'react-datepicker/dist/react-datepicker.css'
 import { EventShape } from '../helpers/db'
-
-type CreateFetchOptions = {
-  method: string,
-  body: string,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-}
 
 function Create(): JSX.Element | undefined {
   const [eventName, setEventName] = useState<string>('')
@@ -42,8 +36,8 @@ function Create(): JSX.Element | undefined {
   pickerDateStarter.setSeconds(0);
   pickerDateStarter.setMilliseconds(0);
     
-  const [pickerDate, setPickerDate] = useState(pickerDateStarter.getTime());
-  const [modalOpen, setModalOpen] = useState(false)
+  const [pickerDate, setPickerDate] = useState<number>(pickerDateStarter.getTime());
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
     if (resStatus) return
@@ -62,9 +56,9 @@ function Create(): JSX.Element | undefined {
   })
 
   function deleteDate (dateEpoch: number): void {
-    const index = dates.indexOf(dateEpoch)
+    const index: number = dates.indexOf(dateEpoch)
     if (index < 0) return
-    const newDates = Array.from(dates)
+    const newDates: number[] = Array.from(dates)
     newDates.splice(index, 1)
     setDates(newDates.sort())
   }
@@ -74,7 +68,7 @@ function Create(): JSX.Element | undefined {
     setNickTouched(true)
 
     // list of strings; later built into <li> components
-    const errors = []
+    const errors: string[] = []
 
     if (!eventName || !eventName.trim()) {
       errors.push('An event name is required.')
@@ -112,7 +106,7 @@ function Create(): JSX.Element | undefined {
     setOrganizerId(submitBody.userId)
     setResStatus('pending')
 
-    const fetchOptions: CreateFetchOptions = {
+    const fetchOptions: FetchOptions = {
       method: 'POST',
       body: JSON.stringify(submitBody),
       headers: {

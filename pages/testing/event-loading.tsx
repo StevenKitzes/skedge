@@ -1,6 +1,6 @@
 import EventLoading from '../../components/Event/EventLoading'
 
-function EventLoadingTest() {
+function EventLoadingTest(): JSX.Element {
   return <EventLoading />
 }
 

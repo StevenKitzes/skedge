@@ -1,7 +1,15 @@
+import { PropsWithChildren } from 'react'
+
 import clsx from 'clsx'
+
 import styles from './Modal.module.scss'
 
-function Modal({ children, isOpen, setIsOpen }) {
+type ModalProps = {
+  isOpen: boolean,
+  setIsOpen: (b: boolean) => void,
+}
+
+function Modal({ children, isOpen, setIsOpen }: PropsWithChildren<ModalProps>): JSX.Element {
   return (
     <div
       className={clsx(styles.modal, isOpen ? styles.modalShow : styles.modalHide)}

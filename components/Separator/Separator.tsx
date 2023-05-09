@@ -1,6 +1,6 @@
 import styles from './Separator.module.scss'
 
-function Separator () {
+function Separator (): JSX.Element {
   return <hr className={styles.separator} />
 }
 

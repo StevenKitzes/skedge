@@ -1,6 +1,10 @@
 import styles from './Hero.module.scss'
 
-function Hero ({ title }) {
+type HeroProps = {
+  title: string,
+}
+
+function Hero ({ title }: HeroProps): JSX.Element {
   return (
     <div>
       <img

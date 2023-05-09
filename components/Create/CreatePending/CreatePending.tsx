@@ -2,7 +2,7 @@ import Hero from '../../Hero'
 import Layout from '../../Layout'
 import Separator from '../../Separator'
 
-function CreatePending () {
+function CreatePending (): JSX.Element {
   return (
     <Layout>
       <Hero title='Creating Event...' />

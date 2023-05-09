@@ -9,8 +9,8 @@ type LayoutProps = {
   showLogo?: boolean,
 }
 
-function Layout({ children, eventPage, showLogo }: PropsWithChildren<LayoutProps>) {
-  const [menuActive, setMenuActive] = useState(false)
+function Layout({ children, eventPage, showLogo }: PropsWithChildren<LayoutProps>): JSX.Element {
+  const [menuActive, setMenuActive] = useState<boolean>(false)
   
   return (
     <div className={eventPage ? styles.eventPage : styles.container}>

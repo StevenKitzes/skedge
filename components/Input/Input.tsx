@@ -15,7 +15,19 @@ type InputProps = {
   value?: string,
 }
 
-function Input({ classes, containerClasses, errorMessage, id, invalid = false, label, multiline = false, onChange, placeholder, readOnly, value }: InputProps) {
+function Input({
+  classes,
+  containerClasses,
+  errorMessage,
+  id,
+  invalid = false,
+  label,
+  multiline = false,
+  onChange,
+  placeholder,
+  readOnly,
+  value
+}: InputProps): JSX.Element {
   // helps with local dev/testing
   if (typeof window !== 'undefined' && window.location.host.includes('localhost')) {
     value?.replace('https://skedge.pro', 'localhost:3000')

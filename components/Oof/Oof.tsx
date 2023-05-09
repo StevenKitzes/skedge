@@ -1,10 +1,15 @@
 import Lottie from 'lottie-react'
 import styles from './Oof.module.scss'
 
-import raincloud from '../../public/images/skedge-raincloud'
-import zap from '../../public/images/skedge-zap'
+import raincloud from '../../public/images/skedge-raincloud.json'
+import zap from '../../public/images/skedge-zap.json'
 
-function Oof ({ copyTop, copyBottom }) {
+type OofProps = {
+  copyTop?: string,
+  copyBottom?: string,
+}
+
+function Oof ({ copyTop, copyBottom }: OofProps): JSX.Element {
   return (
     <div>
       <div className={styles.oofContainer}>
@@ -13,7 +18,6 @@ function Oof ({ copyTop, copyBottom }) {
             loop={true}
             autoplay={true}
             animationData={raincloud}
-            preserveAspectRatio={'xMidYMid slice'}
             height={150}
             width={150}
           />
@@ -23,7 +27,6 @@ function Oof ({ copyTop, copyBottom }) {
             loop={true}
             autoplay={true}
             animationData={zap}
-            preserveAspectRatio={'xMidYMid slice'}
             height={150}
             width={150}
           />

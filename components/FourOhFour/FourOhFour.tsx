@@ -9,7 +9,7 @@ type FourOhFourProps = {
   message?: string,
 }
 
-function FourOhFour({ message }: FourOhFourProps) {
+function FourOhFour({ message }: FourOhFourProps): JSX.Element {
   return (
     <Layout>
       <Hero title='Page Not Found' />

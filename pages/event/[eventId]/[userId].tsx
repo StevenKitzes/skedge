@@ -1,6 +1,6 @@
 import EventMain from '../../../components/Event/EventMain'
 
-function Event () {
+function Event (): JSX.Element {
   return <EventMain hasUser />
 }
 

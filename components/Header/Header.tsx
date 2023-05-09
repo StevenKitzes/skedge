@@ -7,7 +7,7 @@ type HeaderProps = {
   showLogo?: boolean,
 }
 
-function Header({ menuActive, setMenuActive, showLogo }: HeaderProps) {
+function Header({ menuActive, setMenuActive, showLogo }: HeaderProps): JSX.Element {
   return (
     <div className={styles.header}>
       <Link

@@ -9,7 +9,7 @@ type EventMainProps = {
   hasUser?: boolean,
 }
 
-function EventMain ({ hasUser }: EventMainProps) {
+function EventMain ({ hasUser }: EventMainProps): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
   const [fourOhFour, setFourOhFour] = useState<boolean | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -66,9 +66,6 @@ function EventMain ({ hasUser }: EventMainProps) {
   }
   if (guestsData === null) {
     return <EventFail errorMessage='The guest data for this event has gone missing!' />
-  }
-  if (userData === null) {
-    return <EventFail errorMessage='User data for this event has gone missing!' />
   }
   return (
     <EventLayout

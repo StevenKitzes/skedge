@@ -12,8 +12,8 @@ type ButtonProps = {
   variant?: string,
 }
 
-function Button({ alternateLabel = null, classes, href = null, label, onClick = null, variant = 'solid' }: ButtonProps) {
-  const [copy, setCopy] = useState(label)
+function Button({ alternateLabel = null, classes, href = null, label, onClick = null, variant = 'solid' }: ButtonProps): JSX.Element | null {
+  const [copy, setCopy] = useState<string>(label)
 
   let buttonStyle
   switch (variant) {

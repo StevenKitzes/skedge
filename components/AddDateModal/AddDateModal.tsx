@@ -3,7 +3,17 @@ import DatePicker from 'react-datepicker'
 import Button from '../Button'
 import styles from './AddDateModal.module.scss'
 
-function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, setPickerDate }) {
+type AddDateModalProps = {
+  closeModal: () => void,
+  dates: number[],
+  hasTime: boolean,
+  open: boolean,
+  pickerDate: number,
+  setDates: (d: number[]) => void,
+  setPickerDate: (n: number) => void,
+}
+
+function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, setPickerDate }: AddDateModalProps): JSX.Element {
   return (
     <div
       className={clsx(styles.backing, !open && styles.hidden)}
@@ -12,7 +22,7 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
         <DatePicker
           dateFormat="MMMM d, yyyy"
           inline
-          onChange={(date) => {
+          onChange={(date: Date) => {
             // remove time data from date if !hasTime
             if (!hasTime) {
               date.setHours(0,0,0,0)
@@ -21,7 +31,7 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
             setPickerDate(date.getTime())
           }}
           popperPlacement='top-start'
-          selected={pickerDate}
+          selected={new Date(pickerDate)}
           shouldCloseOnSelect={false}
         />
         {hasTime && <select className={styles.timeSelect} id='time' defaultValue=''>
@@ -88,14 +98,19 @@ function AddDateModal({ closeModal, dates, hasTime, open, pickerDate, setDates, 
           onClick={() => {
             if (hasTime) {
               // if hasTime but no time selected, reject selection
-              if (document.getElementById('time').value == '') {
+              const timeElement: HTMLSelectElement | null = document.getElementById('time') as HTMLSelectElement
+              if (timeElement === null) {
+                throw new Error('Critical user interface element was missing from the document model.')
+              }
+              if (timeElement.value == '') {
                 return
               }
-              const selectedTimeValue = document.getElementById('time').value.split(',')
+
+              const selectedTimeValue: string[] = timeElement.value.split(',')
               const date = new Date(pickerDate)
-              date.setHours(selectedTimeValue[0])
-              date.setMinutes(selectedTimeValue[1])
-              const epoch = date.getTime()
+              date.setHours(parseInt(selectedTimeValue[0]))
+              date.setMinutes(parseInt(selectedTimeValue[1]))
+              const epoch: number = date.getTime()
               if (!dates.includes(epoch)) setDates([...dates, epoch].sort())
               return closeModal()
             }

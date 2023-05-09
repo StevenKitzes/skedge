@@ -1,7 +1,16 @@
 import clsx from 'clsx'
 import styles from './ResponseRow.module.scss'
 
-function ResponseRow ({dateAnswerPairs, idString, rowStyle, scrollHandler, scrollLeft, scrollRight}) {
+type ResponseRowProps = {
+  dateAnswerPairs: JSX.Element[],
+  idString?: string,
+  rowStyle: string,
+  scrollHandler: (e: React.UIEvent) => void,
+  scrollLeft: string | null,
+  scrollRight: string | null
+}
+
+function ResponseRow ({dateAnswerPairs, idString, rowStyle, scrollHandler, scrollLeft, scrollRight}: ResponseRowProps): JSX.Element {
   return (
     <div className={styles.topLevelAnswersContainer}>
       <div className={clsx(styles.scrollIndicator, scrollLeft)} />

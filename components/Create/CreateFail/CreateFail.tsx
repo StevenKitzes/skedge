@@ -9,7 +9,7 @@ type CreateFailProps = {
   setResStatus: (v: string | null) => void,
 }
 
-function CreateFail ({ setResStatus }: CreateFailProps) {
+function CreateFail ({ setResStatus }: CreateFailProps): JSX.Element {
   return (
     <Layout>
       <Hero title='Whoops!' />

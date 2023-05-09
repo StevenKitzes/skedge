@@ -1,5 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react'
+
 import clsx from 'clsx'
+
 import Button from '../../Button'
 import DateAnswer from '../../DateAnswers/DateAnswer'
 import Input from '../../Input'
@@ -9,11 +11,12 @@ import Sharing from '../Sharing'
 import Separator from '../../Separator'
 import styles from './EventLayout.module.scss'
 import ResponseRow from '../ResponseRow'
-import fetchPost from '../../../helpers/fetchPost'
 import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../../../helpers/makeHash'
 import { EventShape, UserShape } from '../../../helpers/db'
+
+import type { FetchOptions } from '../../../types/FetchOptions'
 
 type ResponsePromptProps = {
   isFinalized: boolean,
@@ -30,7 +33,7 @@ type UserControlsProps = {
 type EventLayoutProps = {
   eventData: EventShape,
   guestsData: UserShape[],
-  userData: UserShape,
+  userData?: UserShape | null,
 }
 
 function ResponsePrompt ({ isFinalized }: ResponsePromptProps): JSX.Element | null {
@@ -74,7 +77,7 @@ function UserControls ({ isFinalized, newUser, setUserNick, setUserNickTouched, 
   )
 }
 
-function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
+function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JSX.Element {
   const [userNick, setUserNick] = useState<string>(userData && userData.nickname || '')
   const [userNickTouched, setUserNickTouched] = useState<boolean>(false)
   const [userResponses, setUserResponses] = useState<{[key: string]: boolean}>((userData && userData.responses) ? userData.responses : {})
@@ -114,7 +117,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
     handleScroll(event.target as HTMLDivElement)
   }
 
-  function handleScroll(target: HTMLDivElement) {
+  function handleScroll(target: HTMLDivElement): void {
     const leftScrollGap = target.scrollLeft;
     const rightScrollGap = target.scrollWidth - target.clientWidth - target.scrollLeft;
 
@@ -141,7 +144,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
     }
   }
 
-  function submitUserAnswers() {
+  function submitUserAnswers(): void {
     setUserNickTouched(true)
 
     if (isEmptyOrWhiteSpace(userNick)) return
@@ -152,9 +155,9 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
       if (!userResponses.hasOwnProperty(date.toString())) userResponses[date] = false
     })
 
-    const newUserHash = makeHash()
+    const newUserHash: string = makeHash()
 
-    const submitBody = {
+    const submitBody: UserShape = {
       eventId: eventData.eventId,
       userId: isUserNew ? newUserHash : userData.userId,
       nickname: userNick,
@@ -162,28 +165,36 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
       comments: '',
       expires: eventData.expires
     }
-    fetchPost(submitBody, '/api/post-user', (res => {
-      if (res.status == 500) {
-        setModalContent(<p className={styles.modalMessage}>
-          There was an error somewhere <em>behind the curtain</em>.  Please try again . . .
-        </p>)
-        setModalOpen(true)
-        return
-      }
-      if (res.status == 200) {
-        window.location.href =
-          `//${
-            window.location.host
-          }/event/${
-            submitBody.eventId
-          }/${
-            submitBody.userId
-          }?status=${
-            isUserNew ? 'user-saved' : 'user-updated'
-          }`
-        return
-      }
-    }))
+    const postUserFetchOptions: FetchOptions = {
+      method: 'POST',
+      body: JSON.stringify(submitBody),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+    fetch ('/api/post-user', postUserFetchOptions)
+      .then(res => {
+        if (res.status == 500) {
+          setModalContent(<p className={styles.modalMessage}>
+            There was an error somewhere <em>behind the curtain</em>.  Please try again . . .
+          </p>)
+          setModalOpen(true)
+          return
+        }
+        if (res.status == 200) {
+          window.location.href =
+            `//${
+              window.location.host
+            }/event/${
+              submitBody.eventId
+            }/${
+              submitBody.userId
+            }?status=${
+              isUserNew ? 'user-saved' : 'user-updated'
+            }`
+          return
+        }
+      })
   }
 
   function getDateAnswers(
@@ -193,7 +204,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
     confirmFinalization: (v: number) => void,
     finalizable: boolean,
     showFinalized: boolean,
-  ) {
+  ): JSX.Element[] {
     return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
       clickable={clickable}
@@ -224,25 +235,35 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
         classes={styles.copyLinkButton}
         label='Confirm?'
         onClick={(event) => {
-          const updatedEventData = {
+          const updatedEventData: EventShape = {
             ...eventData,
             finalizedDate: date,
           }
-          fetchPost(updatedEventData, '/api/update-event', (res => {
-            if (res.status == 500) {
-              setModalContent(<p className={styles.modalMessage}>
-                There was an error finalizing the event.  Please try again . . .
-              </p>)
-              setModalOpen(true)
-            } else if (res.status == 200) {
-              window.location.reload()
-            } else {
-              setModalContent(<p className={styles.modalMessage}>
-                An unknown error occurred finalizing the event.  Please try again . . .
-              </p>)
-              setModalOpen(true)
+
+          const updateEventFetchOptions: FetchOptions = {
+            method: 'POST',
+            body: JSON.stringify(updatedEventData),
+            headers: {
+              'Content-Type': 'application/json'
             }
-          }))
+          }
+          fetch('/api/update-event', updateEventFetchOptions)
+            .then(res => {
+                if (res.status == 500) {
+                  setModalContent(<p className={styles.modalMessage}>
+                    There was an error finalizing the event.  Please try again . . .
+                  </p>)
+                  setModalOpen(true)
+                } else if (res.status == 200) {
+                  window.location.reload()
+                } else {
+                  setModalContent(<p className={styles.modalMessage}>
+                    An unknown error occurred finalizing the event.  Please try again . . .
+                  </p>)
+                  setModalOpen(true)
+                }
+              })
+
           setModalOpen(false)
           event.stopPropagation();
         }}
@@ -251,7 +272,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
     setModalOpen(true)
   }
   
-  const guestComponents = []
+  const guestComponents: JSX.Element[] = []
   guestsData.forEach((guest, index) => {
     // check if this is the current user
     const isActiveUser = userData && userData.userId == guest.userId
