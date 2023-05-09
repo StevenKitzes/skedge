@@ -1,14 +1,20 @@
-import { useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import clsx from 'clsx'
 import styles from './Expander.module.scss'
 import smallStyles from './ExpanderSmall.module.scss'
+
+type ExpanderProps = {
+  content: string,
+  small?: boolean,
+  title: string,
+}
 
 function Expander({
   children,
   content,
   small,
   title = 'Click to expand . . .',
-}) {
+}: PropsWithChildren<ExpanderProps>) {
   const [hidden, setHidden] = useState(true)
   const sizedStyles = small ? smallStyles : styles
 

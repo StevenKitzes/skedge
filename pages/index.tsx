@@ -3,7 +3,7 @@ import Button from '../components/Button'
 import Layout from '../components/Layout'
 import styles from './index.module.scss'
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <Layout>
       <Head>

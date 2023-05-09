@@ -1,6 +1,6 @@
 import EventFail from '../../components/Event/EventFail'
 
-function EventFailTest() {
+function EventFailTest(): JSX.Element {
   return <EventFail />
 }
 

@@ -2,7 +2,12 @@ import clsx from 'clsx'
 import Button from '../Button'
 import styles from './BurgerMenu.module.scss'
 
-function BurgerMenu({ menuActive, setMenuActive }) {
+type BurgerMenuProps = {
+  menuActive: boolean,
+  setMenuActive: (v: boolean) => void,
+}
+
+function BurgerMenu({ menuActive, setMenuActive }: BurgerMenuProps) {
   return (
     <div
       className={clsx(styles.container, menuActive ? styles.containerShow : styles.containerHide)}

@@ -1,6 +1,6 @@
 import CreatePending from '../../components/Create/CreatePending'
 
-function CreatePendingTest() {
+function CreatePendingTest(): JSX.Element {
   return <CreatePending />
 }
 

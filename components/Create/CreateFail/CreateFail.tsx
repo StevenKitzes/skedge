@@ -5,7 +5,11 @@ import Oof from '../../Oof'
 import Separator from '../../Separator'
 import styles from './CreateFail.module.scss'
 
-function CreateFail ({ setResStatus }) {
+type CreateFailProps = {
+  setResStatus: (v: string | null) => void,
+}
+
+function CreateFail ({ setResStatus }: CreateFailProps) {
   return (
     <Layout>
       <Hero title='Whoops!' />

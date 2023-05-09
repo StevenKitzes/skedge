@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react'
-import EventFail from '../../../components/Event/EventFail'
-import EventLayout from '../../../components/Event/EventLayout'
-import EventLoading from '../../../components/Event/EventLoading'
-import FourOhFour from '../../../components/FourOhFour'
+import EventFail from '../EventFail'
+import EventLayout from '../EventLayout'
+import EventLoading from '../EventLoading'
+import FourOhFour from '../../FourOhFour'
+import { EventShape, UserShape } from '../../../helpers/db'
 
-function EventMain ({ hasUser }) {
-  const [loading, setLoading] = useState(true)
-  const [fourOhFour, setFourOhFour] = useState(null)
-  const [error, setError] = useState(null)
-  const [eventData, setEventData] = useState(null)
-  const [guestsData, setGuestsData] = useState(null)
-  const [userData, setUserData] = useState(null)
+type EventMainProps = {
+  hasUser?: boolean,
+}
 
-  function getEventId(pathParts) {
+function EventMain ({ hasUser }: EventMainProps) {
+  const [loading, setLoading] = useState<boolean>(true)
+  const [fourOhFour, setFourOhFour] = useState<boolean | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [eventData, setEventData] = useState<EventShape | null>(null)
+  const [guestsData, setGuestsData] = useState<UserShape[] | null>(null)
+  const [userData, setUserData] = useState<UserShape | null>(null)
+
+  function getEventId(pathParts: string[]): string {
     return pathParts[pathParts.length - (hasUser ? 2 : 1)]
   }
-  function getUserId(pathParts) {
+  function getUserId(pathParts: string[]): string | undefined {
     return hasUser ? pathParts[pathParts.length - 1] : undefined
   }
 

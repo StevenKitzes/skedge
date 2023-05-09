@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import Separator from '../components/Separator'
 import styles from './learn.module.scss'
 
-function Learn() {
+function Learn(): JSX.Element {
   return (
     <Layout>
       <Hero title="What's it all about?" />

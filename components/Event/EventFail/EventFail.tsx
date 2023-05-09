@@ -5,14 +5,18 @@ import Oof from '../../Oof'
 import Separator from '../../Separator'
 import styles from './EventFail.module.scss'
 
-function EventFail ({ errorMessage }) {
+type EventFailProps = {
+  errorMessage?: string,
+}
+
+function EventFail ({ errorMessage }: EventFailProps): JSX.Element {
   return (
     <Layout>
       <Hero title='Whoops!' />
       <Separator />
       <Oof
-        copyTop='The servers are feeling a little under the weather...'
-        copyBottom={errorMessage}
+        copyTop='The servers are feeling a little under the weather . . .'
+        copyBottom={errorMessage || '. . . the reasons are lost in the fog.'}
       />
       <Button
         classes={styles.button}

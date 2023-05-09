@@ -5,7 +5,7 @@ import styles from './Button.module.scss'
 
 type ButtonProps = {
   alternateLabel?: string | null,
-  classes: any,
+  classes?: any,
   href?: string | null,
   label: string,
   onClick?: ((event: React.MouseEvent) => void) | null,
