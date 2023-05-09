@@ -5,7 +5,11 @@ import Oof from '../Oof'
 import Separator from '../Separator'
 import styles from './FourOhFour.module.scss'
 
-function FourOhFour({ message }) {
+type FourOhFourProps = {
+  message?: string,
+}
+
+function FourOhFour({ message }: FourOhFourProps) {
   return (
     <Layout>
       <Hero title='Page Not Found' />

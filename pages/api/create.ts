@@ -1,25 +1,29 @@
-import db from '../../helpers/db'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-async function handler(req, res) {
-  const eventData = req.body
-  console.log(`create handler eventData: ${JSON.stringify(eventData, null, 2)}`)
-  const expireDate = new Date()
+import db, { EventShape, UserShape } from '../../helpers/db'
+
+type WriteEventReturnType = string | void
+type WriteUserReturnType = string | void
+
+async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+  const eventData: EventShape = req.body
+  const expireDate: Date = new Date()
   expireDate.setMonth(expireDate.getMonth() + 1)
   // trim milliseconds to satisfy AWS requirements
-  const expires = Math.floor(expireDate.getTime() / 1000)
-  const userData = {
+  const expires: number = Math.floor(expireDate.getTime() / 1000)
+  const userData: UserShape = {
     eventId: eventData.eventId,
     userId: eventData.userId,
     nickname: eventData.nick,
     responses: {},
     comments: '',
-    expires
+    expires,
   }
 
   // Create expiry for this event
   eventData.expires = expires
 
-  const writeEventPromise = new Promise((resolve, reject) => {
+  const writeEventPromise = new Promise<WriteEventReturnType>((resolve, reject) => {
     db.writeEvent(eventData.eventId, eventData, (err) => {
       if (err) {
         reject(`Failed to write event to DB: ${err}`)
@@ -27,7 +31,7 @@ async function handler(req, res) {
       resolve()
     })
   })
-  const writeUserPromise = new Promise((resolve, reject) => {
+  const writeUserPromise = new Promise<WriteUserReturnType>((resolve, reject) => {
     db.writeUser(userData, (err) => {
       if (err) {
         reject(`Failed to write user to DB: ${err}`)

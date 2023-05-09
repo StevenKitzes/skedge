@@ -14,30 +14,28 @@ import makeHash from '../helpers/makeHash'
 import styles from './create.module.scss'
 
 import 'react-datepicker/dist/react-datepicker.css'
+import { EventShape } from '../helpers/db'
 
-function Create() {
-  const [eventName, setEventName] = useState('')
-  const [eventNameTouched, setEventNameTouched] = useState(false)
-  const [eventDesc, setEventDesc] = useState('')
-  const [nick, setNick] = useState('')
-  const [nickTouched, setNickTouched] = useState(false)
-  const [dates, setDates] = useState([])
-  const [eventId, setEventId] = useState(null)
-  const [userId, setOrganizerId] = useState(null)
-  const [submitError, setSubmitError] = useState(null)
-  const [resStatus, setResStatus] = useState(null)
-  const [hasTime, setHasTime] = useState(false)
-
-  function resetForm() {
-    setEventName('')
-    setEventNameTouched(false)
-    setEventDesc('')
-    setNick('')
-    setNickTouched(false)
-    setDates([])
-    setSubmitError(null)
-    setResStatus(null)
+type CreateFetchOptions = {
+  method: string,
+  body: string,
+  headers: {
+    'Content-Type': 'application/json'
   }
+}
+
+function Create(): JSX.Element | undefined {
+  const [eventName, setEventName] = useState<string>('')
+  const [eventNameTouched, setEventNameTouched] = useState<boolean>(false)
+  const [eventDesc, setEventDesc] = useState<string>('')
+  const [nick, setNick] = useState<string>('')
+  const [nickTouched, setNickTouched] = useState<boolean>(false)
+  const [dates, setDates] = useState<number[]>([])
+  const [eventId, setEventId] = useState<string | null>(null)
+  const [userId, setOrganizerId] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<JSX.Element | null>(null)
+  const [resStatus, setResStatus] = useState<string | null>(null)
+  const [hasTime, setHasTime] = useState<boolean>(false)
 
   const pickerDateStarter = new Date();
   pickerDateStarter.setMinutes(0);
@@ -49,12 +47,21 @@ function Create() {
 
   useEffect(() => {
     if (resStatus) return
-    document.getElementById('event-name').value = eventName
-    document.getElementById('event-description').value = eventDesc
-    document.getElementById('organizer-nickname').value = nick
+
+    const eventNameElement = document.getElementById('event-name') as HTMLInputElement | null
+    const eventDescElement = document.getElementById('event-description') as HTMLInputElement | null
+    const organizerNickElement = document.getElementById('organizer-nickname') as HTMLInputElement | null
+
+    if (eventNameElement === null || eventDescElement === null || organizerNickElement === null) {
+      throw new Error('A critical HTML element was missing from the document model.')
+    }
+
+    eventNameElement.value = eventName
+    eventDescElement.value = eventDesc
+    organizerNickElement.value = nick
   })
 
-  function deleteDate (dateEpoch) {
+  function deleteDate (dateEpoch: number): void {
     const index = dates.indexOf(dateEpoch)
     if (index < 0) return
     const newDates = Array.from(dates)
@@ -90,7 +97,7 @@ function Create() {
     }
 
     setSubmitError(null)
-    const submitBody = {
+    const submitBody: EventShape = {
       eventName,
       eventDesc,
       nick,
@@ -105,16 +112,18 @@ function Create() {
     setOrganizerId(submitBody.userId)
     setResStatus('pending')
 
-    fetchPost(submitBody, '/api/create', ((res) => {
-      if (res.status == 500) {
-        setResStatus('500')
-        return
+    const fetchOptions: CreateFetchOptions = {
+      method: 'POST',
+      body: JSON.stringify(submitBody),
+      headers: {
+        'Content-Type': 'application/json'
       }
-      if (res.status == 200) {
-        setResStatus('200')
-        return
-      }
-    }))
+    }
+    fetch('/api/create', fetchOptions)
+      .then(res => {
+        if (res.status == 200) setResStatus('200')
+        else setResStatus('500')
+      })
   }
 
   if (resStatus == 'pending')
@@ -137,7 +146,7 @@ function Create() {
           invalid={eventNameTouched && isEmptyOrWhiteSpace(eventName)}
           label='Event name'
           onChange={(event) => {
-            setEventName(event.target.value)
+            setEventName((event.target as HTMLInputElement).value)
             setEventNameTouched(true)
           }}
         />
@@ -146,7 +155,7 @@ function Create() {
           label='Event description (optional)'
           multiline
           onChange={(event) => {
-            setEventDesc(event.target.value)
+            setEventDesc((event.target as HTMLInputElement).value)
           }}
         />
         <Input
@@ -155,7 +164,7 @@ function Create() {
           invalid={nickTouched && isEmptyOrWhiteSpace(nick)}
           label='Your nickname'
           onChange={(event) => {
-            setNick(event.target.value)
+            setNick((event.target as HTMLInputElement).value)
             setNickTouched(true)
           }}
         />
@@ -190,7 +199,7 @@ function Create() {
               // if we are *un*checking hasTime
               if (hasTime) {
                 // remove duplicate dates since we will be disregarding time of day
-                const newDates = []
+                const newDates: number[] = []
                 dates.forEach(epoch => {
                   const date = new Date(epoch)
                   // set selected dates' times to flat 0; we no longer track time; eases dupe detection too

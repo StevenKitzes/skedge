@@ -1,6 +1,11 @@
 import months from './months'
 
-function dateStringsFromEpoch(dateEpoch) {
+export type DateStringObject = {
+  dateString: string,
+  timeString: string,
+}
+
+function dateStringsFromEpoch(dateEpoch: number): DateStringObject {
   const date = new Date(dateEpoch)
   const month = date.getMonth()
   const day = date.getDate()
@@ -12,7 +17,7 @@ function dateStringsFromEpoch(dateEpoch) {
 
   return {
     dateString,
-    timeString
+    timeString,
   }
 }
 

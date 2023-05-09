@@ -1,6 +1,21 @@
 import { QRCodeSVG } from 'qrcode.react'
 import styles from './QRCode.module.scss'
 import scssVars from './QRCode.module.scss'
+import { ReactElement } from 'react'
+
+type QRProps = {
+  backColor: string,
+  errorCorrectionLevel: string,
+  frontColor: string,
+  imageSettings: {
+    excavate: boolean,
+    height: number,
+    src: string,
+    width: number,
+  }
+  size: number,
+  value: string,
+}
 
 const qrImageSrc = '/images/skedge-icon-outline.svg'
 
@@ -9,14 +24,14 @@ function QRCode ({
   errorCorrectionLevel = 'H',
   frontColor = scssVars.primary,
   imageSettings = {
+    excavate: false,
     height: 66,
     src: qrImageSrc,
     width: 66,
   },
-  marginInModules = 4,
   size = 180,
   value = 'https://skedge.pro'
-}) {
+}: QRProps): ReactElement {
   return (
     <div className={styles.container}>
       <QRCodeSVG
@@ -24,8 +39,6 @@ function QRCode ({
         fgColor={frontColor}
         imageSettings={imageSettings}
         level={errorCorrectionLevel}
-        marginSize={marginInModules}
-        renderAs={'svg'}
         size={size}
         value={value}
       />

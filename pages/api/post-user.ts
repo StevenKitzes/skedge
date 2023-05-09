@@ -1,7 +1,10 @@
-import db from '../../helpers/db'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-async function handler(req, res) {
-  const userData = req.body
+import db from '../../helpers/db'
+import type { UserShape } from '../../helpers/db'
+
+async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+  const userData: UserShape = req.body
 
   db.writeUser(userData, (err) => {
     if (err) {

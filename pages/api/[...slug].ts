@@ -1,13 +1,22 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+import type { EventShape, UserShape } from '../../helpers/db'
 import db from '../../helpers/db'
 
-async function handler(req, res) {
-  const {slug} = req.query
-  const [eventId, userId] = slug
+type QueryUsersReturnType = UserShape[] | string | null
+type ReadEventReturnType = EventShape | string | null
+type ReadUserReturnType = UserShape | string | null
 
-  const readEventPromise = new Promise((resolve, reject) => {
+async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+  const eventId: string | undefined = req.query?.slug?.[0]
+  const userId: string | undefined = req.query?.slug?.[1]
+  if (eventId === undefined) {
+    throw new Error('Attempted to read event with no ID.')
+  }
+
+  const readEventPromise = new Promise<ReadEventReturnType>((resolve, reject) => {
     db.readEvent(eventId, (err, data) => {
       if (err) {
-        console.log(`db error: ${JSON.stringify(err)}`)
+        console.error(`db error: ${JSON.stringify(err)}`)
         return reject(`Error reading Event database: ${JSON.stringify(err)}`)
       }
       if (data == null) {
@@ -16,10 +25,10 @@ async function handler(req, res) {
       return resolve(data.Item)
     })
   })
-  const queryUsersPromise = new Promise((resolve, reject) => {
+  const queryUsersPromise = new Promise<QueryUsersReturnType>((resolve, reject) => {
     db.queryEventUsers(eventId, (err, data) => {
       if (err) {
-        console.log(`db error: ${JSON.stringify(err)}`)
+        console.error(`db error: ${JSON.stringify(err)}`)
         return reject(`Error querying User database: ${JSON.stringify(err)}`)
       }
       if (data == null) {
@@ -30,10 +39,10 @@ async function handler(req, res) {
   })
 
   if (userId) {
-    const readUserPromise = new Promise((resolve, reject) => {
+    const readUserPromise = new Promise<ReadUserReturnType>((resolve, reject) => {
       db.readUser(eventId, userId, (err, data) => {
         if (err) {
-          console.log(`db error: ${JSON.stringify(err)}`)
+          console.error(`db error: ${JSON.stringify(err)}`)
           return reject(`Error reading User database: ${JSON.stringify(err)}`)
         }
         if (data == null) {

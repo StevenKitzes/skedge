@@ -37,9 +37,9 @@ function Sharing({ children, eventId, isOrganizer, userId }) {
         }
       }}
     />
-    {/* <Expander small title="Share with QR Code"> */}
+    <Expander small title="Share with QR Code">
       <QRCode value={`https://skedge.pro/event/${eventId}`} />
-    {/* </Expander> */}
+    </Expander>
     {userId &&
       <div>
         <Separator />

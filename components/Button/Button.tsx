@@ -3,7 +3,16 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import styles from './Button.module.scss'
 
-function Button({ alternateLabel = null, classes, href = null, label, onClick = null, variant = 'solid' }) {
+type ButtonProps = {
+  alternateLabel?: string | null,
+  classes: any,
+  href?: string | null,
+  label: string,
+  onClick?: ((event: React.MouseEvent) => void) | null,
+  variant?: string,
+}
+
+function Button({ alternateLabel = null, classes, href = null, label, onClick = null, variant = 'solid' }: ButtonProps) {
   const [copy, setCopy] = useState(label)
 
   let buttonStyle
@@ -23,7 +32,6 @@ function Button({ alternateLabel = null, classes, href = null, label, onClick = 
   if (!!href && !!!onClick) {
     return (
       <Link
-        alt={copy}
         className={clsx(classes, buttonStyle)}
         href={href}
       >
@@ -35,7 +43,6 @@ function Button({ alternateLabel = null, classes, href = null, label, onClick = 
   if (!!!href && !!onClick) {
     return (
       <a
-        alt={copy}
         className={clsx(classes, copy === label ? buttonStyle : styles.dark)}
         onClick={(event) => {
           if (alternateLabel) {

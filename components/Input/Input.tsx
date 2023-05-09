@@ -1,7 +1,21 @@
 import clsx from 'clsx'
 import styles from './Input.module.scss'
 
-function Input({ classes, containerClasses, errorMessage, id, invalid = false, label, multiline = false, onChange, placeholder, readOnly, value }) {
+type InputProps = {
+  classes?: string,
+  containerClasses?: string,
+  errorMessage?: string,
+  id: string,
+  invalid?: boolean,
+  label: string,
+  multiline?: boolean,
+  onChange?: ((event: React.ChangeEvent) => void),
+  placeholder?: string,
+  readOnly?: boolean,
+  value?: string,
+}
+
+function Input({ classes, containerClasses, errorMessage, id, invalid = false, label, multiline = false, onChange, placeholder, readOnly, value }: InputProps) {
   // helps with local dev/testing
   if (typeof window !== 'undefined' && window.location.host.includes('localhost')) {
     value?.replace('https://skedge.pro', 'localhost:3000')
