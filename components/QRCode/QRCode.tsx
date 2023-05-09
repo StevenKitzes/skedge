@@ -4,16 +4,16 @@ import scssVars from './QRCode.module.scss'
 import { ReactElement } from 'react'
 
 type QRProps = {
-  backColor: string,
-  errorCorrectionLevel: string,
-  frontColor: string,
-  imageSettings: {
+  backColor?: string,
+  errorCorrectionLevel?: string,
+  frontColor?: string,
+  imageSettings?: {
     excavate: boolean,
     height: number,
     src: string,
     width: number,
   }
-  size: number,
+  size?: number,
   value: string,
 }
 

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import clsx from 'clsx'
 import Button from '../../Button'
 import DateAnswer from '../../DateAnswers/DateAnswer'
@@ -13,8 +13,27 @@ import fetchPost from '../../../helpers/fetchPost'
 import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../../../helpers/makeHash'
+import { EventShape, UserShape } from '../../../helpers/db'
 
-function ResponsePrompt ({ isFinalized }) {
+type ResponsePromptProps = {
+  isFinalized: boolean,
+}
+type UserControlsProps = {
+  isFinalized: boolean,
+  newUser: boolean,
+  setUserNick: (v: string) => void,
+  setUserNickTouched: (v: boolean) => void,
+  submit: () => void,
+  userNick: string,
+  userNickTouched: boolean,
+}
+type EventLayoutProps = {
+  eventData: EventShape,
+  guestsData: UserShape[],
+  userData: UserShape,
+}
+
+function ResponsePrompt ({ isFinalized }: ResponsePromptProps): JSX.Element | null {
   return isFinalized ? null : (
     <div>
       <p className={styles.userInputHint}>Your response:</p>
@@ -23,7 +42,7 @@ function ResponsePrompt ({ isFinalized }) {
   )
 }
 
-function UserControls ({ isFinalized, newUser, setUserNick, setUserNickTouched, submit, userNick, userNickTouched }) {
+function UserControls ({ isFinalized, newUser, setUserNick, setUserNickTouched, submit, userNick, userNickTouched }: UserControlsProps): JSX.Element {
   if (isFinalized) {
     return (
       <p className={styles.nickname} key={`nickname-user`}>
@@ -39,7 +58,8 @@ function UserControls ({ isFinalized, newUser, setUserNick, setUserNickTouched, 
         id='date-answers-nick'
         invalid={userNickTouched && isEmptyOrWhiteSpace(userNick)}
         onChange={(event) => {
-          setUserNick(event.target.value)
+          const target: HTMLInputElement = event.target as HTMLInputElement
+          setUserNick(target.value)
           setUserNickTouched(true)
         }}
         placeholder='Nickname required'
@@ -54,14 +74,14 @@ function UserControls ({ isFinalized, newUser, setUserNick, setUserNickTouched, 
   )
 }
 
-function EventLayout ({ eventData, guestsData, userData }) {
-  const [userNick, setUserNick] = useState(userData && userData.nickname || '')
-  const [userNickTouched, setUserNickTouched] = useState(false)
-  const [userResponses, setUserResponses] = useState(userData && userData.responses || {})
-  const [modalContent, setModalContent] = useState(null)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [scrollLeft, setScrollLeft] = useState(null)
-  const [scrollRight, setScrollRight] = useState(null)
+function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps) {
+  const [userNick, setUserNick] = useState<string>(userData && userData.nickname || '')
+  const [userNickTouched, setUserNickTouched] = useState<boolean>(false)
+  const [userResponses, setUserResponses] = useState<{[key: string]: boolean}>((userData && userData.responses) ? userData.responses : {})
+  const [modalContent, setModalContent] = useState<JSX.Element | null>(null)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const [scrollLeft, setScrollLeft] = useState<string | null>(null)
+  const [scrollRight, setScrollRight] = useState<string | null>(null)
 
   const isOrganizer = eventData.userId === userData?.userId
   const isFinalized = !!eventData.finalizedDate
@@ -69,9 +89,15 @@ function EventLayout ({ eventData, guestsData, userData }) {
 
   useLayoutEffect(() => {
     function styleAnswers () {
-      const answers = document.getElementById('answers-row').scrollWidth
-      const container = document.getElementById('guests-container').clientWidth
-      const rows = document.querySelectorAll('.date-answers-row-scroll')
+      const answersElement: HTMLDivElement = document.getElementById('answers-row') as HTMLDivElement
+      const containerElement: HTMLDivElement = document.getElementById('guests-container') as HTMLDivElement
+      if (answersElement === null || containerElement === null) {
+        throw new Error('Crucial user interface components were not found.')
+      }
+      const answers = answersElement.scrollWidth
+      const container = containerElement.clientWidth
+      
+      const rows: NodeListOf<HTMLDivElement> = document.querySelectorAll('.date-answers-row-scroll')
       if (answers > container) {
         rows.forEach(row => row.style.justifyContent = 'unset')
       } else {
@@ -84,11 +110,11 @@ function EventLayout ({ eventData, guestsData, userData }) {
     return () => window.removeEventListener('resize', styleAnswers)
   }, [])
 
-  function handleScrollEvent(event) {
-    handleScroll(event.target)
+  function handleScrollEvent(event: React.UIEvent): void {
+    handleScroll(event.target as HTMLDivElement)
   }
 
-  function handleScroll(target) {
+  function handleScroll(target: HTMLDivElement) {
     const leftScrollGap = target.scrollLeft;
     const rightScrollGap = target.scrollWidth - target.clientWidth - target.scrollLeft;
 
@@ -136,7 +162,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
       comments: '',
       expires: eventData.expires
     }
-    fetchPost(submitBody, '/api/post-user', ((res) => {
+    fetchPost(submitBody, '/api/post-user', (res => {
       if (res.status == 500) {
         setModalContent(<p className={styles.modalMessage}>
           There was an error somewhere <em>behind the curtain</em>.  Please try again . . .
@@ -161,12 +187,12 @@ function EventLayout ({ eventData, guestsData, userData }) {
   }
 
   function getDateAnswers(
-    responseObject,
-    clickable,
-    isOrganizer,
-    confirmFinalization,
-    finalizable,
-    showFinalized,
+    responseObject: { [key: string]: boolean },
+    clickable: boolean,
+    isOrganizer: boolean,
+    confirmFinalization: (v: number) => void,
+    finalizable: boolean,
+    showFinalized: boolean,
   ) {
     return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
@@ -186,7 +212,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
     />
   )}
 
-  function confirmFinalization(date) {
+  function confirmFinalization(date: number): void {
     const {dateString, timeString} = dateStringsFromEpoch(date)
     const eventTimeString = eventData.hasTime ? `${dateString} at ${timeString}` : dateString
     setModalContent(<div>
@@ -202,7 +228,7 @@ function EventLayout ({ eventData, guestsData, userData }) {
             ...eventData,
             finalizedDate: date,
           }
-          fetchPost(updatedEventData, '/api/update-event', ((res) => {
+          fetchPost(updatedEventData, '/api/update-event', (res => {
             if (res.status == 500) {
               setModalContent(<p className={styles.modalMessage}>
                 There was an error finalizing the event.  Please try again . . .

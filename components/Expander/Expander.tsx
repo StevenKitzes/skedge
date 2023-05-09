@@ -4,7 +4,7 @@ import styles from './Expander.module.scss'
 import smallStyles from './ExpanderSmall.module.scss'
 
 type ExpanderProps = {
-  content: string,
+  content?: string,
   small?: boolean,
   title: string,
 }

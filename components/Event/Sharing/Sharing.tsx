@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react'
+
 import { Button } from '../../Button'
 import { Expander } from '../../Expander'
 import { Input } from '../../Input'
@@ -5,7 +7,13 @@ import { QRCode } from '../../QRCode'
 import { Separator } from '../../Separator'
 import styles from './Sharing.module.scss'
 
-function Sharing({ children, eventId, isOrganizer, userId }) {
+type SharingProps = {
+  eventId: string,
+  isOrganizer: boolean,
+  userId: string,
+}
+
+function Sharing({ children, eventId, isOrganizer, userId }: PropsWithChildren<SharingProps>) {
   const query = new URLSearchParams(window.location.search)
   const status = query.get('status')
 
@@ -27,7 +35,10 @@ function Sharing({ children, eventId, isOrganizer, userId }) {
       classes={styles.button}
       label='Copy link'
       onClick={() => {
-        const input = document.getElementById('share-link')
+        const input = document.getElementById('share-link') as HTMLInputElement
+        if (input === null) {
+          throw new Error('Crucial HTML element was missing from the document model.')
+        }
         input.select()
         input.setSelectionRange(0, 1000)
         if (!navigator.clipboard) {
@@ -59,7 +70,10 @@ function Sharing({ children, eventId, isOrganizer, userId }) {
           classes={styles.button}
           label='Copy link'
           onClick={() => {
-            const input = document.getElementById('personal-link')
+            const input = document.getElementById('personal-link') as HTMLInputElement
+            if (input === null) {
+              throw new Error('Crucial HTML element was missing from the document model.')
+            }
             input.select()
             input.setSelectionRange(0, 1000)
             if (!navigator.clipboard) {

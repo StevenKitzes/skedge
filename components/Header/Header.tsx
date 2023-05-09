@@ -1,11 +1,16 @@
 import Link from 'next/link'
 import styles from './Header.module.scss'
 
-function Header({ menuActive, setMenuActive, showLogo }) {
+type HeaderProps = {
+  menuActive: boolean,
+  setMenuActive: (v: boolean) => void,
+  showLogo?: boolean,
+}
+
+function Header({ menuActive, setMenuActive, showLogo }: HeaderProps) {
   return (
     <div className={styles.header}>
       <Link
-        alt='Skedge Home'
         className={styles.iconAnchor}
         href='/'
       >

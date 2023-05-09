@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 import styles from './Footer.module.scss'
 
-function Footer() {
-  const version = getConfig()?.publicRuntimeConfig?.version
+function Footer(): JSX.Element {
+  const version: string | undefined = getConfig()?.publicRuntimeConfig?.version
 
   return (
     <div className={styles.footer}>
@@ -17,7 +17,7 @@ function Footer() {
         >
             Steven Kitzes
         </Link>
-        <span> - v{version}</span>
+        {version && <span> - v{version}</span>}
       </p>
     </div>
   )

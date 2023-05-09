@@ -61,6 +61,15 @@ function EventMain ({ hasUser }: EventMainProps) {
   if (error) {
     return <EventFail errorMessage={error} />
   }
+  if (eventData === null) {
+    return <EventFail errorMessage='The data for this event has gone missing!' />
+  }
+  if (guestsData === null) {
+    return <EventFail errorMessage='The guest data for this event has gone missing!' />
+  }
+  if (userData === null) {
+    return <EventFail errorMessage='User data for this event has gone missing!' />
+  }
   return (
     <EventLayout
       eventData={eventData}

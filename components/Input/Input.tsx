@@ -7,7 +7,7 @@ type InputProps = {
   errorMessage?: string,
   id: string,
   invalid?: boolean,
-  label: string,
+  label?: string,
   multiline?: boolean,
   onChange?: ((event: React.ChangeEvent) => void),
   placeholder?: string,
