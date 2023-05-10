@@ -19,3 +19,7 @@ First major version release (casual though it may be).  All features are conside
 ### Version 1.3.0
 
 - Show active user which are the most popular choices
+
+### Version 1.3.1
+
+- Accelerate pulse speed on finalized date
