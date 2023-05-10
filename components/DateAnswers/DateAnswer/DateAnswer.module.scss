@@ -47,6 +47,22 @@
   color: $black;
 }
 
+.popular {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.popularCopy {
+  display: inline;
+  font-size: .75em;
+}
+
+.star {
+  display: inline;
+  height: 1em;
+  vertical-align: text-top;
+}
+
 .unavailable {
   background-color: $white;
   color: $light-gray;

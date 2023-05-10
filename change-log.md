@@ -14,3 +14,8 @@ First major version release (casual though it may be).  All features are conside
 
 - Revert expandable QR changes
 - Refactor to TS
+- Repair API endpoints that didn't send responses
+
+### Version 1.3.0
+
+- Show active user which are the most popular choices

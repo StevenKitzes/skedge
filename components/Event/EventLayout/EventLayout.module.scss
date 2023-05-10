@@ -12,9 +12,11 @@
   align-content: center;
   display: flex;
   flex-direction: row;
-  padding-bottom: 8px;
   overflow-x: auto;
   z-index: 0;
+}
+.userAnswersBottomPadding {
+  padding-bottom: 8px;
 }
 
 .copyableInput {

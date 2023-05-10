@@ -12,6 +12,7 @@ type DateAnswerProps = {
   hasTime: boolean,
   isFinalized: boolean,
   isOrganizer: boolean,
+  isPopular: boolean,
   response: boolean,
   setUserResponses: (r: {[key: string]: boolean}) => void,
   showFinalized: boolean,
@@ -28,6 +29,7 @@ function DateAnswer({
   hasTime,
   isFinalized,
   isOrganizer,
+  isPopular,
   response,
   setUserResponses,
   showFinalized,
@@ -68,6 +70,13 @@ function DateAnswer({
         >
           Select as final
         </p>
+      }
+      {isPopular && !isFinalized && clickable &&
+        <div className={styles.popular}>
+          <span className={styles.popularCopy}>
+            <img className={styles.star} alt='Popular choice!' src='/images/star.svg' /> Popular choice!
+          </span>
+        </div>
       }
     </div>
   )

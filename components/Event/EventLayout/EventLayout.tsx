@@ -15,6 +15,7 @@ import dateStringsFromEpoch from '../../../helpers/dateStringsFromEpoch'
 import isEmptyOrWhiteSpace from '../../../helpers/isEmptyOrWhiteSpace'
 import makeHash from '../../../helpers/makeHash'
 import { EventShape, UserShape } from '../../../helpers/db'
+import { getPopularList } from '../../../helpers/getPopularList'
 
 import type { FetchOptions } from '../../../types/FetchOptions'
 
@@ -89,6 +90,8 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
   const isOrganizer = eventData.userId === userData?.userId
   const isFinalized = !!eventData.finalizedDate
   const finalizedDate = eventData.finalizedDate
+
+  const popularList: number[] = getPopularList(eventData.dates, guestsData.map(guest => guest.responses))
 
   useLayoutEffect(() => {
     function styleAnswers () {
@@ -204,6 +207,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
     confirmFinalization: (v: number) => void,
     finalizable: boolean,
     showFinalized: boolean,
+    popularList: number[],
   ): JSX.Element[] {
     return eventData.dates.map((date, index) => <DateAnswer
       alternateColor={index % 2 === 0}
@@ -215,6 +219,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
       hasTime={eventData.hasTime}
       isFinalized={isFinalized}
       isOrganizer={isOrganizer}
+      isPopular={popularList.includes(index)}
       key={index}
       response={responseObject[date]}
       setUserResponses={setUserResponses}
@@ -282,7 +287,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
       if (index > 0) guestComponents.unshift(<hr className={styles.rowSeparator} key={`hr-${index}`} />)
       guestComponents.unshift(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, true, false)}
+          dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, true, false, popularList)}
           idString='answers-row'
           key={`user-answers-${index}`}
           rowStyle={styles.userAnswers}
@@ -314,7 +319,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
       )
       guestComponents.push(
         <ResponseRow
-          dateAnswerPairs={getDateAnswers(guest.responses, false, isOrganizer, confirmFinalization, false, false)}
+          dateAnswerPairs={getDateAnswers(guest.responses, false, isOrganizer, confirmFinalization, false, false, popularList)}
           key={`answers-${index}`}
           rowStyle={styles.answers}
           scrollHandler={handleScrollEvent}
@@ -329,7 +334,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`new-user-separator`} />)
     guestComponents.unshift(
       <ResponseRow
-        dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, false, false)}
+        dateAnswerPairs={getDateAnswers(userResponses, true, isOrganizer, confirmFinalization, false, false, popularList)}
         idString='answers-row'
         key={`new-user-answers`}
         rowStyle={styles.userAnswers}
@@ -357,7 +362,7 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
     guestComponents.unshift(<hr className={styles.rowSeparator} key={`finalized-separator`} />)
     guestComponents.unshift(
       <ResponseRow
-        dateAnswerPairs={getDateAnswers(userResponses, false, false, confirmFinalization, false, true)}
+        dateAnswerPairs={getDateAnswers(userResponses, false, false, confirmFinalization, false, true, popularList)}
         idString='answers-row'
         key={`finalized-answers`}
         rowStyle={styles.userAnswers}
