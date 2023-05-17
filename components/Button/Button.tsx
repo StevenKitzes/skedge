@@ -8,6 +8,7 @@ type ButtonProps = {
   classes?: any,
   href?: string | null,
   label?: string,
+  newTab?: boolean,
   onClick?: ((event: React.MouseEvent) => void) | null,
   variant?: string,
 }
@@ -18,6 +19,7 @@ function Button({
   classes,
   href = null,
   label,
+  newTab = false,
   onClick = null,
   variant = 'solid'
 }: PropsWithChildren<ButtonProps>): JSX.Element | null {
@@ -43,6 +45,7 @@ function Button({
       <Link
         className={clsx(classes, buttonStyle)}
         href={href}
+        target={newTab ? "_blank" : ""}
       >
         {
           children ?
@@ -66,6 +69,7 @@ function Button({
           }
           onClick(event)
         }}
+        target={newTab ? "_blank" : ""}
       >
         {copy}
       </a>

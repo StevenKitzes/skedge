@@ -33,3 +33,7 @@ First major version release (casual though it may be).  All features are conside
 
 - Add Kofi donation button
 - Touch up styles and z-indexing throughout
+
+### Version 1.4.0
+
+- Give Button component the option to target a new tab

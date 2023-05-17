@@ -38,6 +38,7 @@ function BurgerMenu({ menuActive, setMenuActive }: BurgerMenuProps): JSX.Element
         <Button
           classes={clsx(styles.kofiParent, styles.spacedButton)}
           href='https://ko-fi.com/steverino'
+          newTab
           variant='outlined'
         >
           <img

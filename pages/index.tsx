@@ -33,6 +33,7 @@ export default function Home(): JSX.Element {
       <Button
         classes={styles.kofiParent}
         href='https://ko-fi.com/steverino'
+        newTab
         variant='outlined'
       >
         <img
