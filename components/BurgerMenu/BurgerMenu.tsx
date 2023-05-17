@@ -42,7 +42,7 @@ function BurgerMenu({ menuActive, setMenuActive }: BurgerMenuProps): JSX.Element
           variant='outlined'
         >
           <img
-            src="../public/images/cup-border.webp"
+            src="/images/cup-border.webp"
             alt="Ko-fi donations"
             className={styles.kofiImage} />
           Leave a tip!

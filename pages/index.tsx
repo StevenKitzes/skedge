@@ -38,7 +38,7 @@ export default function Home(): JSX.Element {
         variant='outlined'
       >
         <img
-          src="../public/images/cup-border.webp"
+          src="/images/cup-border.webp"
           alt="Ko-fi donations"
           className={styles.kofiImage} />
         Leave a tip!
