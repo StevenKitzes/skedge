@@ -23,3 +23,8 @@ First major version release (casual though it may be).  All features are conside
 ### Version 1.3.1
 
 - Accelerate pulse speed on finalized date
+
+### Version 1.3.2
+
+- Repair z-index conflicts between horizontal scroll indicators and header/footer
+- Touch up date picker modal positioning
