@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 import Button from '../../Button'
 import Hero from '../../Hero'
 import Layout from '../../Layout'
@@ -12,6 +14,10 @@ type EventFailProps = {
 function EventFail ({ errorMessage }: EventFailProps): JSX.Element {
   return (
     <Layout>
+      <Head>
+        <title>Skedge Error</title>
+        <link rel="icon" href="https://skedge.pro/favicon.ico" />
+      </Head>
       <Hero title='Whoops!' />
       <Separator />
       <Oof

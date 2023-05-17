@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -132,6 +133,10 @@ function Create(): JSX.Element | undefined {
   if (!resStatus) {
     return (
       <Layout>
+        <Head>
+          <title>Create Event{eventName ? `: ${eventName}` : ''}</title>
+          <link rel="icon" href="https://skedge.pro/favicon.ico" />
+        </Head>
         <Hero title='Create Event' />
         <Separator />
         <Input

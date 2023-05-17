@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 import Button from '../components/Button'
 import Expander from '../components/Expander'
 import Hero from '../components/Hero'
@@ -8,6 +10,10 @@ import styles from './learn.module.scss'
 function Learn(): JSX.Element {
   return (
     <Layout>
+      <Head>
+        <title>About Skedge</title>
+        <link rel="icon" href="https://skedge.pro/favicon.ico" />
+      </Head>
       <Hero title="What's it all about?" />
       <Separator />
       <p className={styles.p}>

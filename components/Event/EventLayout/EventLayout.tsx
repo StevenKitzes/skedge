@@ -18,6 +18,7 @@ import { EventShape, UserShape } from '../../../helpers/db'
 import { getPopularList } from '../../../helpers/getPopularList'
 
 import type { FetchOptions } from '../../../types/FetchOptions'
+import Head from 'next/head'
 
 type ResponsePromptProps = {
   isFinalized: boolean,
@@ -380,6 +381,10 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
 
   return (
     <Layout eventPage showLogo>
+      <Head>
+        <title>{eventData.eventName}</title>
+        <link rel="icon" href="https://skedge.pro/favicon.ico" />
+      </Head>
       <div className={styles.layoutContent}>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>{eventData.eventName}{isFinalized && ` (Date Set)`}</h1>

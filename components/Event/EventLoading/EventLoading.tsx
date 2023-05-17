@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Lottie from 'lottie-react'
 
 import Hero from '../../Hero'
@@ -10,6 +11,10 @@ import loading from '../../../public/images/skedge-loading.json'
 function EventLoading (): JSX.Element {
   return (
     <Layout>
+      <Head>
+        <title>Loading Skedge Event . . .</title>
+        <link rel="icon" href="https://skedge.pro/favicon.ico" />
+      </Head>
       <Hero title='Loading...' />
       <Separator />
       <div className={styles.animationContainer}>
