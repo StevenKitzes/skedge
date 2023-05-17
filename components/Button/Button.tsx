@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import clsx from 'clsx'
 import Link from 'next/link'
 import styles from './Button.module.scss'
@@ -7,13 +7,22 @@ type ButtonProps = {
   alternateLabel?: string | null,
   classes?: any,
   href?: string | null,
-  label: string,
+  label?: string,
   onClick?: ((event: React.MouseEvent) => void) | null,
   variant?: string,
 }
 
-function Button({ alternateLabel = null, classes, href = null, label, onClick = null, variant = 'solid' }: ButtonProps): JSX.Element | null {
-  const [copy, setCopy] = useState<string>(label)
+function Button({
+  alternateLabel = null,
+  children,
+  classes,
+  href = null,
+  label,
+  onClick = null,
+  variant = 'solid'
+}: PropsWithChildren<ButtonProps>): JSX.Element | null {
+  const labelPlaceholder = 'sad button'
+  const [copy, setCopy] = useState<string>(label || labelPlaceholder)
 
   let buttonStyle
   switch (variant) {
@@ -35,7 +44,13 @@ function Button({ alternateLabel = null, classes, href = null, label, onClick = 
         className={clsx(classes, buttonStyle)}
         href={href}
       >
-          {copy}
+        {
+          children ?
+          <div className={styles.buttonChildrenContainer}>
+            {children}
+          </div> :
+          copy
+        }
       </Link>
     )
   }
@@ -47,7 +62,7 @@ function Button({ alternateLabel = null, classes, href = null, label, onClick = 
         onClick={(event) => {
           if (alternateLabel) {
             setCopy(alternateLabel)
-            setTimeout(() => setCopy(label), 750)
+            setTimeout(() => setCopy(label || labelPlaceholder), 750)
           }
           onClick(event)
         }}

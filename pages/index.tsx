@@ -19,16 +19,28 @@ export default function Home(): JSX.Element {
         <h3 className={styles.subtitle}>Scheduling for busy bees!</h3>
       </div>
       <Button
-        classes={styles.createButton}
+        classes={styles.buttonBottomMargin}
         href='/create'
         label='Create an event'
         variant='solid'
       />
       <Button
+        classes={styles.buttonBottomMargin}
         href='/learn'
         label='Learn more'
         variant='outlined'
       />
+      <Button
+        classes={styles.kofiParent}
+        href='https://ko-fi.com/steverino'
+        variant='outlined'
+      >
+        <img
+          src="../public/images/cup-border.webp"
+          alt="Ko-fi donations"
+          className={styles.kofiImage} />
+        Leave a tip!
+      </Button>
     </Layout>
   )
 }

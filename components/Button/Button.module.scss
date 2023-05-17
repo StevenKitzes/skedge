@@ -19,6 +19,13 @@
   }
 }
 
+.buttonChildrenContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .dark {
   @include fundamentals;
   background-color: $secondary;

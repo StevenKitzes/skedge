@@ -35,6 +35,17 @@ function BurgerMenu({ menuActive, setMenuActive }: BurgerMenuProps): JSX.Element
           label='Learn more'
           variant='outlined'
         />
+        <Button
+          classes={clsx(styles.kofiParent, styles.spacedButton)}
+          href='https://ko-fi.com/steverino'
+          variant='outlined'
+        >
+          <img
+            src="../public/images/cup-border.webp"
+            alt="Ko-fi donations"
+            className={styles.kofiImage} />
+          Leave a tip!
+        </Button>
       </div>
     </div>
   )

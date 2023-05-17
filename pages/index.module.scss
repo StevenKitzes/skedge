@@ -1,7 +1,30 @@
 @import '../styles/theme.scss';
 
-.createButton {
+.buttonBottomMargin {
   margin-bottom: 16px;
+}
+
+.kofiImage {
+  animation-delay: 0s;
+  animation-direction: normal;
+  animation-duration: 3s;
+  animation-fill-mode: none;
+  animation-iteration-count: 2;
+  animation-name: kofi-wiggle;
+  animation-play-state: running;
+  animation-timing-function: ease;
+  box-sizing: border-box;
+  content: url("https://storage.ko-fi.com/cdn/cup-border.png");
+  display: inline;
+  height: 15px;
+  margin-right: 8px;
+  width: 22px;
+}
+
+.kofiParent:hover img {
+  animation-duration: 2s;
+  animation-name: kofi-wiggle-no-delay;
+  animation-iteration-count: infinite;
 }
 
 .skedgeLogo {

@@ -28,3 +28,8 @@ First major version release (casual though it may be).  All features are conside
 
 - Repair z-index conflicts between horizontal scroll indicators and header/footer
 - Touch up date picker modal positioning
+
+### Version 1.3.3
+
+- Add Kofi donation button
+- Touch up styles and z-indexing throughout
