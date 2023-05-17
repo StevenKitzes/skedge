@@ -69,9 +69,3 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
 }
 
 export default handler
-
-export const config = {
-  api: {
-    externalResolver: true,
-  },
-}
