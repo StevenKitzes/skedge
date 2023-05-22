@@ -42,3 +42,7 @@ First major version release (casual though it may be).  All features are conside
 
 - Add page titles throughout
 - Add Skedge favicon
+
+### Version 1.5.1
+
+- Fix modal that was breaking the header on mobile screen sizes
