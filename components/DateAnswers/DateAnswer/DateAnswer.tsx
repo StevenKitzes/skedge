@@ -51,7 +51,7 @@ function DateAnswer({
     response ? styles.availabilityStyle : unavailabilityStyle
 
   return (
-    <div>
+    <div className={isOrganizer ? styles.dateAnswerPairContainer : undefined}>
       <div
         className={clsx(
           styles.dateAnswer,
