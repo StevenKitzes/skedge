@@ -50,3 +50,10 @@
   height: 40px;
   width: 250px;
 }
+
+@media (prefers-color-scheme: dark) {
+  .outlined {
+    background-color: $dark-gray;
+    color: $white;
+  }
+}

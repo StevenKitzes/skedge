@@ -7,3 +7,9 @@
   max-width: 600px;
   width: 75%;
 }
+
+@media (prefers-color-scheme: dark) {
+  .separator {
+    border-color: $gray;
+  }
+}

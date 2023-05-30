@@ -173,3 +173,9 @@
     overflow-y: hidden;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .organizerTitle {
+    color: $white;
+  }
+}

@@ -14,7 +14,7 @@ export default function Home(): JSX.Element {
 
       <div className={styles.titleContainer} id='title'>
         <h1 className={styles.welcomeTo}>Welcome to</h1>
-        <img className={styles.skedgeLogo} src='/images/skedge-logo-outline.svg' />
+        <img className={styles.skedgeLogo} />
       </div>
       <div className={styles.subtitleContainer}>
         <h3 className={styles.subtitle}>Scheduling for busy bees!</h3>

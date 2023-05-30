@@ -1,6 +1,7 @@
 @import '../../styles/theme.scss';
 
 .logo {
+  // content: url("/images/skedge-logo-outline.svg");
   width: 200px;
 }
 
@@ -8,4 +9,10 @@
   font-family: handlee;
   font-size: 30px;
   margin-bottom: -8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    content: url("/images/skedge-logo.svg");
+  }
 }

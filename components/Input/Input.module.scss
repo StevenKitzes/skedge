@@ -59,3 +59,19 @@
   font-weight: $heavy;
   text-align: left;
 }
+
+@media (prefers-color-scheme: dark) {
+  .input {
+    background-color: $dark-gray;
+    color: $white;
+  }
+
+  .inputError {
+    background-color: $secondary;
+  }
+
+  .forceLight {
+    background-color: $white;
+    color: $black;
+  }
+}

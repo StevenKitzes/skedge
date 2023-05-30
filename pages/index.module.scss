@@ -27,6 +27,7 @@
 }
 
 .skedgeLogo {
+  content: url("/images/skedge-logo-outline.svg");
   margin: 0 auto;
   width: 200px;
 }
@@ -76,5 +77,11 @@
     font-size: 36px;
     margin: auto 4px auto;
     text-align: right;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .skedgeLogo {
+    content: url("/images/skedge-logo.svg");
   }
 }

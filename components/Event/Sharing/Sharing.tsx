@@ -26,6 +26,7 @@ function Sharing({ children, eventId, isOrganizer, userId }: PropsWithChildren<S
     </h3>
     <Input
       classes={styles.shareInput}
+      forceLight
       id='share-link'
       readOnly
       value={`https://skedge.pro/event/${eventId}`}
@@ -61,6 +62,7 @@ function Sharing({ children, eventId, isOrganizer, userId }: PropsWithChildren<S
         </h3>
         <Input
           classes={styles.shareInput}
+          forceLight
           id='personal-link'
           readOnly
           value={`https://skedge.pro/event/${eventId}/${userId}`}

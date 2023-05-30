@@ -5,6 +5,7 @@ type InputProps = {
   classes?: string,
   containerClasses?: string,
   errorMessage?: string,
+  forceLight?: boolean,
   id: string,
   invalid?: boolean,
   label?: string,
@@ -19,6 +20,7 @@ function Input({
   classes,
   containerClasses,
   errorMessage,
+  forceLight,
   id,
   invalid = false,
   label,
@@ -39,7 +41,7 @@ function Input({
       {
         multiline
           ? <textarea
-              className={clsx(styles.input, classes, invalid && styles.inputError)}
+              className={clsx(styles.input, classes, invalid && styles.inputError, forceLight && styles.forceLight)}
               id={id}
               onChange={onChange}
               onClick={(event) => event.stopPropagation()}
@@ -48,7 +50,7 @@ function Input({
               value={value}
             />
           : <input
-              className={clsx(styles.input, classes, invalid && styles.inputError)}
+              className={clsx(styles.input, classes, invalid && styles.inputError, forceLight && styles.forceLight)}
               id={id}
               onChange={onChange}
               onClick={(event) => event.stopPropagation()}

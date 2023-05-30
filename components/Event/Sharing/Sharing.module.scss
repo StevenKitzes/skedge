@@ -40,3 +40,13 @@
     margin: 8px auto 0px;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: $dark-gray;
+  }
+
+  .eventLive {
+    color: $white;
+  }
+}

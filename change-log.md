@@ -46,3 +46,7 @@ First major version release (casual though it may be).  All features are conside
 ### Version 1.5.1
 
 - Fix modal that was breaking the header on mobile screen sizes
+
+### Version 1.6.0
+
+- Add dark mode

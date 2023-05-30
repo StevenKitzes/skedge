@@ -10,7 +10,6 @@ function Hero ({ title }: HeroProps): JSX.Element {
       <img
         alt='Skedge'
         className={styles.logo}
-        src='/images/skedge-logo-outline.svg'
       />
       <h1 className={styles.title}>
         {title}

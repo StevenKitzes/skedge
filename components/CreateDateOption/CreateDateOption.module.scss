@@ -1,32 +1,24 @@
 @import '../../styles/theme.scss';
 
-.containerHasTime {
+.container {
   align-items: center;
   background-color: $white;
   border: 4px solid $secondary;
   border-radius: 12px;
   color: $secondary;
   display: grid;
-  grid-template-columns: 1fr 75px 32px;
   font-size: 17px;
   font-weight: $heavy;
   height: 40px;
   padding: 4px 8px;
   width: 225px;
 }
+
+.containerHasTime {
+  grid-template-columns: 1fr 75px 32px;
+}
 .containerNoTime {
-  align-items: center;
-  background-color: $white;
-  border: 4px solid $secondary;
-  border-radius: 12px;
-  color: $secondary;
-  display: grid;
   grid-template-columns: 1fr 32px;
-  font-size: 17px;
-  font-weight: $heavy;
-  height: 40px;
-  padding: 4px 8px;
-  width: 225px;
 }
 
 .dateHasTime {
@@ -37,6 +29,7 @@
 }
 
 .delete {
+  content: url("/images/skedge-delete.svg");
   cursor: pointer;
   height: 24px;
   justify-self: end;
@@ -46,11 +39,14 @@
   justify-self: start;
 }
 
-@media screen and (min-width: $browser) {
+@media (prefers-color-scheme: dark) {
   .container {
-    font-size: 18px;
-    grid-template-columns: 1fr 125px 32px;
-    height: 32px;
-    width: 320px;
+    background-color: $dark-gray;
+    border-color: $light-gray;
+    color: $white;
+  }
+  
+  .delete {
+    content: url("/images/skedge-delete-saturated.svg");
   }
 }

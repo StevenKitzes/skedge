@@ -34,3 +34,9 @@
     height: 20px;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background-color: $dark-gray;
+  }
+}

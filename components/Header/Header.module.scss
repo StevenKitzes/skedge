@@ -29,3 +29,12 @@
 .icon, .logo {
   height: 40px;
 }
+
+@media (prefers-color-scheme: dark) {
+  .header {
+    background-color: $black;
+    box-shadow:
+      36px -10px 12px 20px $black,
+      -36px -10px 12px 20px $black;
+  }
+  }
