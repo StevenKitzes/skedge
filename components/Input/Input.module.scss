@@ -71,7 +71,8 @@
   }
 
   .forceLight {
-    background-color: $white;
+    background-color: $light-gray;
+    border-color: $primary;
     color: $black;
   }
 }
