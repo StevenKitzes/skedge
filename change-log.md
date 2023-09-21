@@ -50,3 +50,7 @@ First major version release (casual though it may be).  All features are conside
 ### Version 1.6.0
 
 - Add dark mode
+
+### Version 1.6.1
+
+- Add busy bee art

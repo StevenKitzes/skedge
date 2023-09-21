@@ -17,7 +17,7 @@ export default function Home(): JSX.Element {
         <img className={styles.skedgeLogo} />
       </div>
       <div className={styles.subtitleContainer}>
-        <h3 className={styles.subtitle}>Scheduling for busy bees!</h3>
+        <h3 className={styles.subtitle}>Scheduling for busy bees!<img className={styles.busyBee} /></h3>
       </div>
       <Button
         classes={styles.buttonBottomMargin}
