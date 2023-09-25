@@ -382,8 +382,16 @@ function EventLayout ({ eventData, guestsData, userData }: EventLayoutProps): JS
   return (
     <Layout eventPage showLogo>
       <Head>
-        <title>{eventData.eventName}</title>
+        <title>{`${eventData.eventName} - on Skedge`}</title>
         <link rel="icon" href="https://skedge.pro/favicon.ico" />
+        <meta name="description" content={eventData.eventDesc} />
+        <meta name="author" content="Steven Kitzes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content={`${eventData.eventName} - on Skedge`} />
+        <meta property="og:description" content={eventData.eventDesc} />
+        <meta property="og:image" content="https://skedge.pro/images/og-image.png" />
+        <meta property="og:url" content={`https://skedge.pro/${eventData.eventId}`} />
+        <meta property="og:type" content="website" />
       </Head>
       <div className={styles.layoutContent}>
         <div className={styles.titleContainer}>

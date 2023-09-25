@@ -8,12 +8,25 @@ import styles from './EventLoading.module.scss'
 
 import loading from '../../../public/images/skedge-loading.json'
 
-function EventLoading (): JSX.Element {
+type EventLoadingProps = {
+  eventId: string | null;
+  userId: string | null;
+}
+
+function EventLoading ({ eventId, userId }: EventLoadingProps): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>Loading Skedge Event . . .</title>
+        <title>Skedge Event - Loading</title>
         <link rel="icon" href="https://skedge.pro/favicon.ico" />
+        <meta name="description" content="Your Skedge event is loading . . ." />
+        <meta name="author" content="Steven Kitzes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="Skedge Event - Loading" />
+        <meta property="og:description" content="Your Skedge event is loading . . ." />
+        <meta property="og:image" content="https://skedge.pro/images/og-image.png" />
+        <meta property="og:url" content={`https://skedge.pro${eventId ? `/${eventId}` : ""}${userId ? `/${userId}` : ""}`} />
+        <meta property="og:type" content="website" />
       </Head>
       <Hero title='Loading...' />
       <Separator />

@@ -131,11 +131,21 @@ function Create(): JSX.Element | undefined {
     return <CreateFail setResStatus={setResStatus} />
   }
   if (!resStatus) {
+    const seoTitle = `Create Skedge Event${eventName ? `: ${eventName}` : ''}`
     return (
       <Layout>
         <Head>
-          <title>Create Event{eventName ? `: ${eventName}` : ''}</title>
+          <title>{seoTitle}</title>
           <link rel="icon" href="https://skedge.pro/favicon.ico" />
+          <meta name="description" content="Provide the basic information needed to create your Skedge event and its voting options." />
+          <meta name="keywords" content="skedge, skedge.pro, create, schedule, scheduler, scheduling, schedule tool, scheduler tool, scheduling tool, organize schedule, organize scheduling, social scheduling tool, free scheduler, productivity tool, online scheduler, online scheduling, efficient scheduling" />
+          <meta name="author" content="Steven Kitzes" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta property="og:title" content={seoTitle} />
+          <meta property="og:description" content="Provide the basic information needed to create your Skedge event and its voting options." />
+          <meta property="og:image" content="https://skedge.pro/images/og-image.png" />
+          <meta property="og:url" content="https://skedge.pro/create" />
+          <meta property="og:type" content="website" />
         </Head>
         <Hero title='Create Event' />
         <Separator />

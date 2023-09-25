@@ -15,7 +15,7 @@ function EventFail ({ errorMessage }: EventFailProps): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>Skedge Error</title>
+        <title>Skedge - Error</title>
         <link rel="icon" href="https://skedge.pro/favicon.ico" />
       </Head>
       <Hero title='Whoops!' />

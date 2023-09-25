@@ -11,8 +11,17 @@ function Learn(): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>About Skedge</title>
+        <title>About Skedge - The Social Scheduling Tool for Busy Bees</title>
         <link rel="icon" href="https://skedge.pro/favicon.ico" />
+        <meta name="description" content="Learn more about Skedge, a free scheduling tool to help you organize events without sacrificing your personal information - ever!" />
+        <meta name="keywords" content="skedge, skedge.pro, learn more about skedge, schedule, scheduler, scheduling, schedule tool, scheduler tool, scheduling tool, organize schedule, organize scheduling, social scheduling tool, free scheduler, productivity tool, online scheduler, online scheduling, efficient scheduling" />
+        <meta name="author" content="Steven Kitzes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="About Skedge - The Social Scheduling Tool for Busy Bees" />
+        <meta property="og:description" content="Learn more about Skedge, a free scheduling tool to help you organize events without sacrificing your personal information - ever!" />
+        <meta property="og:image" content="https://skedge.pro/images/og-image.png" />
+        <meta property="og:url" content="https://skedge.pro/learn" />
+        <meta property="og:type" content="website" />
       </Head>
       <Hero title="What's it all about?" />
       <Separator />

@@ -17,6 +17,9 @@ function EventMain ({ hasUser }: EventMainProps): JSX.Element {
   const [guestsData, setGuestsData] = useState<UserShape[] | null>(null)
   const [userData, setUserData] = useState<UserShape | null>(null)
 
+  const [eventId, setEventId] = useState<string|null>(null)
+  const [userId, setUserId] = useState<string|null>(null)
+
   function getEventId(pathParts: string[]): string {
     return pathParts[pathParts.length - (hasUser ? 2 : 1)]
   }
@@ -28,6 +31,9 @@ function EventMain ({ hasUser }: EventMainProps): JSX.Element {
     const pathParts = window.location.toString().split('/')
     const eventId = getEventId(pathParts)
     const userId = getUserId(pathParts)
+    setEventId(eventId)
+    setUserId(userId || null)
+
     let url = `/api/${eventId}`
     if (userId) url += `/${userId}`
     fetch(url)
@@ -53,7 +59,7 @@ function EventMain ({ hasUser }: EventMainProps): JSX.Element {
   }, [])
 
   if (loading) {
-    return <EventLoading />
+    return <EventLoading eventId={eventId} userId={userId} />
   }
   if (fourOhFour) {
     return <FourOhFour message='The event or user you seek was not found.' />
