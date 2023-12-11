@@ -1,0 +1,11 @@
+@import '../../../styles/theme.scss';
+
+.skedgeHearts {
+  content: url("/images/skedge-hearts.gif");
+}
+
+@media (prefers-color-scheme: dark) {
+  .skedgeHearts {
+    content: url("/images/skedge-hearts-dark.gif");
+  }
+}

@@ -1,6 +1,7 @@
 import Hero from '../../Hero'
 import Layout from '../../Layout'
 import Separator from '../../Separator'
+import styles from './CreatePending.module.scss'
 
 function CreatePending (): JSX.Element {
   return (
@@ -9,7 +10,7 @@ function CreatePending (): JSX.Element {
       <Separator />
       <img
         alt='Beating hearts means the site is loading!'
-        src='/images/skedge-hearts.gif'
+        className={styles.skedgeHearts}
       />
     </Layout>
   )
